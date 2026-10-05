@@ -58,6 +58,8 @@ Guia completo em `public/media/LEIA-ME.md`. Resumo:
 | `public/media/servicos/<serviço>/` | páginas de serviço > "Veja alguns serviços realizados" | `serviceMedia` |
 | `public/media/marcas/<marca>/` | páginas de marca | `brandMedia` |
 
+Fotos dos cards de **Serviços** e **Marcas atendidas** (e do topo das páginas internas): `public/media/cards/`, recortes WebP com fundo transparente vindos do projeto Império das Telas (`public/img/servicos` e `public/img/marcas`). Para trocar, substitua o arquivo mantendo o nome ou altere o campo `image` em `services.ts` / `brands.ts`.
+
 Sem mídia: a home mostra molduras discretas "Em breve"; nas páginas internas a galeria fica oculta e aparece sozinha quando houver itens.
 
 Componentes de mídia: `MediaCard` (foto, vídeo ou antes/depois), `VideoCard`, `BeforeAfter`, `MediaRail` (grade no desktop, rolagem lateral no celular) e `ServiceGallery`.

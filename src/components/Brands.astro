@@ -16,7 +16,19 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
           <li class="reveal" style={`--i:${i}`}>
             <a class="brand" href={`/${brand.slug}`}>
               <span class="brand__art">
-                <Art name={brand.art} />
+                {brand.image ? (
+                  <img
+                  class="cutout"
+                  src={brand.image.src}
+                  alt={brand.image.alt}
+                  width={brand.image.width}
+                  height={brand.image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                ) : (
+                  <Art name={brand.art} />
+                )}
               </span>
               <span class="brand__name">{brand.name}</span>
               <span class="brand__more" aria-hidden="true">
@@ -35,7 +47,15 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
           data-wa="outras-marcas"
         >
           <span class="brand__art">
-            <Art name={otherBrand.art} />
+            <img
+                  class="cutout"
+                  src={otherBrand.image.src}
+                  alt={otherBrand.image.alt}
+                  width={otherBrand.image.width}
+                  height={otherBrand.image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
           </span>
           <span class="brand__name">{otherBrand.name}</span>
           <span class="brand__more" aria-hidden="true">
@@ -82,11 +102,30 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
   }
 
   .brand__art {
-    width: min(100%, 9rem);
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+
+  .brand__art :global(.art),
+  .cutout {
+    transition: transform 0.7s var(--ease-out);
   }
 
   .brand__art :global(.art) {
-    transition: transform 0.7s var(--ease-out);
+    width: min(100%, 9rem);
+  }
+
+  /* recorte preso ao quadro: nunca vaza do card */
+  .cutout {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 14px rgb(15 65 87 / 0.18));
   }
 
   .brand__name {
@@ -122,7 +161,7 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
 
   .brand--other .brand__art {
     grid-row: 1 / 3;
-    width: 6rem;
+    width: 8.5rem;
   }
 
   .brand:hover {
@@ -131,8 +170,9 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
     transform: translateY(-2px);
   }
 
-  .brand:hover .brand__art :global(.art) {
-    transform: translateY(-4px) rotate(-4deg);
+  .brand:hover .brand__art :global(.art),
+  .brand:hover .cutout {
+    transform: translateY(-4px) scale(1.04);
   }
 
   .brand:hover .brand__more :global(svg) {
@@ -156,7 +196,7 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
 
     .brand--other .brand__art {
       grid-row: auto;
-      width: min(100%, 9rem);
+      width: 100%;
     }
   }
 </style>

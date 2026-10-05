@@ -79,6 +79,7 @@ const serviceLd = (name: string, description: string) => ({
         listTitle={entry.service.page.signsLabel}
         list={entry.service.page.signs.map((label) => ({ label }))}
         art={entry.service.art}
+        image={entry.service.image}
       />
       <div class="container divider"><MinuteTrack class="reveal" /></div>
       <OptionPicker
@@ -116,6 +117,7 @@ const serviceLd = (name: string, description: string) => ({
           .filter((s): s is Service => Boolean(s))
           .map((s) => ({ label: s.title, href: s.page ? `/${s.slug}` : undefined }))}
         art={entry.brand.art}
+        image={entry.brand.image}
       />
       <div class="container divider"><MinuteTrack class="reveal" /></div>
       <OptionPicker

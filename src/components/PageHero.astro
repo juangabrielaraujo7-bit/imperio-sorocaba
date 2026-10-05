@@ -7,6 +7,7 @@ import Icon from './Icon.astro';
 import Art from './Art.astro';
 import type { ServiceArt } from '../data/services';
 import type { BrandArt } from '../data/brands';
+import type { CardImage } from '../data/services';
 import { getWhatsAppUrl } from '../lib/whatsapp';
 
 interface Crumb {
@@ -28,6 +29,7 @@ interface Props {
   listTitle: string;
   list: ListItem[];
   art: ServiceArt | BrandArt;
+  image?: CardImage;
 }
 
 const {
@@ -39,6 +41,7 @@ const {
   listTitle,
   list,
   art,
+  image,
 } = Astro.props;
 ---
 
@@ -76,7 +79,11 @@ const {
 
     <div class="phero__side">
       <div class="phero__art" aria-hidden="true">
-        <Art name={art} />
+        {image ? (
+          <img class="phero__img" src={image.src} alt="" width={image.width} height={image.height} fetchpriority="high" />
+        ) : (
+          <Art name={art} />
+        )}
       </div>
       <div class="phero__list">
         <h2 class="dial-label">{listTitle}</h2>
@@ -184,12 +191,23 @@ const {
   }
 
   .phero__art {
+    position: relative;
+    overflow: hidden;
     aspect-ratio: 1;
     display: grid;
     place-items: center;
     border-radius: var(--radius-sm);
     background: var(--enamel);
     padding: 0.4rem;
+  }
+
+  .phero__img {
+    position: absolute;
+    inset: 0.5rem;
+    width: calc(100% - 1rem);
+    height: calc(100% - 1rem);
+    object-fit: contain;
+    filter: drop-shadow(0 10px 14px rgb(15 65 87 / 0.18));
   }
 
   .phero__list h2 {
@@ -270,7 +288,7 @@ const {
 
     .phero__art {
       aspect-ratio: 16 / 9;
-      padding: 1rem 4rem;
+      padding: 1rem 2rem;
     }
   }
 </style>

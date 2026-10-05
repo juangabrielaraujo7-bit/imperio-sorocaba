@@ -2,7 +2,7 @@
  * Marcas atendidas. Cada marca gera a página /<slug>
  * (src/pages/[slug].astro). "Outras marcas" leva ao WhatsApp.
  */
-import type { FaqItem } from './services';
+import type { FaqItem, CardImage } from './services';
 
 export type BrandArt = 'iphone' | 'samsung' | 'motorola' | 'xiaomi' | 'devices';
 
@@ -13,6 +13,8 @@ export interface Brand {
   /** Nome usado nas frases ("seu iPhone", "seu Samsung") */
   device: string;
   art: BrandArt;
+  /** Foto do card. Sem foto, usa a ilustração . */
+  image?: CardImage;
   metaTitle: string;
   metaDescription: string;
   h1: string;
@@ -61,6 +63,7 @@ export const brands: Brand[] = [
     name: 'iPhone',
     device: 'iPhone',
     art: 'iphone',
+    image: { src: '/media/cards/marcas/iphone.webp', alt: 'Aparelhos iPhone', width: 560, height: 280 },
     metaTitle: 'Assistência Técnica de iPhone em Sorocaba | Império Eletrônicos',
     metaDescription:
       'Assistência técnica de iPhone em Sorocaba: troca de tela, bateria, conector, tampa traseira e reparo em placa. Loja na Vila Barcelona. Orçamento pelo WhatsApp.',
@@ -76,6 +79,7 @@ export const brands: Brand[] = [
     name: 'Samsung',
     device: 'Samsung',
     art: 'samsung',
+    image: { src: '/media/cards/marcas/samsung.webp', alt: 'Aparelhos Samsung Galaxy', width: 560, height: 345 },
     metaTitle: 'Assistência Técnica Samsung em Sorocaba | Império Eletrônicos',
     metaDescription:
       'Assistência técnica Samsung em Sorocaba: troca de tela, bateria, conector, tampa traseira e reparo em placa. Loja na Vila Barcelona. Orçamento pelo WhatsApp.',
@@ -91,6 +95,7 @@ export const brands: Brand[] = [
     name: 'Motorola',
     device: 'Motorola',
     art: 'motorola',
+    image: { src: '/media/cards/marcas/motorola.webp', alt: 'Aparelhos Motorola', width: 560, height: 315 },
     metaTitle: 'Assistência Técnica Motorola em Sorocaba | Império Eletrônicos',
     metaDescription:
       'Assistência técnica Motorola em Sorocaba: troca de tela, bateria, conector, tampa traseira e reparo em placa. Loja na Vila Barcelona. Orçamento pelo WhatsApp.',
@@ -106,6 +111,7 @@ export const brands: Brand[] = [
     name: 'Xiaomi',
     device: 'Xiaomi',
     art: 'xiaomi',
+    image: { src: '/media/cards/marcas/xiaomi.webp', alt: 'Aparelhos Xiaomi', width: 500, height: 500 },
     metaTitle: 'Assistência Técnica Xiaomi em Sorocaba | Império Eletrônicos',
     metaDescription:
       'Assistência técnica Xiaomi, Redmi e POCO em Sorocaba: troca de tela, bateria, conector, tampa traseira e reparo em placa. Orçamento pelo WhatsApp.',
@@ -120,5 +126,6 @@ export const brands: Brand[] = [
 export const otherBrand = {
   name: 'Outras marcas',
   art: 'devices' as BrandArt,
+  image: { src: '/media/cards/marcas/outras.webp', alt: 'Aparelhos de outras marcas', width: 560, height: 315 } as CardImage,
   whatsappMessage: 'Olá! Meu aparelho é de outra marca. Gostaria de um orçamento.',
 };

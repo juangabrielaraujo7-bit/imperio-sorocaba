@@ -27,6 +27,14 @@ export interface ServicePage {
   faqs: FaqItem[];
 }
 
+export interface CardImage {
+  /** Recorte com fundo transparente (public/media/cards/) */
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
 export interface Service {
   /** Chave interna (mídia, links) */
   key: string;
@@ -36,6 +44,8 @@ export interface Service {
   /** Frase muito curta para o card */
   short: string;
   art: ServiceArt;
+  /** Foto do card. Sem foto, usa a ilustração . */
+  image?: CardImage;
   whatsappMessage: string;
   page?: ServicePage;
 }
@@ -62,6 +72,7 @@ export const services: Service[] = [
     title: 'Troca de tela',
     short: 'Vidro trincado, manchas ou toque sem resposta.',
     art: 'screen',
+    image: { src: '/media/cards/servicos/troca-de-tela.webp', alt: 'Celular com a tela trincada', width: 442, height: 560 },
     whatsappMessage: 'Olá! Vim pelo site e gostaria de um orçamento para troca de tela.',
     page: {
       metaTitle: 'Troca de Tela de Celular em Sorocaba | Império Eletrônicos',
@@ -88,6 +99,7 @@ export const services: Service[] = [
     title: 'Troca de bateria',
     short: 'Bateria que dura pouco, desliga sozinha ou estufou.',
     art: 'battery',
+    image: { src: '/media/cards/servicos/troca-de-bateria.webp', alt: 'Bateria sendo trocada em um celular aberto', width: 560, height: 361 },
     whatsappMessage: 'Olá! Vim pelo site e gostaria de um orçamento para troca de bateria.',
     page: {
       metaTitle: 'Troca de Bateria de Celular em Sorocaba | Império Eletrônicos',
@@ -114,6 +126,7 @@ export const services: Service[] = [
     title: 'Conector de carga',
     short: 'Não carrega ou só carrega com o cabo torto.',
     art: 'charging',
+    image: { src: '/media/cards/servicos/conector-de-carga.webp', alt: 'Cabo de carga sendo conectado ao celular', width: 392, height: 560 },
     whatsappMessage: 'Olá! Vim pelo site e gostaria de um orçamento para o conector de carga.',
     page: {
       metaTitle: 'Conector de Carga de Celular em Sorocaba | Império Eletrônicos',
@@ -140,6 +153,7 @@ export const services: Service[] = [
     title: 'Tampa traseira',
     short: 'Traseira trincada, quebrada ou solta.',
     art: 'backcover',
+    image: { src: '/media/cards/servicos/troca-de-tampa-traseira.webp', alt: 'Celular com a tampa traseira trincada ao lado de outro com a tampa nova', width: 331, height: 371 },
     whatsappMessage: 'Olá! Vim pelo site e gostaria de um orçamento para troca de tampa traseira.',
     page: {
       metaTitle: 'Troca de Tampa Traseira de Celular em Sorocaba | Império Eletrônicos',
@@ -166,6 +180,7 @@ export const services: Service[] = [
     title: 'Reparo em placa',
     short: 'Não liga, reinicia sozinho ou molhou.',
     art: 'board',
+    image: { src: '/media/cards/servicos/reparo-em-placa.webp', alt: 'Celular aberto mostrando a placa e os componentes internos', width: 444, height: 560 },
     whatsappMessage: 'Olá! Vim pelo site e gostaria de um orçamento para reparo em placa.',
     page: {
       metaTitle: 'Reparo em Placa de Celular em Sorocaba | Império Eletrônicos',
@@ -195,6 +210,7 @@ export const services: Service[] = [
     title: 'Outros defeitos',
     short: 'Alto-falante, microfone, botões e outros.',
     art: 'other',
+    image: { src: '/media/cards/servicos/outros-defeitos.webp', alt: 'Celulares abertos com ferramentas de reparo', width: 551, height: 453 },
     whatsappMessage: 'Olá! Vim pelo site e meu aparelho tem outro defeito. Gostaria de um orçamento.',
   },
 ];

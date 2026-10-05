@@ -16,7 +16,19 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
           <li class="svc reveal" style={`--i:${i % 3}`}>
             <span class="svc__ticks" aria-hidden="true" />
             <div class="svc__art">
-              <Art name={service.art} />
+              {service.image ? (
+                <img
+                  class="cutout"
+                  src={service.image.src}
+                  alt={service.image.alt}
+                  width={service.image.width}
+                  height={service.image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <Art name={service.art} />
+              )}
             </div>
             <div class="svc__body">
               <h3 class="svc__title">
@@ -110,10 +122,23 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
     border-radius: var(--radius-sm);
     background: var(--enamel);
     padding: 0.35rem;
+    position: relative;
+    overflow: hidden;
   }
 
-  .svc__art :global(.art) {
+  .svc__art :global(.art),
+  .cutout {
     transition: transform 0.6s var(--ease-out);
+  }
+
+  /* recorte com fundo transparente, contido no poço de esmalte */
+  .cutout {
+    position: absolute;
+    inset: 0.4rem;
+    width: calc(100% - 0.8rem);
+    height: calc(100% - 0.8rem);
+    object-fit: contain;
+    filter: drop-shadow(0 10px 14px rgb(15 65 87 / 0.18));
   }
 
   .svc__title {
@@ -200,7 +225,8 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
     clip-path: inset(0 0 0 0);
   }
 
-  .svc:hover .svc__art :global(.art) {
+  .svc:hover .svc__art :global(.art),
+  .svc:hover .cutout {
     transform: scale(1.06) rotate(-3deg);
   }
 
@@ -237,7 +263,7 @@ import { getWhatsAppUrl } from '../lib/whatsapp';
 
     .svc__art {
       aspect-ratio: 16 / 10;
-      padding: 0.75rem 3rem;
+      padding: 0.9rem 2rem;
     }
 
     .svc__title {
