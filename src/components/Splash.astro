@@ -1,0 +1,80 @@
+---
+/**
+ * Splash da primeira entrada (por sessão). Fundo branco, coroa centralizada.
+ * Some assim que o documento está pronto: não há tempo mínimo artificial.
+ * Sem JS, uma animação CSS o remove sozinha.
+ */
+import Logo from './Logo.astro';
+---
+
+<div class="splash" data-splash aria-hidden="true">
+  <Logo wordmark={false} class="splash__logo" />
+</div>
+
+<script is:inline>
+  (function () {
+    var d = document.documentElement;
+    var hide = function () {
+      requestAnimationFrame(function () {
+        d.classList.add('splash-done');
+      });
+    };
+    if (document.readyState !== 'loading') hide();
+    else document.addEventListener('DOMContentLoaded', hide, { once: true });
+  })();
+</script>
+
+<style>
+  .splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background: var(--white);
+    pointer-events: none;
+    animation: splash-safety 0.4s var(--ease-out) 1.6s forwards;
+  }
+
+  .splash :global(.splash__logo .logo__mark) {
+    width: 5.5rem;
+    animation: splash-in 0.5s var(--ease-out) both;
+  }
+
+  :global(.splash-done) .splash {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.45s var(--ease-out) 0.15s,
+      visibility 0s linear 0.6s;
+  }
+
+  :global(.splash-done) .splash :global(.logo__mark) {
+    transform: scale(1.06);
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  :global(.no-splash) .splash {
+    display: none;
+  }
+
+  @keyframes splash-in {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+  }
+
+  @keyframes splash-safety {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .splash {
+      display: none;
+    }
+  }
+</style>

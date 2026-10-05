@@ -1,0 +1,366 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { mainNav } from '../data/navigation';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+import { business } from '../data/business';
+
+const waUrl = getWhatsAppUrl(business.whatsapp.messages.home);
+---
+
+<header class="site-header" data-header>
+  <div class="container site-header__bar">
+    <a href="/#inicio" class="site-header__brand" aria-label={`${business.name}, início`}>
+      <Logo />
+    </a>
+
+    <nav class="site-nav" aria-label="Principal">
+      <ul role="list">
+        {
+          mainNav.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a
+        class="btn btn--primary site-header__cta"
+        href={waUrl}
+        target="_blank"
+        rel="noopener"
+        data-wa="header"
+      >
+        <Icon name="whatsapp" />
+        <span>Falar no WhatsApp</span>
+      </a>
+
+      <a
+        class="site-header__wa-icon"
+        href={waUrl}
+        target="_blank"
+        rel="noopener"
+        aria-label="Falar no WhatsApp"
+        data-wa="header-mobile"
+      >
+        <Icon name="whatsapp" />
+      </a>
+
+      <button
+        class="site-header__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+      >
+        <span class="sr-only" data-menu-label>Abrir menu</span>
+        <span class="site-header__toggle-lines" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" data-menu hidden>
+    <nav class="container" aria-label="Menu">
+      <ul role="list">
+        {
+          mainNav.map((item, i) => (
+            <li style={`--i:${i}`}>
+              <a href={item.href} data-menu-link>
+                <span class="diamond" aria-hidden="true" />
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn btn--primary btn--lg mobile-menu__cta" href={waUrl} target="_blank" rel="noopener" data-wa="menu">
+        <Icon name="whatsapp" />
+        <span>Falar no WhatsApp</span>
+      </a>
+      <p class="mobile-menu__meta">
+        {business.address.street}, {business.address.complement} · {business.address.neighborhood}
+      </p>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(255 255 255 / 0.97);
+    border-bottom: 1px solid transparent;
+    transition:
+      border-color 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out);
+  }
+
+  .site-header.is-scrolled {
+    border-bottom-color: var(--line);
+    box-shadow: 0 6px 20px -14px rgb(15 65 87 / 0.35);
+  }
+
+  .site-header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: var(--header-h);
+  }
+
+  .site-header__brand {
+    display: inline-flex;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+
+  .site-header__brand:hover :global(.logo__diamond) {
+    transform: rotate(90deg);
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .site-nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 560;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  /* índice dourado que acende sob o link */
+  .site-nav a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0.35rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    background: var(--gold);
+    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
+    mask: var(--diamond-mask) center / contain no-repeat;
+    transform: translateX(-50%) scale(0);
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .site-nav a:hover {
+    color: var(--ink);
+  }
+
+  .site-nav a:hover::after,
+  .site-nav a[aria-current='true']::after {
+    transform: translateX(-50%) scale(1);
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .site-header__cta {
+    display: none;
+    min-height: 2.9rem;
+    padding: 0.6rem 1.15rem;
+    font-size: 0.95rem;
+  }
+
+  .site-header__wa-icon,
+  .site-header__toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.9rem;
+    height: 2.9rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--white);
+    color: var(--steel);
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+
+  .site-header__wa-icon {
+    background: var(--steel);
+    border-color: var(--steel);
+    color: var(--white);
+  }
+
+  .site-header__wa-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .site-header__toggle:hover {
+    border-color: var(--steel);
+  }
+
+  .site-header__toggle-lines,
+  .site-header__toggle-lines::before {
+    display: block;
+    width: 1.15rem;
+    height: 1.75px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .site-header__toggle-lines {
+    position: relative;
+    transform: translateY(-3px);
+  }
+
+  .site-header__toggle-lines::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+  }
+
+  [aria-expanded='true'] .site-header__toggle-lines {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  [aria-expanded='true'] .site-header__toggle-lines::before {
+    transform: translateY(-6px) rotate(-90deg);
+  }
+
+  .mobile-menu {
+    border-top: 1px solid var(--line);
+    background: var(--white);
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    box-shadow: 0 24px 40px -24px rgb(15 65 87 / 0.35);
+  }
+
+  .mobile-menu nav {
+    padding-block: 0.75rem 1.5rem;
+  }
+
+  .mobile-menu li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-height: 3.5rem;
+    font-size: 1.2rem;
+    font-stretch: 92%;
+    font-weight: 680;
+    text-decoration: none;
+  }
+
+  .mobile-menu li .diamond {
+    font-size: 0.85rem;
+  }
+
+  .mobile-menu__cta {
+    width: 100%;
+    margin-top: 1.25rem;
+  }
+
+  .mobile-menu__meta {
+    margin-top: 1rem;
+    font-size: var(--fs-small);
+    color: var(--ink-2);
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-menu:not([hidden]) li {
+      animation: menu-in 0.5s var(--ease-out) both;
+      animation-delay: calc(var(--i) * 40ms);
+    }
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-nav {
+      display: block;
+    }
+
+    .site-header__cta {
+      display: inline-flex;
+    }
+
+    .site-header__wa-icon,
+    .site-header__toggle,
+    .mobile-menu {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .site-header__cta {
+      display: inline-flex;
+    }
+
+    .site-header__wa-icon {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const label = document.querySelector<HTMLElement>('[data-menu-label]');
+
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      if (label) label.textContent = open ? 'Fechar menu' : 'Abrir menu';
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.querySelectorAll('[data-menu-link]').forEach((link) =>
+      link.addEventListener('click', () => setOpen(false)),
+    );
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

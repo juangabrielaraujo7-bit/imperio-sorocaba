@@ -1,0 +1,80 @@
+---
+/** Barra fixa de WhatsApp no celular, visível depois que a hero sai da tela. */
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+---
+
+<div class="wabar" data-wabar>
+  <a
+    class="btn btn--primary wabar__btn"
+    href={getWhatsAppUrl(business.whatsapp.messages.home)}
+    target="_blank"
+    rel="noopener"
+    data-wa="barra-mobile"
+    tabindex="-1"
+  >
+    <Icon name="whatsapp" />
+    <span>Falar no WhatsApp</span>
+  </a>
+</div>
+
+<style>
+  .wabar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom));
+    background: rgb(255 255 255 / 0.96);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -10px 24px -16px rgb(15 65 87 / 0.35);
+    transform: translateY(110%);
+    visibility: hidden;
+    transition:
+      transform 0.45s var(--ease-out),
+      visibility 0s linear 0.45s;
+  }
+
+  .wabar.is-visible {
+    transform: none;
+    visibility: visible;
+    transition:
+      transform 0.45s var(--ease-out),
+      visibility 0s;
+  }
+
+  .wabar__btn {
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .wabar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-wabar]');
+  const hero = document.getElementById('inicio');
+  const link = bar?.querySelector('a');
+  const mq = window.matchMedia('(max-width: 639px)');
+
+  if (bar && link) {
+    const setVisible = (v: boolean) => {
+      bar.classList.toggle('is-visible', v);
+      link.tabIndex = v ? 0 : -1;
+      document.documentElement.style.setProperty('--wa-bar-h', v && mq.matches ? '4.5rem' : '0px');
+    };
+
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
+        rootMargin: '-30% 0px 0px 0px',
+      }).observe(hero);
+    } else {
+      setVisible(true);
+    }
+  }
+</script>

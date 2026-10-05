@@ -1,0 +1,265 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import HeroDial from './HeroDial.astro';
+import OpenStatus from './OpenStatus.astro';
+import { business } from '../data/business';
+import { heroMedia } from '../data/media';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+
+const rating = business.reviews.rating.toFixed(1).replace('.', ',');
+---
+
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <div class="hero__grid-bg" aria-hidden="true"></div>
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <h1 id="hero-title" class="hero__title">
+        Assistência técnica de celular em <span class="hero__city">Sorocaba</span>
+      </h1>
+      <p class="lead hero__lead">
+        Conserto, manutenção e atendimento em loja física na {business.address.neighborhood}.
+      </p>
+
+      <div class="hero__actions">
+        <a
+          class="btn btn--primary btn--lg"
+          href={getWhatsAppUrl(business.whatsapp.messages.home)}
+          target="_blank"
+          rel="noopener"
+          data-wa="hero"
+        >
+          <Icon name="whatsapp" />
+          <span>Falar no WhatsApp</span>
+        </a>
+        <a class="btn btn--ghost btn--lg" href="#servicos">
+          <span>Ver serviços</span>
+          <Icon name="arrow-right" />
+        </a>
+      </div>
+
+      <ul class="hero__badges" role="list">
+        <li>
+          <a href={business.reviews.url} target="_blank" rel="noopener" class="badge">
+            <span class="badge__stars" aria-hidden="true">
+              <Icon name="star" />
+            </span>
+            <span><strong>{rating}</strong> no Google</span>
+            <span class="sr-only">(abre o Perfil da Empresa no Google)</span>
+          </a>
+        </li>
+        <li>
+          <a href="#localizacao" class="badge">
+            <Icon name="pin" />
+            <span>{business.address.neighborhood}, {business.address.city}</span>
+          </a>
+        </li>
+      </ul>
+
+      <OpenStatus class="hero__status" />
+    </div>
+
+    <div class="hero__visual">
+      {
+        heroMedia ? (
+          <figure class="hero__media">
+            {heroMedia.type === 'image' ? (
+              <Image
+                src={heroMedia.image}
+                alt={heroMedia.alt}
+                widths={[480, 720, 960, 1280]}
+                sizes="(min-width: 1024px) 560px, 100vw"
+                loading="eager"
+                fetchpriority="high"
+              />
+            ) : (
+              <video
+                src={heroMedia.src}
+                poster={heroMedia.poster.src}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label={heroMedia.alt}
+              />
+            )}
+          </figure>
+        ) : (
+          <HeroDial />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(2.25rem, 1rem + 5vw, 5.5rem) clamp(3.5rem, 2rem + 5vw, 6.5rem);
+  }
+
+  /* grade de bancada, fina e esmaecida */
+  .hero__grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgb(25 91 119 / 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(25 91 119 / 0.07) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: center top;
+    -webkit-mask-image: radial-gradient(70% 80% at 75% 45%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(70% 80% at 75% 45%, #000 20%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 1rem + 4vw, 4rem);
+    align-items: center;
+  }
+
+  .hero__title {
+    font-size: var(--fs-h1);
+    font-stretch: 82%;
+    font-weight: 820;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    word-spacing: 0.08em;
+    max-width: 13ch;
+  }
+
+  .hero__city {
+    position: relative;
+    color: var(--steel);
+    white-space: nowrap;
+  }
+
+  /* barra dourada da logo sob a cidade */
+  .hero__city::after {
+    content: '';
+    position: absolute;
+    left: 0.02em;
+    right: 0.02em;
+    bottom: -0.06em;
+    height: 0.12em;
+    border-radius: 0.04em;
+    background: var(--gold);
+    transform-origin: left;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__city::after {
+      animation: bar-in 1s var(--ease-out) 0.35s both;
+    }
+  }
+
+  @keyframes bar-in {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  .hero__lead {
+    margin-top: 1.4rem;
+    max-width: 34ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--white);
+    font-size: var(--fs-small);
+    font-weight: 520;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
+  }
+
+  .badge strong {
+    color: var(--ink);
+    font-weight: 750;
+  }
+
+  .badge:hover {
+    border-color: var(--steel);
+    color: var(--ink);
+  }
+
+  .badge svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--steel);
+  }
+
+  .badge__stars svg {
+    color: var(--gold-deep);
+  }
+
+  .hero__copy :global(.hero__status) {
+    margin-top: 1.25rem;
+  }
+
+  .hero__visual {
+    width: min(100%, 21rem);
+    justify-self: center;
+  }
+
+  .hero__media {
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: var(--enamel);
+    box-shadow: var(--shadow-2);
+  }
+
+  .hero__media :is(img, video) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 420px) {
+    .hero__actions .btn {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .hero__visual {
+      width: min(100%, 34rem);
+      justify-self: end;
+    }
+
+    .hero__title {
+      max-width: 12ch;
+    }
+  }
+</style>

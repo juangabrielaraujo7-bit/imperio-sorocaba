@@ -1,0 +1,192 @@
+---
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+import { reviews } from '../data/content';
+
+const rating = business.reviews.rating.toFixed(1).replace('.', ',');
+const list = reviews.slice(0, 3);
+const stars = Array.from({ length: 5 });
+---
+
+<section class="section reviews" id="avaliacoes" aria-labelledby="avaliacoes-title">
+  <div class="container reviews__inner">
+    <h2 id="avaliacoes-title" class="reviews__title reveal">Clientes que já confiaram na Império</h2>
+
+    <div class="reviews__score reveal" style="--i:1">
+
+      <div class="score" role="group" aria-label={`Nota ${rating} de 5 no Google, ${business.reviews.count} avaliações`}>
+        <span class="score__value" aria-hidden="true">{rating}</span>
+        <div class="score__meta" aria-hidden="true">
+          <span class="score__stars">
+            {stars.map(() => <Icon name="star" />)}
+          </span>
+          <span class="score__count">{business.reviews.count} avaliações no Google</span>
+        </div>
+      </div>
+
+      {list.length === 0 && (
+        <p class="reviews__empty">
+          Média real do Perfil da Empresa no Google. Os comentários dos clientes estão no próprio Google.
+        </p>
+      )}
+
+      <a class="btn btn--ghost reviews__cta" href={business.reviews.url} target="_blank" rel="noopener">
+        <span>Ver avaliações no Google</span>
+        <Icon name="external" />
+      </a>
+    </div>
+
+    {
+      list.length > 0 && (
+        <ul class="reviews__list" role="list">
+          {list.map((review, i) => (
+            <li class="review reveal" style={`--i:${i + 1}`}>
+              <figure>
+                <span class="review__stars" role="img" aria-label={`${review.rating} de 5 estrelas`}>
+                  {Array.from({ length: review.rating }).map(() => (
+                    <Icon name="star" />
+                  ))}
+                </span>
+                <blockquote>
+                  <p>{review.text}</p>
+                </blockquote>
+                <figcaption>
+                  <span class="review__author">{review.author}</span>
+                  {review.date && <span class="review__date">{review.date}</span>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .reviews {
+    background: var(--enamel);
+    border-block: 1px solid var(--line);
+  }
+
+  .reviews__inner {
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  }
+
+  .reviews__title {
+    font-size: var(--fs-h2);
+    max-width: 14ch;
+  }
+
+  .score {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 0.5rem + 2vw, 1.75rem);
+  }
+
+  .score__value {
+    font-size: clamp(5rem, 3.5rem + 7vw, 8.5rem);
+    font-stretch: 78%;
+    font-weight: 820;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    color: var(--steel);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .score__meta {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .score__stars {
+    display: flex;
+    gap: 0.15rem;
+    color: var(--gold);
+  }
+
+  .score__stars :global(svg) {
+    width: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+    height: auto;
+  }
+
+  .score__count {
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .reviews__cta {
+    margin-top: 1.75rem;
+  }
+
+  .reviews__cta svg {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  .reviews__list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .review figure {
+    display: grid;
+    gap: 1rem;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  .review__stars {
+    display: flex;
+    gap: 0.1rem;
+    color: var(--gold-deep);
+  }
+
+  .review__stars :global(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .review blockquote {
+    margin: 0;
+  }
+
+  .review figcaption {
+    display: grid;
+    gap: 0.1rem;
+    margin-top: auto;
+    font-size: var(--fs-small);
+  }
+
+  .review__author {
+    font-weight: 700;
+  }
+
+  .review__date {
+    color: var(--ink-2);
+  }
+
+  .reviews__empty {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-strong);
+    max-width: 40ch;
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 900px) {
+    .reviews__inner {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .reviews__list {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

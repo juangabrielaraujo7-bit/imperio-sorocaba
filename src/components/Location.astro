@@ -1,0 +1,227 @@
+---
+import Icon from './Icon.astro';
+import HoursDial from './HoursDial.astro';
+import OpenStatus from './OpenStatus.astro';
+import { business } from '../data/business';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+
+const { address } = business;
+---
+
+<section class="location on-steel" id="localizacao" aria-labelledby="localizacao-title">
+  <div class="container location__inner">
+    <div class="location__info">
+      <h2 id="localizacao-title" class="location__title reveal">Venha até a loja</h2>
+
+      <address class="location__address reveal" style="--i:1">
+        <strong>{business.name}</strong>
+        <span>{address.street} - {address.complement}</span>
+        <span>{address.neighborhood}</span>
+        <span>{address.city} - {address.state}</span>
+        <span>CEP {address.zip}</span>
+      </address>
+
+      <div class="location__actions reveal" style="--i:2">
+        <a class="btn btn--gold btn--lg" href={business.maps.directionsUrl} target="_blank" rel="noopener">
+          <Icon name="route" />
+          <span>Como chegar</span>
+        </a>
+        <a
+          class="btn btn--on-steel btn--lg"
+          href={getWhatsAppUrl(business.whatsapp.messages.location)}
+          target="_blank"
+          rel="noopener"
+          data-wa="localizacao"
+        >
+          <Icon name="whatsapp" />
+          <span>Falar no WhatsApp</span>
+        </a>
+      </div>
+
+      <div class="location__hours reveal" style="--i:3">
+        <HoursDial />
+        <div class="location__hours-list">
+          <h3 class="dial-label">Horário</h3>
+          <dl>
+            {
+              business.hoursSummary.map((h) => (
+                <div>
+                  <dt>{h.days}</dt>
+                  <dd>{h.time}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <OpenStatus tone="dark" />
+        </div>
+      </div>
+    </div>
+
+    <div class="location__map reveal" style="--i:1">
+      <iframe
+        src={business.maps.embedUrl}
+        title={`Mapa: ${business.name}, ${address.street}, ${address.neighborhood}, ${address.city}`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        width="600"
+        height="560"></iframe>
+      <a class="location__map-link" href={business.maps.profileUrl} target="_blank" rel="noopener">
+        <Icon name="pin" />
+        <span>Abrir no Google Maps</span>
+        <Icon name="external" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .location {
+    position: relative;
+    background: var(--steel);
+    color: var(--white);
+    padding-block: var(--section);
+    overflow: hidden;
+  }
+
+  .location__inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  }
+
+  .location__title {
+    font-size: var(--fs-h2);
+    color: var(--white);
+  }
+
+  .location__address {
+    display: grid;
+    gap: 0.15rem;
+    margin-top: 1.5rem;
+    font-style: normal;
+    font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
+    line-height: 1.45;
+    color: var(--on-steel-2);
+  }
+
+  .location__address strong {
+    margin-bottom: 0.35rem;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .location__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .location__hours {
+    display: grid;
+    grid-template-columns: minmax(0, 16rem) 1fr;
+    gap: clamp(1rem, 0.5rem + 2vw, 2rem);
+    align-items: center;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding-top: clamp(2rem, 1.5rem + 1vw, 2.5rem);
+    border-top: 1px solid rgb(255 255 255 / 0.18);
+  }
+
+  .location__hours-list h3 {
+    color: var(--gold);
+    font-size: var(--fs-label);
+  }
+
+  .location__hours-list dl {
+    display: grid;
+    gap: 0.6rem;
+    margin-block: 0.9rem 1rem;
+  }
+
+  .location__hours-list dl div {
+    display: grid;
+    gap: 0.05rem;
+  }
+
+  .location__hours-list dt {
+    color: var(--on-steel-2);
+    font-size: var(--fs-small);
+  }
+
+  .location__hours-list dd {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .location__map {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+
+  .location__map iframe {
+    width: 100%;
+    height: clamp(20rem, 60vw, 35rem);
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--steel-deep);
+    box-shadow: 0 24px 48px -20px rgb(0 0 0 / 0.45);
+  }
+
+  .location__map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: start;
+    min-height: 2.75rem;
+    color: var(--white);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .location__map-link:hover {
+    text-decoration: underline;
+  }
+
+  .location__map-link svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .location__map-link svg:first-child {
+    color: var(--gold);
+  }
+
+  @media (max-width: 420px) {
+    .location__actions .btn {
+      width: 100%;
+    }
+
+    .location__hours {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+
+    .location__hours :global(.hdial) {
+      width: min(100%, 17rem);
+      justify-self: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .location__inner {
+      grid-template-columns: 1fr 1.05fr;
+      align-items: start;
+    }
+
+    .location__map iframe {
+      height: 100%;
+      min-height: 36rem;
+    }
+
+    .location__map {
+      height: 100%;
+      grid-template-rows: 1fr auto;
+    }
+  }
+</style>

@@ -1,0 +1,100 @@
+---
+/**
+ * Status "Aberto agora / Fechado" calculado no navegador, no fuso da loja.
+ * Sem JS, mostra o resumo do horário.
+ */
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+
+interface Props {
+  class?: string;
+  tone?: 'light' | 'dark';
+}
+
+const { class: className, tone = 'light' } = Astro.props;
+const fallback = business.hoursSummary
+  .filter((h) => h.time !== 'Fechado')
+  .map((h) => `${h.days}, ${h.time}`)
+  .join(' · ');
+---
+
+<p class:list={['status', `status--${tone}`, className]} data-open-status>
+  <span class="status__dot" aria-hidden="true"></span>
+  <Icon name="clock" class="status__icon" />
+  <span data-open-status-text>{fallback}</span>
+</p>
+
+<style>
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--fs-small);
+    font-weight: 540;
+    color: var(--ink-2);
+    min-height: 1.6rem;
+  }
+
+  .status__icon {
+    width: 1.05rem;
+    height: 1.05rem;
+    color: var(--steel);
+  }
+
+  .status__dot {
+    display: none;
+    width: 0.8rem;
+    height: 0.8rem;
+    background: var(--gold-deep);
+    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
+    mask: var(--diamond-mask) center / contain no-repeat;
+  }
+
+  .status.is-known .status__icon {
+    display: none;
+  }
+
+  .status.is-known .status__dot {
+    display: inline-block;
+  }
+
+  .status.is-closed .status__dot {
+    background: #8aa0ac;
+  }
+
+  .status--dark {
+    color: var(--on-steel-2);
+  }
+
+  .status--dark .status__icon {
+    color: var(--gold);
+  }
+
+  .status--dark .status__dot {
+    background: var(--gold);
+  }
+
+  .status--dark.is-closed .status__dot {
+    background: #9fbccb;
+  }
+
+</style>
+
+<script>
+  import { getOpenStatus } from '../lib/hours';
+
+  const update = () => {
+    const status = getOpenStatus();
+    document.querySelectorAll<HTMLElement>('[data-open-status]').forEach((el) => {
+      const text = el.querySelector('[data-open-status-text]');
+      if (text) text.textContent = status.label;
+      el.classList.add('is-known');
+      el.classList.toggle('is-open', status.open);
+      el.classList.toggle('is-closed', !status.open);
+    });
+    document.dispatchEvent(new CustomEvent('openstatus', { detail: status }));
+  };
+
+  update();
+  setInterval(update, 60_000);
+</script>

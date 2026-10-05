@@ -1,0 +1,66 @@
+---
+/** Separador: trilho de minutos com o losango dourado no centro. */
+interface Props {
+  class?: string;
+  tone?: 'light' | 'dark';
+}
+const { class: className, tone = 'light' } = Astro.props;
+---
+
+<div class:list={['track', `track--${tone}`, className]} aria-hidden="true">
+  <span class="track__rail"></span>
+  <span class="diamond track__gem"></span>
+  <span class="track__rail track__rail--end"></span>
+</div>
+
+<style>
+  .track {
+    --tick: rgb(25 91 119 / 0.38);
+    --tick-major: rgb(25 91 119 / 0.85);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 1.25rem;
+  }
+
+  .track--dark {
+    --tick: rgb(255 255 255 / 0.3);
+    --tick-major: rgb(255 255 255 / 0.75);
+  }
+
+  .track__rail {
+    flex: 1;
+    height: 100%;
+    background:
+      repeating-linear-gradient(to right, var(--tick-major) 0 2px, transparent 2px 60px) left center / 100% 14px no-repeat,
+      repeating-linear-gradient(to right, var(--tick) 0 1px, transparent 1px 12px) left center / 100% 7px no-repeat;
+  }
+
+  .track__rail--end {
+    transform: scaleX(-1);
+  }
+
+  .track__gem {
+    font-size: 1.15rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .track.reveal .track__rail {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 1.2s var(--ease-out);
+    }
+
+    :global(.js) .track.reveal.is-visible .track__rail {
+      clip-path: inset(0 0 0 0);
+    }
+
+    :global(.js) .track.reveal .track__gem {
+      transform: rotate(-90deg) scale(0.4);
+      transition: transform 0.9s var(--ease-out) 0.2s;
+    }
+
+    :global(.js) .track.reveal.is-visible .track__gem {
+      transform: none;
+    }
+  }
+</style>

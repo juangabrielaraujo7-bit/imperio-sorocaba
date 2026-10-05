@@ -1,0 +1,233 @@
+---
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+---
+
+<section class="section services" id="servicos" aria-labelledby="servicos-title">
+  <div class="container">
+    <div class="services__head reveal">
+      <h2 id="servicos-title">Serviços</h2>
+      <p class="lead">Escolha o atendimento e chame a loja no WhatsApp. A mensagem já vai pronta.</p>
+    </div>
+
+    <ul class="services__list" role="list">
+      {
+        services.map((service, i) => (
+          <li class="service reveal" style={`--i:${i}`}>
+            <span class="service__ticks" aria-hidden="true" />
+            <div class="service__mark" aria-hidden="true">
+              <span class="diamond service__gem" />
+              <Icon name={service.icon} class="service__icon" />
+            </div>
+            <h3 class="service__title">{service.title}</h3>
+            <p class="service__summary">{service.summary}</p>
+            <div class="service__actions">
+              <a
+                class="arrow-link service__cta"
+                href={getWhatsAppUrl(service.whatsappMessage)}
+                target="_blank"
+                rel="noopener"
+                data-wa={`servico-${service.slug}`}
+              >
+                <Icon name="whatsapp" />
+                <span>
+                  Chamar no WhatsApp<span class="sr-only">: {service.title}</span>
+                </span>
+              </a>
+              {service.page && (
+                <a class="arrow-link" href={`/servicos/${service.slug}/`}>
+                  <span>
+                    Saiba mais<span class="sr-only"> sobre {service.title}</span>
+                  </span>
+                  <Icon name="arrow-right" />
+                </a>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding-top: clamp(3rem, 2rem + 4vw, 5rem);
+  }
+
+  .services__head {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
+  }
+
+  .services__head h2 {
+    font-size: var(--fs-h2);
+  }
+
+  .services__list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .service {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--enamel);
+    transition:
+      background-color 0.4s var(--ease-out),
+      border-color 0.4s var(--ease-out),
+      box-shadow 0.5s var(--ease-out),
+      transform 0.5s var(--ease-out);
+  }
+
+  /* trilho de minutos no topo do card; acende em dourado no hover */
+  .service__ticks {
+    position: absolute;
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 10px;
+    background: repeating-linear-gradient(to right, rgb(25 91 119 / 0.35) 0 1px, transparent 1px 10px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+
+  .service__ticks::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to right, var(--gold-deep) 0 2px, transparent 2px 10px);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.7s var(--ease-out);
+  }
+
+  .service__mark {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  .service__gem {
+    font-size: 1.1rem;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .service__mark :global(.service__icon) {
+    width: 1.35rem;
+    height: 1.35rem;
+    color: var(--steel);
+    opacity: 0.7;
+  }
+
+  .service__title {
+    margin-top: 1.25rem;
+    font-size: var(--fs-h3);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .service__summary {
+    margin-top: 0.6rem;
+    color: var(--ink-2);
+    font-size: var(--fs-small);
+    line-height: 1.55;
+  }
+
+  .service__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+
+  .service__cta svg:first-child {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  /* o card inteiro é clicável pelo CTA */
+  .service__cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .service:hover,
+  .service:focus-within {
+    background: var(--white);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-3px);
+  }
+
+  .service:hover .service__ticks::after,
+  .service:focus-within .service__ticks::after {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .service:hover .service__gem,
+  .service:focus-within .service__gem {
+    transform: rotate(90deg);
+  }
+
+  /* links extras ficam acima do link que cobre o card */
+  .service__actions a:not(.service__cta) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .service__cta:focus-visible {
+    outline: none;
+  }
+
+  .service:has(.service__cta:focus-visible) {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  @media (min-width: 640px) {
+    .services__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 980px) {
+    .services__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .service:last-child:nth-child(odd) {
+      grid-column: auto;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .services__head {
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+    }
+
+    .services__head .lead {
+      justify-self: end;
+      max-width: 32ch;
+    }
+
+    .service {
+      padding: 2.25rem 1.75rem 1.5rem;
+      min-height: 17rem;
+    }
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+import Icon from './Icon.astro';
+import { differentials } from '../data/content';
+import { business } from '../data/business';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+
+const items = differentials.slice(0, 3);
+---
+
+<section class="section trust" aria-labelledby="confianca-title">
+  <div class="container trust__inner">
+    <div class="trust__copy reveal">
+      <h2 id="confianca-title" class="trust__title">
+        Seu celular precisa de assistência? <span>Fale direto com quem entende.</span>
+      </h2>
+      <a
+        class="btn btn--primary btn--lg trust__cta"
+        href={getWhatsAppUrl(business.whatsapp.messages.home)}
+        target="_blank"
+        rel="noopener"
+        data-wa="confianca"
+      >
+        <Icon name="whatsapp" />
+        <span>Falar no WhatsApp</span>
+      </a>
+    </div>
+
+    {
+      items.length > 0 && (
+        <ul class="trust__list" role="list">
+          {items.map((item, i) => (
+            <li class="trust__item reveal" style={`--i:${i + 1}`}>
+              <span class="diamond trust__gem" aria-hidden="true" />
+              <div>
+                <h3 class="trust__item-title">{item.title}</h3>
+                <p class="trust__item-text">{item.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .trust {
+    background: var(--enamel);
+    border-block: 1px solid var(--line);
+  }
+
+  .trust__inner {
+    display: grid;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  }
+
+  .trust__title {
+    font-size: var(--fs-h2);
+    max-width: 16ch;
+  }
+
+  .trust__title span {
+    display: block;
+    margin-top: 0.15em;
+    color: var(--steel);
+  }
+
+  .trust__cta {
+    margin-top: 2rem;
+  }
+
+  .trust__list {
+    display: grid;
+    align-content: center;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .trust__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.1rem;
+    align-items: baseline;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .trust__gem {
+    font-size: 1rem;
+    transform: translateY(0.1em);
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .trust__item:hover .trust__gem {
+    transform: translateY(0.1em) rotate(90deg);
+  }
+
+  .trust__item-title {
+    font-size: var(--fs-h3);
+    letter-spacing: -0.01em;
+  }
+
+  .trust__item-text {
+    margin-top: 0.35rem;
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 900px) {
+    .trust__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+    }
+  }
+</style>

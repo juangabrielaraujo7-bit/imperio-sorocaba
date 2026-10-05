@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>OG Império Eletrônicos</title>
+<!-- Fonte da imagem public/og-image.png. Gerar: ver README (seção "Imagem de compartilhamento"). -->
+<style>
+  @font-face { font-family: 'Archivo'; src: url('../public/fonts/archivo-latin.woff2') format('woff2-variations'); font-weight: 100 900; font-stretch: 62% 125%; }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #fff; font-family: 'Archivo', sans-serif; color: #0B1116; }
+  .wrap { position: relative; width: 1200px; height: 630px; }
+  .grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgb(25 91 119 / .08) 1px, transparent 1px), linear-gradient(to bottom, rgb(25 91 119 / .08) 1px, transparent 1px); background-size: 32px 32px; -webkit-mask-image: radial-gradient(60% 90% at 85% 50%, #000 20%, transparent 75%); }
+  .copy { position: absolute; left: 80px; top: 72px; width: 640px; }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand svg { width: 84px; }
+  .brand b { display: block; font-size: 30px; font-stretch: 92%; font-weight: 780; }
+  .brand span { display: block; margin-top: 6px; font-size: 15px; font-stretch: 125%; font-weight: 620; letter-spacing: .32em; color: #195B77; }
+  h1 { margin: 56px 0 0; font-size: 76px; line-height: .98; font-stretch: 82%; font-weight: 820; letter-spacing: -.025em; word-spacing: .08em; }
+  h1 em { font-style: normal; color: #195B77; position: relative; }
+  h1 em::after { content: ''; position: absolute; left: 2px; right: 2px; bottom: -6px; height: 9px; border-radius: 3px; background: #FDC528; }
+  .meta { margin-top: 44px; display: flex; gap: 28px; font-size: 24px; font-weight: 560; color: #3E505B; }
+  .meta strong { color: #0B1116; }
+  .dial { position: absolute; right: -120px; top: 55px; width: 520px; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #195B77; }
+  .bar::after { content: ''; position: absolute; left: 80px; width: 220px; top: 0; bottom: 0; background: #FDC528; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="grid"></div>
+  <div class="copy">
+    <div class="brand">
+      <svg viewBox="140 20 1256 1000" fill="none"><path d="M412 871 Q330 668 202 507 L400 418 C440 480 490 510 540 505 C600 500 640 450 632 380 C628 330 615 300 600 275 L768 72 L936 275 C921 300 908 330 904 380 C896 450 936 500 996 505 C1046 510 1096 480 1136 418 L1334 507 Q1206 668 1124 871 Z" stroke="#195B77" stroke-width="64" stroke-linejoin="round"/><path d="M768 500 Q800 600 916 637 Q800 674 768 772 Q736 674 620 637 Q736 600 768 500 Z" stroke="#195B77" stroke-width="64" stroke-linejoin="round" fill="#FDC528"/><rect x="385" y="925" width="766" height="76" rx="14" fill="#FDC528"/></svg>
+      <div><b>Império Eletrônicos</b><span>SOROCABA</span></div>
+    </div>
+    <h1>Assistência técnica de celular em <em>Sorocaba</em></h1>
+    <div class="meta"><span><strong>5,0</strong> no Google</span><span>Vila Barcelona · Sorocaba - SP</span></div>
+  </div>
+  <svg class="dial" viewBox="0 0 520 520" fill="none" id="dial"></svg>
+  <div class="bar"></div>
+</div>
+<script>
+  const s = document.getElementById('dial');
+  let h = '<circle cx="260" cy="260" r="252" fill="#F7F9FA" stroke="#195B77" stroke-width="1.5"/>';
+  for (let i = 1; i < 60; i++) {
+    const a = i * 6 * Math.PI / 180, M = i % 5 === 0, r1 = M ? 214 : 226, r2 = 238;
+    h += `<line x1="${260 + r1 * Math.sin(a)}" y1="${260 - r1 * Math.cos(a)}" x2="${260 + r2 * Math.sin(a)}" y2="${260 - r2 * Math.cos(a)}" stroke="#195B77" stroke-width="${M ? 4 : 1.5}" stroke-opacity="${M ? 1 : .55}" stroke-linecap="round"/>`;
+  }
+  h += '<path d="M260 200 Q265 215 280 220 Q265 225 260 240 Q255 225 240 220 Q255 215 260 200 Z" fill="#FDC528" stroke="#195B77" stroke-width="3"/>';
+  h += '<g transform="rotate(-38 260 300)"><line x1="260" y1="300" x2="260" y2="44" stroke="#195B77" stroke-width="2"/><path d="M260 38 Q262.5 45 269 47.5 Q262.5 50 260 57 Q257.5 50 251 47.5 Q257.5 45 260 38 Z" fill="#FDC528" stroke="#195B77" stroke-width="1.5"/></g>';
+  h += '<g transform="translate(260 270)"><g transform="rotate(-16) translate(64 -10)"><rect x="-74" y="-140" width="148" height="280" rx="26" fill="#195B77"/><circle cx="-32" cy="-104" r="14" stroke="#fff" stroke-width="3"/><circle cx="-32" cy="-64" r="14" stroke="#fff" stroke-width="3"/></g><g transform="rotate(-8) translate(28 -2)"><rect x="-74" y="-140" width="148" height="280" rx="26" fill="#EAF0F3" stroke="#195B77" stroke-width="2"/></g><g transform="rotate(-2) translate(-18 6)"><rect x="-74" y="-140" width="148" height="280" rx="26" fill="#fff" stroke="#195B77" stroke-width="3"/><rect x="-62" y="-118" width="124" height="236" rx="16" fill="#195B77"/><rect x="-16" y="-131" width="32" height="6" rx="3" fill="#195B77"/></g></g>';
+  s.innerHTML = h;
+</script>
+</body>
+</html>

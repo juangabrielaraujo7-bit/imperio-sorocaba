@@ -1,0 +1,168 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+import { mainNav } from '../data/navigation';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+
+const { address } = business;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a href="/#inicio" class="footer__logo" aria-label={`${business.name}, início`}>
+        <Logo />
+      </a>
+      <address class="footer__address">
+        {address.street} - {address.complement}<br />
+        {address.neighborhood}, {address.city} - {address.state}<br />
+        CEP {address.zip}
+      </address>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="dial-label"><span class="diamond" aria-hidden="true"></span>Contato</h2>
+      <ul role="list">
+        <li>
+          <a href={getWhatsAppUrl(business.whatsapp.messages.home)} target="_blank" rel="noopener" data-wa="footer">
+            <Icon name="whatsapp" />
+            <span>WhatsApp {business.phone.display}</span>
+          </a>
+        </li>
+        <li>
+          <a href={business.instagram.url} target="_blank" rel="noopener">
+            <Icon name="instagram" />
+            <span>{business.instagram.handle}</span>
+          </a>
+        </li>
+        <li>
+          <a href={business.maps.profileUrl} target="_blank" rel="noopener">
+            <Icon name="pin" />
+            <span>Google Maps</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="dial-label"><span class="diamond" aria-hidden="true"></span>Horário</h2>
+      <dl class="footer__hours">
+        {
+          business.hoursSummary.map((h) => (
+            <div>
+              <dt>{h.days}</dt>
+              <dd>{h.time}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <nav class="footer__col" aria-label="Rodapé">
+      <h2 class="dial-label"><span class="diamond" aria-hidden="true"></span>Navegação</h2>
+      <ul role="list">
+        {
+          mainNav.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© {year} {business.name}. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--enamel);
+    border-top: 1px solid var(--line);
+    color: var(--ink-2);
+    font-size: var(--fs-small);
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: 2.25rem;
+    padding-block: clamp(3rem, 2rem + 3vw, 4.5rem) 2.5rem;
+  }
+
+  .footer__logo {
+    display: inline-flex;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+
+  .footer__address {
+    margin-top: 1.25rem;
+    font-style: normal;
+    line-height: 1.6;
+  }
+
+  .footer__col h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--steel);
+    margin-bottom: 0.9rem;
+  }
+
+  .footer__col ul {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .footer__col a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 2.5rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .footer__col a:hover {
+    text-decoration: underline;
+  }
+
+  .footer__col a svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--steel);
+    flex: none;
+  }
+
+  .footer__hours {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .footer__hours dd {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .footer__bottom {
+    padding-block: 1.25rem calc(1.25rem + var(--wa-bar-h, 0px));
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer__inner {
+      grid-template-columns: 1.4fr 1fr 0.9fr 0.8fr;
+    }
+  }
+</style>

@@ -1,0 +1,104 @@
+---
+/**
+ * Logo da Império (coroa + losango + barra), vetorizada a partir do
+ * arquivo original (src/assets/brand/logo-original.png).
+ */
+import { business } from '../data/business';
+
+interface Props {
+  /** "light" = sobre fundo claro; "dark" = sobre azul aço */
+  tone?: 'light' | 'dark';
+  /** Mostra o nome ao lado da coroa */
+  wordmark?: boolean;
+  class?: string;
+}
+
+const { tone = 'light', wordmark = true, class: className, ...rest } = Astro.props;
+const crown = tone === 'light' ? '#195B77' : '#FFFFFF';
+const diamondStroke = tone === 'light' ? '#195B77' : '#FFFFFF';
+---
+
+<span class:list={['logo', `logo--${tone}`, className]} {...rest}>
+  <svg
+    class="logo__mark"
+    viewBox="140 20 1256 1000"
+    width="56"
+    height="45"
+    fill="none"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path
+      d="M412 871 Q330 668 202 507 L400 418 C440 480 490 510 540 505 C600 500 640 450 632 380 C628 330 615 300 600 275 L768 72 L936 275 C921 300 908 330 904 380 C896 450 936 500 996 505 C1046 510 1096 480 1136 418 L1334 507 Q1206 668 1124 871 Z"
+      stroke={crown}
+      stroke-width="64"
+      stroke-linejoin="round"></path>
+    <path
+      class="logo__diamond"
+      d="M768 500 Q800 600 916 637 Q800 674 768 772 Q736 674 620 637 Q736 600 768 500 Z"
+      stroke={diamondStroke}
+      stroke-width="64"
+      stroke-linejoin="round"
+      fill="#FDC528"></path>
+    <rect x="385" y="925" width="766" height="76" rx="14" fill="#FDC528"></rect>
+  </svg>
+  {
+    wordmark && (
+      <span class="logo__words">
+        <span class="logo__name">Império Eletrônicos</span>
+        <span class="logo__city">{business.address.city}</span>
+      </span>
+    )
+  }
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    line-height: 1;
+  }
+
+  .logo__mark {
+    width: 2.9rem;
+    height: auto;
+    flex: none;
+  }
+
+  .logo__diamond {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .logo__words {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .logo__name {
+    font-size: 1.05rem;
+    font-stretch: 92%;
+    font-weight: 780;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .logo__city {
+    font-size: 0.66rem;
+    font-stretch: 125%;
+    font-weight: 620;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+
+  .logo--dark .logo__name {
+    color: var(--white);
+  }
+
+  .logo--dark .logo__city {
+    color: var(--gold);
+  }
+</style>

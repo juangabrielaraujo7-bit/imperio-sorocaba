@@ -1,0 +1,102 @@
+---
+/**
+ * Página individual de serviço: /servicos/<slug>/
+ *
+ * Só é gerada para serviços com `page` preenchido em src/data/services.ts.
+ * Enquanto nenhum serviço tiver conteúdo real, nenhuma página é criada.
+ */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import Location from '../../components/Location.astro';
+import { servicesWithPage, type Service, type ServicePage } from '../../data/services';
+import { business } from '../../data/business';
+import { getWhatsAppUrl } from '../../lib/whatsapp';
+import { absoluteUrl } from '../../lib/seo';
+
+export const getStaticPaths = (() =>
+  servicesWithPage.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  service: Service & { page: ServicePage };
+}
+
+const { service } = Astro.props;
+const { page } = service;
+const site = Astro.site ?? business.siteUrl;
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: absoluteUrl('/', site) },
+    { '@type': 'ListItem', position: 2, name: 'Serviços', item: absoluteUrl('/#servicos', site) },
+    { '@type': 'ListItem', position: 3, name: service.title, item: absoluteUrl(Astro.url.pathname, site) },
+  ],
+};
+---
+
+<BaseLayout title={`${page.title} | ${business.shortName}`} description={page.description} jsonLd={[breadcrumb]}>
+  <section class="section svc" id="inicio">
+    <div class="container svc__inner">
+      <nav aria-label="Trilha" class="svc__crumbs">
+        <a href="/">Início</a>
+        <span aria-hidden="true" class="diamond"></span>
+        <a href="/#servicos">Serviços</a>
+      </nav>
+      <h1>{page.heading}</h1>
+      <div class="svc__body">
+        {page.body.map((p) => <p>{p}</p>)}
+      </div>
+      <a
+        class="btn btn--primary btn--lg"
+        href={getWhatsAppUrl(service.whatsappMessage)}
+        target="_blank"
+        rel="noopener"
+        data-wa={`pagina-${service.slug}`}
+      >
+        <Icon name="whatsapp" />
+        <span>Falar no WhatsApp</span>
+      </a>
+    </div>
+  </section>
+  <Location />
+</BaseLayout>
+
+<style>
+  .svc__inner {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+
+  .svc__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: var(--fs-small);
+  }
+
+  .svc__crumbs a {
+    color: var(--steel);
+  }
+
+  .svc__crumbs .diamond {
+    font-size: 0.6rem;
+  }
+
+  h1 {
+    font-size: var(--fs-h1);
+    max-width: 16ch;
+  }
+
+  .svc__body {
+    display: grid;
+    gap: 1rem;
+    max-width: 65ch;
+    color: var(--ink-2);
+  }
+</style>
