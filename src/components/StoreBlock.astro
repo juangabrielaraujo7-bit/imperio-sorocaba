@@ -1,0 +1,119 @@
+---
+/** Páginas internas > Loja física (faixa azul, compacta). */
+import Icon from './Icon.astro';
+import HoursDial from './HoursDial.astro';
+import OpenStatus from './OpenStatus.astro';
+import { business } from '../data/business';
+import { storePhoto } from '../data/media';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+
+interface Props {
+  whatsappMessage: string;
+}
+
+const { whatsappMessage } = Astro.props;
+const { address } = business;
+---
+
+<section class="sblock on-steel" id="localizacao" aria-labelledby="loja-title">
+  <div class="container sblock__inner">
+    <div class="sblock__copy reveal">
+      <h2 id="loja-title">Loja física na {address.neighborhood}</h2>
+      <address>
+        {address.street} - {address.complement}<br />
+        {address.neighborhood}, {address.city} - {address.state}
+      </address>
+      <OpenStatus tone="dark" />
+      <div class="sblock__actions">
+        <a class="btn btn--gold btn--lg" href={business.maps.directionsUrl} target="_blank" rel="noopener">
+          <Icon name="route" />
+          <span>Como chegar</span>
+        </a>
+        <a class="btn btn--on-steel btn--lg" href={getWhatsAppUrl(whatsappMessage)} target="_blank" rel="noopener" data-wa="pagina-loja">
+          <Icon name="whatsapp" />
+          <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sblock__visual reveal" style="--i:1">
+      {
+        storePhoto && storePhoto.type === 'image' ? (
+          <img
+            src={storePhoto.src}
+            alt={storePhoto.alt}
+            width={storePhoto.width ?? 1200}
+            height={storePhoto.height ?? 900}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <HoursDial />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .sblock {
+    background: var(--steel);
+    color: var(--white);
+    padding-block: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  }
+
+  .sblock__inner {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .sblock h2 {
+    font-size: var(--fs-h2);
+    color: var(--white);
+    max-width: 14ch;
+  }
+
+  .sblock address {
+    margin-block: 1.1rem 0.75rem;
+    font-style: normal;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--on-steel-2);
+  }
+
+  .sblock__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .sblock__visual {
+    justify-self: center;
+    width: min(100%, 17rem);
+  }
+
+  .sblock__visual:has(img) {
+    width: 100%;
+  }
+
+  .sblock__visual img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  @media (max-width: 420px) {
+    .sblock__actions .btn {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .sblock__inner {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+</style>

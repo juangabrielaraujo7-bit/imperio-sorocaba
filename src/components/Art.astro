@@ -1,0 +1,202 @@
+---
+/**
+ * Ilustrações em traço (azul aço + índice dourado) para serviços e marcas.
+ * Desenhadas para a identidade da Império; não são logos de fabricantes.
+ */
+import type { ServiceArt } from '../data/services';
+import type { BrandArt } from '../data/brands';
+
+interface Props {
+  name: ServiceArt | BrandArt | 'video';
+  class?: string;
+}
+
+const { name, class: className, ...rest } = Astro.props;
+const S = '#195B77';
+const G = '#FDC528';
+const D = '#0F4157';
+const E = '#EAF0F3';
+// losango côncavo centrado em (x,y) com raio r
+const gem = (x: number, y: number, r: number) =>
+  `M${x} ${y - r}Q${x + r * 0.22} ${y - r * 0.22} ${x + r} ${y}Q${x + r * 0.22} ${y + r * 0.22} ${x} ${y + r}Q${x - r * 0.22} ${y + r * 0.22} ${x - r} ${y}Q${x - r * 0.22} ${y - r * 0.22} ${x} ${y - r}Z`;
+---
+
+<svg
+  class:list={['art', className]}
+  viewBox="0 0 200 150"
+  width="200"
+  height="150"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  {...rest}
+>
+  {
+    name === 'screen' && (
+      <g>
+        <rect x="66" y="10" width="68" height="132" rx="13" fill="#fff" stroke={S} stroke-width="3" />
+        <rect x="72" y="22" width="56" height="108" rx="6" fill={S} />
+        <rect x="92" y="15" width="16" height="3.5" rx="1.75" fill={S} />
+        <g stroke="#fff" stroke-width="1.6" opacity="0.9">
+          <path d="M104 60 L84 40 M104 60 L126 44 M104 60 L112 96 L104 112 M104 60 L80 78 L74 92 M104 60 L126 74 M112 96 L126 102" />
+        </g>
+        <path d={gem(104, 60, 6)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'battery' && (
+      <g>
+        <rect x="58" y="36" width="78" height="78" rx="10" fill="#fff" stroke={S} stroke-width="3" />
+        <rect x="136" y="62" width="8" height="26" rx="3" fill={S} />
+        <rect x="66" y="88" width="62" height="18" rx="4" fill={G} />
+        <path d="M66 58 H128 M66 70 H128" stroke={S} stroke-opacity="0.25" stroke-width="2" />
+        <path d="M100 44 L92 60 H102 L96 76" stroke={S} stroke-width="3" />
+      </g>
+    )
+  }
+  {
+    name === 'charging' && (
+      <g>
+        <path d="M60 10 V58 Q60 70 72 70 H128 Q140 70 140 58 V10" fill="#fff" stroke={S} stroke-width="3" />
+        <rect x="90" y="60" width="20" height="6" rx="3" fill={S} />
+        <rect x="88" y="98" width="24" height="22" rx="5" fill="#fff" stroke={S} stroke-width="3" />
+        <rect x="93" y="88" width="14" height="10" rx="2" fill={E} stroke={S} stroke-width="2" />
+        <path d="M100 120 V130 Q100 142 86 142 H52" stroke={S} stroke-width="3" />
+        <path d={gem(100, 79, 6)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'backcover' && (
+      <g>
+        <rect x="66" y="10" width="68" height="132" rx="13" fill={E} stroke={S} stroke-width="3" />
+        <rect x="74" y="18" width="30" height="34" rx="8" fill="#fff" stroke={S} stroke-width="2.5" />
+        <circle cx="84" cy="29" r="5" stroke={S} stroke-width="2.5" />
+        <circle cx="84" cy="43" r="5" stroke={S} stroke-width="2.5" />
+        <g stroke={S} stroke-width="1.8">
+          <path d="M112 82 L96 66 M112 82 L128 70 M112 82 L104 112 L96 124 M112 82 L126 104 M112 82 L76 96 L70 106" />
+        </g>
+        <path d={gem(112, 82, 6)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'board' && (
+      <g>
+        <rect x="44" y="26" width="112" height="98" rx="10" fill={E} stroke={S} stroke-width="3" />
+        <rect x="82" y="56" width="36" height="36" rx="5" fill={S} />
+        <g stroke={S} stroke-width="2">
+          <path d="M82 64 H62 V44 M82 84 H58 V108 M118 64 H140 V42 M118 84 H138 V110 M92 56 V38 M108 92 V112" />
+        </g>
+        <g fill={G} stroke={S} stroke-width="1.5">
+          <circle cx="62" cy="40" r="4" />
+          <circle cx="58" cy="112" r="4" />
+          <circle cx="140" cy="38" r="4" />
+          <circle cx="138" cy="114" r="4" />
+        </g>
+        <path d={gem(100, 74, 7)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'other' && (
+      <g>
+        <rect x="70" y="10" width="60" height="118" rx="12" fill="#fff" stroke={S} stroke-width="3" />
+        <g fill={S}>
+          <circle cx="90" cy="112" r="2" />
+          <circle cx="97" cy="112" r="2" />
+          <circle cx="104" cy="112" r="2" />
+          <circle cx="111" cy="112" r="2" />
+        </g>
+        <path d="M130 44 h4 v16 h-4 M130 68 h4 v10 h-4" fill={S} stroke={S} stroke-width="2" />
+        <path d="M44 132 L92 70" stroke={S} stroke-width="5" />
+        <path d="M92 70 L100 60" stroke={D} stroke-width="3" />
+        <rect x="34" y="124" width="22" height="12" rx="4" transform="rotate(-52 45 130)" fill={G} stroke={S} stroke-width="2" />
+      </g>
+    )
+  }
+  {
+    name === 'iphone' && (
+      <g>
+        <rect x="66" y="8" width="68" height="134" rx="15" fill={E} stroke={S} stroke-width="3" />
+        <rect x="73" y="15" width="32" height="32" rx="9" fill="#fff" stroke={S} stroke-width="2.5" />
+        <circle cx="82" cy="24" r="5.5" fill={S} />
+        <circle cx="82" cy="38" r="5.5" fill={S} />
+        <circle cx="96" cy="31" r="5.5" fill={S} />
+        <path d={gem(97, 20, 3.5)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'samsung' && (
+      <g>
+        <rect x="66" y="8" width="68" height="134" rx="12" fill={E} stroke={S} stroke-width="3" />
+        <circle cx="81" cy="24" r="6.5" fill="#fff" stroke={S} stroke-width="2.5" />
+        <circle cx="81" cy="41" r="6.5" fill="#fff" stroke={S} stroke-width="2.5" />
+        <circle cx="81" cy="58" r="6.5" fill="#fff" stroke={S} stroke-width="2.5" />
+        <circle cx="81" cy="24" r="2.5" fill={S} />
+        <circle cx="81" cy="41" r="2.5" fill={S} />
+        <circle cx="81" cy="58" r="2.5" fill={S} />
+        <path d={gem(95, 24, 3.5)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'motorola' && (
+      <g>
+        <rect x="66" y="8" width="68" height="134" rx="14" fill={E} stroke={S} stroke-width="3" />
+        <rect x="74" y="16" width="38" height="30" rx="8" fill="#fff" stroke={S} stroke-width="2.5" />
+        <circle cx="86" cy="31" r="7" fill={S} />
+        <circle cx="102" cy="31" r="4.5" fill={S} />
+        <circle cx="100" cy="92" r="9" stroke={S} stroke-width="2" stroke-opacity="0.35" />
+        <path d={gem(118, 22, 3.5)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'xiaomi' && (
+      <g>
+        <rect x="66" y="8" width="68" height="134" rx="13" fill={E} stroke={S} stroke-width="3" />
+        <rect x="73" y="15" width="26" height="50" rx="8" fill="#fff" stroke={S} stroke-width="2.5" />
+        <circle cx="86" cy="27" r="7" fill={S} />
+        <circle cx="86" cy="43" r="4.5" fill={S} />
+        <circle cx="86" cy="55" r="4" fill={S} />
+        <path d={gem(106, 21, 3.5)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'video' && (
+      <g>
+        <rect x="52" y="22" width="96" height="106" rx="14" fill="#fff" stroke={S} stroke-width="3" />
+        <circle cx="100" cy="75" r="20" fill={S} />
+        <path d="M94 64 L110 75 L94 86 Z" fill="#fff" />
+        <path d="M64 114 H136" stroke={S} stroke-width="2" stroke-opacity="0.3" />
+        <path d="M64 114 H92" stroke={S} stroke-width="3" />
+        <path d={gem(92, 114, 5)} fill={G} />
+      </g>
+    )
+  }
+  {
+    name === 'devices' && (
+      <g>
+        <rect x="40" y="20" width="96" height="120" rx="12" fill={E} stroke={S} stroke-width="3" />
+        <rect x="48" y="30" width="80" height="100" rx="5" fill="#fff" stroke={S} stroke-width="1.5" stroke-opacity="0.4" />
+        <rect x="112" y="48" width="50" height="96" rx="11" fill="#fff" stroke={S} stroke-width="3" />
+        <rect x="117" y="57" width="40" height="78" rx="5" fill={S} />
+        <path d={gem(137, 96, 5)} fill={G} />
+      </g>
+    )
+  }
+</svg>
+
+<style>
+  .art {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+</style>

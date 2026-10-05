@@ -1,6 +1,15 @@
 import { business } from '../data/business';
 import { services } from '../data/services';
 
+/** Caminho limpo da página (sem .html e sem /index). */
+export function cleanPath(pathname: string): string {
+  const p = pathname
+    .replace(/\.html$/, '')
+    .replace(/\/index$/, '/')
+    .replace(/(.)\/$/, '$1');
+  return p || '/';
+}
+
 /** URL absoluta a partir de um caminho do site. */
 export function absoluteUrl(path: string, site: URL | string = business.siteUrl): string {
   return new URL(path, site).toString();
@@ -70,7 +79,7 @@ export function localBusinessJsonLd(site: URL | string = business.siteUrl) {
           '@type': 'Service',
           name: s.title,
           areaServed: { '@type': 'City', name: address.city },
-          ...(s.page ? { url: absoluteUrl(`/servicos/${s.slug}/`, site) } : {}),
+          ...(s.page ? { url: absoluteUrl(`/${s.slug}`, site) } : {}),
         },
       })),
     },

@@ -1,0 +1,152 @@
+---
+/**
+ * "Qual a marca do seu aparelho?" / "O que aconteceu com seu iPhone?"
+ * Cada opção abre o WhatsApp com a mensagem já preenchida.
+ * Opcionalmente, mostra links para páginas relacionadas (internal links).
+ */
+import Icon from './Icon.astro';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+
+interface Props {
+  heading: string;
+  options: string[];
+  /** Use {option} no lugar da opção escolhida */
+  messageTemplate: string;
+  links?: { label: string; href: string }[];
+  linksLabel?: string;
+}
+
+const { heading, options, messageTemplate, links = [], linksLabel } = Astro.props;
+---
+
+<section class="picker" aria-labelledby="picker-title">
+  <div class="container">
+    <div class="picker__box reveal">
+      <h2 id="picker-title" class="picker__title">{heading}</h2>
+      <ul class="picker__options" role="list">
+        {
+          options.map((option) => (
+            <li>
+              <a
+                class="chip"
+                href={getWhatsAppUrl(messageTemplate.replace('{option}', option))}
+                target="_blank"
+                rel="noopener"
+                data-wa="seletor"
+              >
+                <span>{option}</span>
+                <Icon name="whatsapp" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      {
+        links.length > 0 && (
+          <p class="picker__links">
+            {linksLabel && <span>{linksLabel}</span>}
+            {links.map((l) => (
+              <a href={l.href}>{l.label}</a>
+            ))}
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .picker {
+    padding-block: var(--section);
+  }
+
+  .picker__box {
+    padding: clamp(1.25rem, 0.75rem + 2vw, 2.25rem);
+    border-radius: calc(var(--radius) + 0.25rem);
+    background: var(--enamel);
+    border: 1px solid var(--line);
+  }
+
+  .picker__title {
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  }
+
+  .picker__options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 3.25rem;
+    padding: 0.6rem 0.9rem 0.6rem 1.1rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--ink);
+    font-weight: 650;
+    text-decoration: none;
+    transition:
+      border-color 0.25s,
+      background-color 0.25s,
+      color 0.25s,
+      transform 0.35s var(--ease-out);
+  }
+
+  .chip :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex: none;
+    color: var(--steel);
+    transition: color 0.25s;
+  }
+
+  .chip:hover {
+    border-color: var(--steel);
+    background: var(--steel);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+
+  .chip:hover :global(svg) {
+    color: var(--gold);
+  }
+
+  .picker__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    margin-top: 1.25rem;
+    font-size: var(--fs-small);
+    color: var(--ink-2);
+  }
+
+  .picker__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    color: var(--steel);
+    font-weight: 650;
+  }
+
+  @media (min-width: 480px) {
+    .picker__options {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .picker__options > li {
+      flex: 1 1 auto;
+    }
+
+    .chip span {
+      white-space: nowrap;
+    }
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+/** Perguntas frequentes (home e páginas internas) + JSON-LD FAQPage. */
+import type { FaqItem } from '../data/services';
+
+interface Props {
+  title?: string;
+  faqs: FaqItem[];
+  id?: string;
+}
+
+const { title = 'Perguntas frequentes', faqs, id = 'faq' } = Astro.props;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section class="section faq" id={id} aria-labelledby={`${id}-title`}>
+  <div class="container faq__inner">
+    <h2 id={`${id}-title`} class="faq__title reveal">{title}</h2>
+    <div class="faq__list">
+      {
+        faqs.map((f, i) => (
+          <details class="faq__item reveal" style={`--i:${Math.min(i, 4)}`}>
+            <summary>
+              <span>{f.q}</span>
+              <span class="faq__mark" aria-hidden="true" />
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</section>
+
+<style>
+  .faq__inner {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .faq__title {
+    font-size: var(--fs-h2);
+    max-width: 12ch;
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.75rem;
+    padding-block: 0.9rem;
+    font-size: 1.08rem;
+    font-weight: 650;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary:hover {
+    color: var(--steel);
+  }
+
+  /* losango que gira e acende ao abrir */
+  .faq__mark {
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+    background: var(--line-strong);
+    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
+    mask: var(--diamond-mask) center / contain no-repeat;
+    transition:
+      transform 0.45s var(--ease-out),
+      background-color 0.3s;
+  }
+
+  .faq__item[open] .faq__mark {
+    background: var(--gold-deep);
+    transform: rotate(90deg) scale(1.15);
+  }
+
+  .faq__item p {
+    padding-bottom: 1.1rem;
+    max-width: 62ch;
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 1024px) {
+    .faq__inner {
+      grid-template-columns: 0.8fr 1.6fr;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+</style>

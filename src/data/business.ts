@@ -24,11 +24,11 @@ export const business = {
   shortName: 'Império Eletrônicos',
 
   /**
-   * URL pública do site. Ainda não há domínio definido:
-   * troque aqui quando o domínio for registrado (afeta canonical, sitemap,
-   * Open Graph, robots.txt e JSON-LD).
+   * URL pública do site (canonical, sitemap, Open Graph, JSON-LD).
+   * Hoje é o endereço da Vercel. Quando o domínio próprio for
+   * registrado, troque SOMENTE aqui.
    */
-  siteUrl: 'https://www.imperioeletronicossorocaba.com.br',
+  siteUrl: 'https://imperio-sorocaba-9155.vercel.app',
 
   phone: {
     display: '(15) 99615-5767',
@@ -39,10 +39,10 @@ export const business = {
   whatsapp: {
     number: '5515996155767',
     messages: {
-      home: 'Olá! Encontrei a Império Eletrônicos pelo site e gostaria de falar sobre uma assistência para meu celular.',
+      home: 'Olá! Encontrei a Império Eletrônicos pelo site e gostaria de um orçamento para meu celular.',
       location: 'Olá! Vi o endereço da Império Eletrônicos no site e gostaria de tirar uma dúvida antes de ir até a loja.',
-      store: 'Olá! Vi no site que a Império Eletrônicos também tem acessórios. Gostaria de saber o que está disponível.',
-      reviews: 'Olá! Vi as avaliações da Império Eletrônicos e gostaria de falar sobre uma assistência para meu celular.',
+      reviews: 'Olá! Vi as avaliações da Império Eletrônicos e gostaria de um orçamento para meu celular.',
+      beforeAfter: 'Olá! Vi os serviços realizados no site e gostaria de um orçamento.',
     },
   },
 

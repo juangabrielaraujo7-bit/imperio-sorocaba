@@ -1,0 +1,89 @@
+---
+/** Home > Conheça a Império: texto mínimo + vídeos da loja (media.ts). */
+import Icon from './Icon.astro';
+import MediaCard from './MediaCard.astro';
+import MediaRail from './MediaRail.astro';
+import { about } from '../data/content';
+import { storeVideos } from '../data/media';
+import { business } from '../data/business';
+---
+
+<section class="section store" id="sobre" aria-labelledby="sobre-title">
+  <div class="container store__inner">
+    <div class="store__copy reveal">
+      <h2 id="sobre-title">Conheça a Império</h2>
+      <p class="store__name">{about.title}</p>
+      <ul class="store__lines" role="list">
+        {
+          about.lines.map((line) => (
+            <li>
+              <span class="diamond" aria-hidden="true" />
+              {line}
+            </li>
+          ))
+        }
+      </ul>
+      <a class="arrow-link" href={business.instagram.url} target="_blank" rel="noopener">
+        <Icon name="instagram" />
+        <span>{business.instagram.handle}</span>
+      </a>
+    </div>
+
+    <MediaRail label="Vídeos da loja" cols={3}>
+      {
+        storeVideos.map((v, i) => (
+          <li class="reveal" style={`--i:${i}`}>
+            <MediaCard item={v.item} label={v.label} placeholder="video" />
+          </li>
+        ))
+      }
+    </MediaRail>
+  </div>
+</section>
+
+<style>
+  .store__inner {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .store__copy h2 {
+    font-size: var(--fs-h2);
+  }
+
+  .store__name {
+    margin-top: 1.25rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .store__lines {
+    display: grid;
+    gap: 0.4rem;
+    margin-block: 0.6rem 1rem;
+    color: var(--ink-2);
+  }
+
+  .store__lines li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .store__lines .diamond {
+    font-size: 0.8rem;
+  }
+
+  .store__copy .arrow-link :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  @media (min-width: 1024px) {
+    .store__inner {
+      grid-template-columns: 0.75fr 2fr;
+      gap: 3rem;
+      align-items: center;
+    }
+  }
+</style>

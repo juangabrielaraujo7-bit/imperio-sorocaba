@@ -1,0 +1,214 @@
+---
+/**
+ * Orçamento rápido: nada é enviado a servidor. Ao enviar, abre o
+ * WhatsApp da loja com a mensagem pronta.
+ */
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+---
+
+<section class="section quote" id="orcamento" aria-labelledby="orcamento-title">
+  <div class="container">
+    <div class="quote__box reveal">
+      <div class="quote__copy">
+        <h2 id="orcamento-title">Orçamento rápido</h2>
+        <p>Preencha e envie. O WhatsApp abre com a mensagem pronta.</p>
+      </div>
+
+      <form class="quote__form" data-quote data-number={business.whatsapp.number} novalidate>
+        <div class="field">
+          <label for="q-nome">Nome</label>
+          <input id="q-nome" name="nome" type="text" autocomplete="given-name" required />
+          <p class="field__error" id="q-nome-err" hidden>Informe seu nome.</p>
+        </div>
+
+        <div class="field">
+          <label for="q-tipo">Tipo de aparelho</label>
+          <select id="q-tipo" name="tipo" required>
+            <option value="" selected disabled>Selecione</option>
+            <option>Celular</option>
+            <option>Tablet</option>
+            <option>Outro</option>
+          </select>
+          <p class="field__error" id="q-tipo-err" hidden>Escolha o tipo de aparelho.</p>
+        </div>
+
+        <div class="field field--full">
+          <label for="q-modelo">Marca / Modelo</label>
+          <input id="q-modelo" name="modelo" type="text" placeholder="Ex.: iPhone 11, Galaxy A54" required />
+          <p class="field__error" id="q-modelo-err" hidden>Informe a marca e o modelo.</p>
+        </div>
+
+        <div class="field field--full">
+          <label for="q-defeito">Descrição do defeito</label>
+          <textarea id="q-defeito" name="defeito" rows="4" placeholder="O que aconteceu com o aparelho?" required></textarea>
+          <p class="field__error" id="q-defeito-err" hidden>Conte o que aconteceu com o aparelho.</p>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg field--full">
+          <Icon name="whatsapp" />
+          <span>Enviar pelo WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quote__box {
+    display: grid;
+    gap: 1.75rem;
+    padding: clamp(1.25rem, 0.75rem + 2.5vw, 3rem);
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 0.25rem);
+    background: var(--enamel);
+  }
+
+  .quote__copy h2 {
+    font-size: var(--fs-h2);
+  }
+
+  .quote__copy p {
+    margin-top: 0.6rem;
+    color: var(--ink-2);
+    max-width: 30ch;
+  }
+
+  .quote__form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .field label {
+    font-size: var(--fs-small);
+    font-weight: 650;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: 3.1rem;
+    padding: 0.75rem 0.9rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .field select {
+    appearance: none;
+    padding-right: 2.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23195B77%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M6 9l6 6 6-6%27/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    background-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  .field textarea {
+    resize: none;
+    min-height: 6.5rem;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: #56676f;
+  }
+
+  .field :is(input, select, textarea):focus {
+    outline: none;
+    border-color: var(--steel);
+    box-shadow: 0 0 0 3px rgb(253 197 40 / 0.55);
+  }
+
+  .field :is(input, select, textarea)[aria-invalid='true'] {
+    border-color: #b3261e;
+  }
+
+  .field__error {
+    font-size: 0.875rem;
+    font-weight: 560;
+    color: #b3261e;
+  }
+
+  @media (min-width: 640px) {
+    .quote__form {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .field--full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .quote__box {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-quote]');
+
+  if (form) {
+    const fields = ['nome', 'tipo', 'modelo', 'defeito'] as const;
+
+    const check = (name: (typeof fields)[number]) => {
+      const el = form.elements.namedItem(name) as HTMLInputElement | null;
+      const err = document.getElementById(`q-${name}-err`);
+      const ok = Boolean(el?.value.trim());
+      el?.setAttribute('aria-invalid', String(!ok));
+      if (err) {
+        err.hidden = ok;
+        if (!ok) el?.setAttribute('aria-describedby', err.id);
+        else el?.removeAttribute('aria-describedby');
+      }
+      return ok;
+    };
+
+    fields.forEach((name) => {
+      const el = form.elements.namedItem(name) as HTMLElement | null;
+      el?.addEventListener('change', () => check(name));
+      el?.addEventListener('blur', () => {
+        if (el.getAttribute('aria-invalid') === 'true') check(name);
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const results = fields.map(check);
+      if (results.includes(false)) {
+        const first = fields[results.indexOf(false)];
+        (form.elements.namedItem(first) as HTMLElement | null)?.focus();
+        return;
+      }
+      const v = (name: string) => (form.elements.namedItem(name) as HTMLInputElement).value.trim();
+      const msg = [
+        'Olá! Vim pelo site e gostaria de um orçamento.',
+        '',
+        `Nome: ${v('nome')}`,
+        `Aparelho: ${v('tipo')}`,
+        `Marca/Modelo: ${v('modelo')}`,
+        `Defeito: ${v('defeito')}`,
+      ].join('\n');
+      const url = `https://wa.me/${form.dataset.number}?text=${encodeURIComponent(msg)}`;
+      const win = window.open(url, '_blank', 'noopener');
+      if (!win) window.location.href = url;
+    });
+  }
+</script>

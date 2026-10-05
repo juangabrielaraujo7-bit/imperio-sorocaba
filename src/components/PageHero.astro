@@ -1,0 +1,276 @@
+---
+/**
+ * Topo das páginas de serviço e de marca: trilha, H1, uma frase, CTA e
+ * lista curta (sinais do defeito ou reparos da marca).
+ */
+import Icon from './Icon.astro';
+import Art from './Art.astro';
+import type { ServiceArt } from '../data/services';
+import type { BrandArt } from '../data/brands';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface ListItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+  h1: string;
+  intro: string;
+  ctaLabel?: string;
+  whatsappMessage: string;
+  listTitle: string;
+  list: ListItem[];
+  art: ServiceArt | BrandArt;
+}
+
+const {
+  crumbs,
+  h1,
+  intro,
+  ctaLabel = 'Pedir orçamento no WhatsApp',
+  whatsappMessage,
+  listTitle,
+  list,
+  art,
+} = Astro.props;
+---
+
+<section class="phero" id="inicio" aria-labelledby="page-title">
+  <div class="phero__bg" aria-hidden="true"></div>
+  <div class="container phero__inner">
+    <div class="phero__copy">
+      <nav class="crumbs" aria-label="Trilha de navegação">
+        <ol role="list">
+          {
+            crumbs.map((c, i) => (
+              <li>
+                {c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+                {i < crumbs.length - 1 && <span class="diamond crumbs__sep" aria-hidden="true" />}
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <h1 id="page-title" class="phero__title">{h1}</h1>
+      <p class="lead phero__intro">{intro}</p>
+
+      <a
+        class="btn btn--primary btn--lg phero__cta"
+        href={getWhatsAppUrl(whatsappMessage)}
+        target="_blank"
+        rel="noopener"
+        data-wa="pagina-topo"
+      >
+        <Icon name="whatsapp" />
+        <span>{ctaLabel}</span>
+      </a>
+    </div>
+
+    <div class="phero__side">
+      <div class="phero__art" aria-hidden="true">
+        <Art name={art} />
+      </div>
+      <div class="phero__list">
+        <h2 class="dial-label">{listTitle}</h2>
+        <ul role="list">
+          {
+            list.map((item) => (
+              <li>
+                <span class="diamond" aria-hidden="true" />
+                {item.href ? (
+                  <a href={item.href}>
+                    {item.label}
+                    <Icon name="arrow-right" />
+                  </a>
+                ) : (
+                  <span>{item.label}</span>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .phero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(1.5rem, 1rem + 3vw, 4rem) var(--section);
+  }
+
+  .phero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(60% 70% at 85% 30%, var(--enamel), transparent 70%);
+    pointer-events: none;
+  }
+
+  .phero__inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  }
+
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.5rem;
+    font-size: var(--fs-small);
+  }
+
+  .crumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    color: var(--steel);
+    font-weight: 560;
+  }
+
+  .crumbs [aria-current] {
+    color: var(--ink-2);
+  }
+
+  .crumbs__sep {
+    font-size: 0.55rem;
+  }
+
+  .phero__title {
+    margin-top: 0.75rem;
+    font-size: clamp(2.3rem, 1.5rem + 4vw, 4.25rem);
+    font-stretch: 82%;
+    font-weight: 820;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    word-spacing: 0.08em;
+    max-width: 14ch;
+  }
+
+  .phero__intro {
+    margin-top: 1.1rem;
+    max-width: 36ch;
+  }
+
+  .phero__cta {
+    margin-top: 1.75rem;
+  }
+
+  .phero__side {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--white);
+  }
+
+  .phero__art {
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background: var(--enamel);
+    padding: 0.4rem;
+  }
+
+  .phero__list h2 {
+    color: var(--steel);
+    margin-bottom: 0.6rem;
+  }
+
+  .phero__list ul {
+    display: grid;
+  }
+
+  .phero__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 2.6rem;
+    border-bottom: 1px solid var(--line);
+    font-weight: 600;
+  }
+
+  .phero__list li:last-child {
+    border-bottom: 0;
+  }
+
+  .phero__list .diamond {
+    font-size: 0.75rem;
+  }
+
+  .phero__list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2.6rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .phero__list a:hover {
+    color: var(--steel);
+    text-decoration: underline;
+  }
+
+  .phero__list a :global(svg) {
+    width: 0.95rem;
+    height: 0.95rem;
+    color: var(--steel);
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .phero__list a:hover :global(svg) {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 420px) {
+    .phero__cta {
+      width: 100%;
+    }
+
+    .phero__side {
+      grid-template-columns: 1fr;
+    }
+
+    .phero__art {
+      display: none;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .phero__inner {
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+    }
+
+    .phero__side {
+      grid-template-columns: 1fr;
+      padding: 1.5rem;
+    }
+
+    .phero__art {
+      aspect-ratio: 16 / 9;
+      padding: 1rem 4rem;
+    }
+  }
+</style>

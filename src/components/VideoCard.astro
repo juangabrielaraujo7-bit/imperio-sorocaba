@@ -1,0 +1,96 @@
+---
+/**
+ * Vídeo curto com capa e botão de play. O arquivo só é baixado quando a
+ * pessoa toca em play (leve para o celular).
+ */
+interface Props {
+  src: string;
+  poster?: string;
+  alt: string;
+  class?: string;
+}
+
+const { src, poster, alt, class: className } = Astro.props;
+---
+
+<div class:list={['vcard', className]} data-vcard>
+  <video muted loop playsinline preload="none" poster={poster} data-src={src} aria-label={alt}></video>
+  <button class="vcard__play" type="button" data-vcard-play>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <path d="M8 5.5v13l10.5-6.5z"></path>
+    </svg>
+    <span class="sr-only">Reproduzir vídeo: {alt}</span>
+  </button>
+</div>
+
+<style>
+  .vcard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--steel-deep);
+  }
+
+  .vcard video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .vcard__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 0;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--steel);
+    box-shadow: 0 6px 20px rgb(11 17 22 / 0.3);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition:
+      transform 0.35s var(--ease-out),
+      opacity 0.3s;
+  }
+
+  .vcard__play svg {
+    transform: translateX(2px);
+  }
+
+  .vcard__play:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .vcard.is-playing .vcard__play {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-vcard]').forEach((card) => {
+    const video = card.querySelector('video');
+    const btn = card.querySelector<HTMLButtonElement>('[data-vcard-play]');
+    if (!video || !btn) return;
+    const start = () => {
+      if (!video.getAttribute('src') && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+      card.classList.add('is-playing');
+      video.play().catch(() => card.classList.remove('is-playing'));
+    };
+    btn.addEventListener('click', start);
+    video.addEventListener('click', () => {
+      if (video.paused) start();
+      else {
+        video.pause();
+        card.classList.remove('is-playing');
+      }
+    });
+  });
+</script>

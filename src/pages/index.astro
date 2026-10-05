@@ -1,28 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import MinuteTrack from '../components/MinuteTrack.astro';
 import Services from '../components/Services.astro';
-import Trust from '../components/Trust.astro';
-import WorksAndStore from '../components/WorksAndStore.astro';
+import BeforeAfterSection from '../components/BeforeAfterSection.astro';
+import Brands from '../components/Brands.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import HowItWorks from '../components/HowItWorks.astro';
 import Reviews from '../components/Reviews.astro';
-import About from '../components/About.astro';
+import StoreIntro from '../components/StoreIntro.astro';
 import Location from '../components/Location.astro';
-import FinalCta from '../components/FinalCta.astro';
-import { business } from '../data/business';
+import Faq from '../components/Faq.astro';
+import MinuteTrack from '../components/MinuteTrack.astro';
+import { homeFaqs } from '../data/content';
 
 const title = 'Assistência Técnica de Celular em Sorocaba | Império Eletrônicos';
-const description = `Conserto e manutenção de celular em Sorocaba, com loja física na ${business.address.neighborhood}. Nota ${business.reviews.rating.toFixed(1).replace('.', ',')} no Google. Fale pelo WhatsApp ${business.phone.display}.`;
+const description =
+  'Conserto de celular em Sorocaba: tela, bateria, conector de carga, tampa traseira e placa. iPhone, Samsung, Motorola e Xiaomi. Orçamento pelo WhatsApp.';
 ---
 
 <BaseLayout title={title} description={description} splash>
   <Hero />
-  <div class="container"><MinuteTrack class="reveal" /></div>
+  <div class="container divider"><MinuteTrack class="reveal" /></div>
   <Services />
-  <Trust />
-  <WorksAndStore />
+  <BeforeAfterSection />
+  <Brands />
+  <div class="container divider"><MinuteTrack class="reveal" /></div>
+  <QuoteForm />
+  <div class="container divider"><MinuteTrack class="reveal" /></div>
+  <HowItWorks />
   <Reviews />
-  <About />
+  <StoreIntro />
   <Location />
-  <FinalCta />
+  <Faq faqs={homeFaqs} />
 </BaseLayout>

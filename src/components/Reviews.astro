@@ -24,12 +24,6 @@ const stars = Array.from({ length: 5 });
         </div>
       </div>
 
-      {list.length === 0 && (
-        <p class="reviews__empty">
-          Média real do Perfil da Empresa no Google. Os comentários dos clientes estão no próprio Google.
-        </p>
-      )}
-
       <a class="btn btn--ghost reviews__cta" href={business.reviews.url} target="_blank" rel="noopener">
         <span>Ver avaliações no Google</span>
         <Icon name="external" />
@@ -170,13 +164,6 @@ const stars = Array.from({ length: 5 });
     color: var(--ink-2);
   }
 
-  .reviews__empty {
-    margin-top: 1.75rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--line-strong);
-    max-width: 40ch;
-    color: var(--ink-2);
-  }
 
   @media (min-width: 900px) {
     .reviews__inner {

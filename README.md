@@ -1,8 +1,8 @@
 # Império Eletrônicos Sorocaba — site
 
-Site institucional da **Império Eletrônicos Sorocaba** (assistência técnica de celular, R. Nicarágua, 156 - Box 5, Vila Barcelona, Sorocaba - SP).
+Site da **Império Eletrônicos Sorocaba** (assistência técnica de celular, R. Nicarágua, 156 - Box 5, Vila Barcelona, Sorocaba - SP).
 
-Feito com **Astro + TypeScript**, CSS puro com variáveis, JS mínimo (só pequenos scripts inline) e nenhuma biblioteca de UI.
+Astro + TypeScript, CSS puro com variáveis, JS mínimo e nenhuma biblioteca de UI.
 
 ## Rodar
 
@@ -13,76 +13,65 @@ npm run build      # checagem de tipos + build estático em dist/
 npm run preview    # serve o build
 ```
 
-Node 22.12+.
+Node 22.12+. Deploy na Vercel (`vercel.json` com URLs limpas, sem `.html`).
+
+## Páginas
+
+| URL | Origem |
+|---|---|
+| `/` | `src/pages/index.astro` |
+| `/troca-de-tela-sorocaba` | `src/data/services.ts` |
+| `/troca-de-bateria-sorocaba` | `src/data/services.ts` |
+| `/conector-de-carga-sorocaba` | `src/data/services.ts` |
+| `/troca-de-tampa-traseira-sorocaba` | `src/data/services.ts` |
+| `/reparo-em-placa-sorocaba` | `src/data/services.ts` |
+| `/assistencia-tecnica-iphone-sorocaba` | `src/data/brands.ts` |
+| `/assistencia-tecnica-samsung-sorocaba` | `src/data/brands.ts` |
+| `/assistencia-tecnica-motorola-sorocaba` | `src/data/brands.ts` |
+| `/assistencia-tecnica-xiaomi-sorocaba` | `src/data/brands.ts` |
+| `/404` | `src/pages/404.astro` |
+
+As páginas de serviço e de marca são geradas por `src/pages/[slug].astro`. Para criar uma nova, adicione um item em `services.ts` (com `page`) ou em `brands.ts`. O sitemap se atualiza sozinho.
 
 ## Onde mudar cada coisa
 
 | O quê | Arquivo |
 |---|---|
-| Nome, telefone, WhatsApp, endereço, horários, Instagram, links do Google, nota/avaliações, **domínio do site** | `src/data/business.ts` |
-| Mensagens padrão do WhatsApp | `src/data/business.ts` → `whatsapp.messages` |
-| Serviços (cards e futuras páginas) | `src/data/services.ts` |
-| Diferenciais, antes/depois, acessórios, avaliações em texto, história/foto do "Sobre" | `src/data/content.ts` |
-| Vídeo/foto da hero | `src/data/media.ts` |
+| Nome, telefone, WhatsApp, endereço, horários, Instagram, Google, nota, **domínio do site** | `src/data/business.ts` |
+| Serviços (cards, páginas, sinais, FAQ, mensagens do WhatsApp) | `src/data/services.ts` |
+| Marcas (cards, páginas, FAQ, opções dos seletores) | `src/data/brands.ts` |
+| Fotos e vídeos | `src/data/media.ts` + `public/media/` |
+| Como funciona, avaliações em texto, "Sobre", FAQ da home | `src/data/content.ts` |
 | Links do menu | `src/data/navigation.ts` |
 
-Telefone, endereço e horários **nunca** são escritos à mão nos componentes: tudo sai de `business.ts`.
+Links de WhatsApp: `getWhatsAppUrl(mensagem)` em `src/lib/whatsapp.ts`.
 
-Links do WhatsApp: `getWhatsAppUrl(mensagem)` em `src/lib/whatsapp.ts`.
+## Fotos e vídeos
 
-## Estrutura
+Guia completo em `public/media/LEIA-ME.md`. Resumo:
 
-```
-src/
-  data/          business.ts, services.ts, content.ts, media.ts, navigation.ts
-  lib/           whatsapp.ts, hours.ts (aberto/fechado no fuso de SP), seo.ts (JSON-LD)
-  layouts/       BaseLayout.astro (SEO, OG, Twitter, JSON-LD, splash, header/footer)
-  components/    Header, Hero, HeroDial, Services, Trust, WorksAndStore, BeforeAfter,
-                 Reviews, About, Location, HoursDial, OpenStatus, FinalCta, Footer,
-                 MobileWhatsAppBar, Splash, MinuteTrack, Logo, Icon
-  pages/         index.astro, 404.astro, robots.txt.ts, servicos/[slug].astro
-  assets/        brand/ (logo original), images/, videos/
-public/          favicon.svg/.ico, apple-touch-icon, ícones, og-image.png, fontes, brand/logo.svg
-scripts/         generate-icons.mjs, og.html (fonte da imagem de compartilhamento)
-```
-
-## Páginas
-
-- `/` — home completa.
-- `/404` — página não encontrada.
-- `/servicos/<slug>/` — **gerada automaticamente** só para serviços com `page` preenchido em `services.ts`. Hoje nenhuma existe (não há conteúdo real ainda).
-- `sitemap-index.xml` e `robots.txt` são gerados no build.
-
-Para páginas como `/conserto-de-celular-sorocaba/` ou `/assistencia-tecnica-celular-sorocaba/`: crie quando houver conteúdo real, em `src/pages/<slug>.astro`, usando `BaseLayout` com `title` e `description` próprios.
-
-## Fotos e vídeos (adicionar depois)
-
-| Material | Pasta | Como ligar |
+| Pasta | Onde aparece | Registro em `media.ts` |
 |---|---|---|
-| Vídeo da assistência / bancada (hero) | `public/videos/` (.mp4/.webm) + pôster em `src/assets/images/hero/` | `src/data/media.ts` |
-| Foto da loja / bancada / aparelho em reparo (hero) | `src/assets/images/hero/` | `src/data/media.ts` |
-| Fachada, interior, equipe (seção Sobre) | `src/assets/images/loja/` | `about.photo` em `content.ts` |
-| Antes/depois de serviços | `src/assets/images/trabalhos/` | `works` em `content.ts` |
-| Produtos e acessórios | `src/assets/images/produtos/` | `productCategories` em `content.ts` |
+| `public/media/hero/` | topo da home | `heroMedia` |
+| `public/media/antes-depois/` | home > "Veja o resultado do nosso trabalho" | `beforeAfterCards` |
+| `public/media/loja/` | home > "Conheça a Império" e bloco "Loja física" das páginas internas | `storeVideos`, `storePhoto` |
+| `public/media/servicos/<serviço>/` | páginas de serviço > "Veja alguns serviços realizados" | `serviceMedia` |
+| `public/media/marcas/<marca>/` | páginas de marca | `brandMedia` |
 
-Imagens em `src/assets/` são otimizadas pelo Astro (WebP, `srcset`, dimensões declaradas). Use fotos reais, nunca banco de imagens.
+Sem mídia: a home mostra molduras discretas "Em breve"; nas páginas internas a galeria fica oculta e aparece sozinha quando houver itens.
 
-## O que ainda depende de conteúdo real
+Componentes de mídia: `MediaCard` (foto, vídeo ou antes/depois), `VideoCard`, `BeforeAfter`, `MediaRail` (grade no desktop, rolagem lateral no celular) e `ServiceGallery`.
 
-- Domínio definitivo (hoje provisório em `business.siteUrl`).
-- Lista final de serviços (e textos para páginas individuais).
-- Diferenciais reais (garantia, prazos etc. — só se forem verdade).
-- Até 3 avaliações reais copiadas do Google.
-- Link direto da aba de avaliações do Google (hoje aponta para o perfil no Maps).
-- História da empresa e foto da equipe/loja.
-- Linha de acessórios/produtos.
-- Fotos e vídeos listados acima.
-- Atualizar `reviews.rating` e `reviews.count` quando a nota mudar.
+## Regras de conteúdo
+
+- Frases curtas, listas e CTAs. Nada de parágrafos longos.
+- Endereço, horário e telefone completos ficam só em **Localização** e no **rodapé**.
+- Não publicar promessas sem confirmação da loja: garantia, prazo, "mesmo dia", diagnóstico gratuito, peças premium, anos de experiência, número de clientes.
 
 ## Imagem de compartilhamento e ícones
 
-- Ícones: `node scripts/generate-icons.mjs` (gera favicon.ico, apple-touch-icon e ícones do manifest a partir dos SVGs).
-- Imagem OG (`public/og-image.png`, 1200×630): abra `scripts/og.html` em um Chrome headless com janela 1200×630 e salve o screenshot. Exemplo:
+- Ícones: `node scripts/generate-icons.mjs`.
+- Imagem OG (`public/og-image.png`, 1200×630): screenshot headless de `scripts/og.html`:
 
 ```bash
 chrome --headless=new --hide-scrollbars --window-size=1200,630 --screenshot=public/og-image.png scripts/og.html

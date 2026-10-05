@@ -1,0 +1,138 @@
+---
+/**
+ * Páginas internas geradas a partir dos dados:
+ * - serviços com `page` (src/data/services.ts) -> /troca-de-tela-sorocaba etc.
+ * - marcas (src/data/brands.ts) -> /assistencia-tecnica-iphone-sorocaba etc.
+ */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import OptionPicker from '../components/OptionPicker.astro';
+import ServiceGallery from '../components/ServiceGallery.astro';
+import StoreBlock from '../components/StoreBlock.astro';
+import Faq from '../components/Faq.astro';
+import LinkChips from '../components/LinkChips.astro';
+import MinuteTrack from '../components/MinuteTrack.astro';
+import { services, servicesWithPage, type Service, type ServicePage } from '../data/services';
+import { brands, brandOptions, problemOptions, type Brand } from '../data/brands';
+import { serviceMedia, brandMedia } from '../data/media';
+import { business } from '../data/business';
+import { absoluteUrl, cleanPath } from '../lib/seo';
+
+type Entry = { kind: 'service'; service: Service & { page: ServicePage } } | { kind: 'brand'; brand: Brand };
+
+export const getStaticPaths = (() => [
+  ...servicesWithPage.map((service) => ({
+    params: { slug: service.slug },
+    props: { kind: 'service', service } as Entry,
+  })),
+  ...brands.map((brand) => ({
+    params: { slug: brand.slug },
+    props: { kind: 'brand', brand } as Entry,
+  })),
+]) satisfies GetStaticPaths;
+
+const entry = Astro.props as Entry;
+const site = Astro.site ?? business.siteUrl;
+const pageUrl = absoluteUrl(cleanPath(Astro.url.pathname), site);
+
+const serviceLinks = servicesWithPage.map((s) => ({ label: s.title, href: `/${s.slug}` }));
+const brandLinks = brands.map((b) => ({ label: b.name, href: `/${b.slug}` }));
+
+const crumb = (name: string, sectionName: string, sectionHash: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: absoluteUrl('/', site) },
+    { '@type': 'ListItem', position: 2, name: sectionName, item: absoluteUrl(`/${sectionHash}`, site) },
+    { '@type': 'ListItem', position: 3, name, item: pageUrl },
+  ],
+});
+
+const serviceLd = (name: string, description: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name,
+  description,
+  url: pageUrl,
+  serviceType: name,
+  provider: { '@id': absoluteUrl('/#empresa', site) },
+  areaServed: { '@type': 'City', name: `${business.address.city} - ${business.address.state}` },
+});
+---
+
+{
+  entry.kind === 'service' ? (
+    <BaseLayout
+      title={entry.service.page.metaTitle}
+      description={entry.service.page.metaDescription}
+      jsonLd={[
+        crumb(entry.service.title, 'Serviços', '#servicos'),
+        serviceLd(entry.service.page.h1, entry.service.page.metaDescription),
+      ]}
+    >
+      <PageHero
+        crumbs={[{ label: 'Início', href: '/' }, { label: 'Serviços', href: '/#servicos' }, { label: entry.service.title }]}
+        h1={entry.service.page.h1}
+        intro={entry.service.page.intro}
+        whatsappMessage={entry.service.whatsappMessage}
+        listTitle={entry.service.page.signsLabel}
+        list={entry.service.page.signs.map((label) => ({ label }))}
+        art={entry.service.art}
+      />
+      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <OptionPicker
+        heading="Qual a marca do seu aparelho?"
+        options={brandOptions}
+        messageTemplate={`Olá! Meu aparelho é ${'{option}'} e gostaria de um orçamento para ${entry.service.title.toLowerCase()}.`}
+        linksLabel={`${entry.service.title} por marca:`}
+        links={brandLinks}
+      />
+      <ServiceGallery items={serviceMedia[entry.service.key] ?? []} />
+      <StoreBlock whatsappMessage={entry.service.whatsappMessage} />
+      <Faq title={`Dúvidas sobre ${entry.service.title.toLowerCase()}`} faqs={entry.service.page.faqs} />
+      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <LinkChips
+        groups={[
+          { title: 'Outros serviços', links: serviceLinks.filter((l) => l.href !== `/${entry.service.slug}`) },
+          { title: 'Marcas atendidas', links: brandLinks },
+        ]}
+      />
+    </BaseLayout>
+  ) : (
+    <BaseLayout
+      title={entry.brand.metaTitle}
+      description={entry.brand.metaDescription}
+      jsonLd={[crumb(entry.brand.name, 'Marcas', '#marcas'), serviceLd(entry.brand.h1, entry.brand.metaDescription)]}
+    >
+      <PageHero
+        crumbs={[{ label: 'Início', href: '/' }, { label: 'Marcas', href: '/#marcas' }, { label: entry.brand.name }]}
+        h1={entry.brand.h1}
+        intro={entry.brand.intro}
+        whatsappMessage={entry.brand.whatsappMessage}
+        listTitle={`Reparos em ${entry.brand.device}`}
+        list={entry.brand.repairs
+          .map((key) => services.find((s) => s.key === key))
+          .filter((s): s is Service => Boolean(s))
+          .map((s) => ({ label: s.title, href: s.page ? `/${s.slug}` : undefined }))}
+        art={entry.brand.art}
+      />
+      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <OptionPicker
+        heading={`O que aconteceu com seu ${entry.brand.device}?`}
+        options={problemOptions}
+        messageTemplate={`Olá! Meu ${entry.brand.device} está com este problema: ${'{option}'}. Gostaria de um orçamento.`}
+      />
+      <ServiceGallery title={`Serviços realizados em ${entry.brand.device}`} items={brandMedia[entry.brand.key] ?? []} />
+      <StoreBlock whatsappMessage={entry.brand.whatsappMessage} />
+      <Faq title={`Dúvidas sobre conserto de ${entry.brand.device}`} faqs={entry.brand.faqs} />
+      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <LinkChips
+        groups={[
+          { title: `Serviços para ${entry.brand.device}`, links: serviceLinks },
+          { title: 'Outras marcas', links: brandLinks.filter((l) => l.href !== `/${entry.brand.slug}`) },
+        ]}
+      />
+    </BaseLayout>
+  )
+}

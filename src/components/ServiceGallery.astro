@@ -1,0 +1,40 @@
+---
+/**
+ * Galeria de fotos/vídeos das páginas internas.
+ * Sem mídia cadastrada, a seção não aparece.
+ */
+import MediaCard from './MediaCard.astro';
+import MediaRail from './MediaRail.astro';
+import type { MediaItem } from '../data/media';
+
+interface Props {
+  title?: string;
+  items: MediaItem[];
+}
+
+const { title = 'Veja alguns serviços realizados', items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <section class="section gallery" aria-labelledby="galeria-title">
+      <div class="container">
+        <h2 id="galeria-title" class="gallery__title reveal">{title}</h2>
+        <MediaRail label={title} cols={items.length >= 4 ? 4 : 3}>
+          {items.map((item, i) => (
+            <li class="reveal" style={`--i:${i % 4}`}>
+              <MediaCard item={item} />
+            </li>
+          ))}
+        </MediaRail>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .gallery__title {
+    font-size: var(--fs-h2);
+    margin-bottom: 1.75rem;
+  }
+</style>

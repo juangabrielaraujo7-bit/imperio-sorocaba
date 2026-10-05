@@ -1,0 +1,162 @@
+---
+/** Home > Marcas atendidas: cards visuais, cada marca leva à sua página. */
+import Icon from './Icon.astro';
+import Art from './Art.astro';
+import { brands, otherBrand } from '../data/brands';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+---
+
+<section class="section brands" id="marcas" aria-labelledby="marcas-title">
+  <div class="container">
+    <h2 id="marcas-title" class="brands__title reveal">Marcas atendidas</h2>
+
+    <ul class="brands__list" role="list">
+      {
+        brands.map((brand, i) => (
+          <li class="reveal" style={`--i:${i}`}>
+            <a class="brand" href={`/${brand.slug}`}>
+              <span class="brand__art">
+                <Art name={brand.art} />
+              </span>
+              <span class="brand__name">{brand.name}</span>
+              <span class="brand__more" aria-hidden="true">
+                Ver mais <Icon name="arrow-right" />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+      <li class="reveal" style={`--i:${brands.length}`}>
+        <a
+          class="brand brand--other"
+          href={getWhatsAppUrl(otherBrand.whatsappMessage)}
+          target="_blank"
+          rel="noopener"
+          data-wa="outras-marcas"
+        >
+          <span class="brand__art">
+            <Art name={otherBrand.art} />
+          </span>
+          <span class="brand__name">{otherBrand.name}</span>
+          <span class="brand__more" aria-hidden="true">
+            <Icon name="whatsapp" /> WhatsApp
+          </span>
+          <span class="sr-only">(abre o WhatsApp)</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .brands__title {
+    font-size: var(--fs-h2);
+    margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+
+  .brands__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .brands__list > li:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .brand {
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
+    height: 100%;
+    padding: 1rem 0.75rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--white);
+    text-decoration: none;
+    color: var(--ink);
+    transition:
+      border-color 0.4s var(--ease-out),
+      box-shadow 0.5s var(--ease-out),
+      transform 0.5s var(--ease-out);
+  }
+
+  .brand__art {
+    width: min(100%, 9rem);
+  }
+
+  .brand__art :global(.art) {
+    transition: transform 0.7s var(--ease-out);
+  }
+
+  .brand__name {
+    font-size: 1.25rem;
+    font-stretch: 88%;
+    font-weight: 780;
+    letter-spacing: -0.01em;
+  }
+
+  .brand__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+    font-weight: 650;
+    color: var(--steel);
+  }
+
+  .brand__more :global(svg) {
+    width: 0.95rem;
+    height: 0.95rem;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .brand--other {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    justify-items: start;
+    align-items: center;
+    column-gap: 1rem;
+    background: var(--enamel);
+  }
+
+  .brand--other .brand__art {
+    grid-row: 1 / 3;
+    width: 6rem;
+  }
+
+  .brand:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-2px);
+  }
+
+  .brand:hover .brand__art :global(.art) {
+    transform: translateY(-4px) rotate(-4deg);
+  }
+
+  .brand:hover .brand__more :global(svg) {
+    transform: translateX(3px);
+  }
+
+  @media (min-width: 768px) {
+    .brands__list {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .brands__list > li:last-child {
+      grid-column: auto;
+    }
+
+    .brand--other {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    .brand--other .brand__art {
+      grid-row: auto;
+      width: min(100%, 9rem);
+    }
+  }
+</style>

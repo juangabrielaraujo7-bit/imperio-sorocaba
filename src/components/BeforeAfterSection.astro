@@ -1,0 +1,67 @@
+---
+/** Home > Antes e depois. Cards por categoria (src/data/media.ts). */
+import Icon from './Icon.astro';
+import MediaCard from './MediaCard.astro';
+import MediaRail from './MediaRail.astro';
+import { beforeAfterCards } from '../data/media';
+import { business } from '../data/business';
+import { getWhatsAppUrl } from '../lib/whatsapp';
+---
+
+<section class="section ba-sec" id="antes-e-depois" aria-labelledby="ba-title">
+  <div class="container">
+    <div class="ba-sec__head reveal">
+      <h2 id="ba-title">Veja o resultado do nosso trabalho</h2>
+      <a
+        class="arrow-link"
+        href={getWhatsAppUrl(business.whatsapp.messages.beforeAfter)}
+        target="_blank"
+        rel="noopener"
+        data-wa="antes-depois"
+      >
+        <Icon name="whatsapp" />
+        <span>Pedir orçamento</span>
+      </a>
+    </div>
+
+    <MediaRail label="Antes e depois" cols={4}>
+      {
+        beforeAfterCards.map((card, i) => (
+          <li class="reveal" style={`--i:${i}`}>
+            <MediaCard item={card.items[0] ?? null} label={card.label} />
+          </li>
+        ))
+      }
+    </MediaRail>
+  </div>
+</section>
+
+<style>
+  .ba-sec {
+    background: var(--enamel);
+    border-block: 1px solid var(--line);
+  }
+
+  .ba-sec :global(.mcard__frame) {
+    background: var(--white);
+  }
+
+  .ba-sec__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+
+  .ba-sec__head h2 {
+    font-size: var(--fs-h2);
+    max-width: 16ch;
+  }
+
+  .ba-sec__head .arrow-link :global(svg) {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+</style>

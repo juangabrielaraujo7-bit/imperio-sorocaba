@@ -65,7 +65,7 @@
   /* Espaço */
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
   --max: 76rem;
-  --section: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --section: clamp(3.25rem, 2.25rem + 4.5vw, 7rem);
   --radius: 1.25rem;
   --radius-sm: 0.75rem;
 
@@ -197,6 +197,13 @@ button {
 
 .section {
   padding-block: var(--section);
+}
+
+/* Trilho de minutos entre duas seções brancas: centrado no vão, sem somar espaço.
+   Mudanças de faixa (esmalte/azul) usam a própria borda da faixa. */
+.divider {
+  position: relative;
+  margin-block: calc(var(--section) * -0.5);
 }
 
 .sr-only {

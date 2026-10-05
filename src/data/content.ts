@@ -1,90 +1,19 @@
 /**
- * Conteúdo que depende de material real da loja.
- *
- * Tudo aqui começa vazio ou com fatos verificáveis. Os componentes se
- * adaptam sozinhos: seção sem conteúdo exibe uma versão mínima e discreta.
- * Não invente depoimentos, números, garantias, prazos ou produtos.
+ * Conteúdo de texto da home que não é dado cadastral.
+ * Frases curtas. Não escrever promessas não confirmadas
+ * (garantia, prazo, diagnóstico gratuito, anos de experiência etc.).
  */
-import type { ImageMetadata } from 'astro';
-import { business } from './business';
+import type { FaqItem } from './services';
 
-/* ------------------------------------------------------------------ */
-/* Diferenciais (seção de confiança)                                   */
-/* ------------------------------------------------------------------ */
-
-export interface Differential {
-  title: string;
-  text: string;
-}
-
-/**
- * Até 3 diferenciais. Hoje estão aqui apenas fatos já confirmados.
- * Substitua pelos diferenciais reais quando a loja definir
- * (ex.: garantia, prazo, laboratório — somente se forem verdade).
- */
-export const differentials: Differential[] = [
-  {
-    title: 'Loja física',
-    text: `${business.address.street}, ${business.address.complement}, ${business.address.neighborhood}.`,
-  },
-  {
-    title: `${business.reviews.rating.toFixed(1).replace('.', ',')} no Google`,
-    text: `Nota média em ${business.reviews.count} avaliações de clientes.`,
-  },
-  {
-    title: 'Direto pelo WhatsApp',
-    text: `Fale com a loja pelo ${business.phone.display}.`,
-  },
+/* Como funciona ----------------------------------------------------- */
+export const steps = [
+  { title: 'Fale com a gente', text: 'Pelo WhatsApp ou pelo orçamento rápido.' },
+  { title: 'Conte o problema', text: 'Marca, modelo e o que aconteceu.' },
+  { title: 'Receba o orçamento', text: 'Direto no seu WhatsApp.' },
+  { title: 'Leve o aparelho até a loja', text: 'Vila Barcelona, Sorocaba.' },
 ];
 
-/* ------------------------------------------------------------------ */
-/* Trabalhos realizados / antes e depois                               */
-/* ------------------------------------------------------------------ */
-
-export interface WorkItem {
-  /** Foto do aparelho antes do serviço (src/assets/images/trabalhos/) */
-  before: ImageMetadata;
-  /** Foto depois do serviço */
-  after: ImageMetadata;
-  /** Tipo de serviço realizado */
-  service: string;
-  /** Modelo do aparelho, ex.: "Galaxy A54" */
-  device: string;
-  /** Descrição curta e real */
-  description?: string;
-}
-
-/**
- * Exemplo de como adicionar (depois de colocar as fotos na pasta):
- *
- * import antes1 from '../assets/images/trabalhos/aparelho-1-antes.jpg';
- * import depois1 from '../assets/images/trabalhos/aparelho-1-depois.jpg';
- * export const works: WorkItem[] = [
- *   { before: antes1, after: depois1, service: '...', device: '...', description: '...' },
- * ];
- */
-export const works: WorkItem[] = [];
-
-/* ------------------------------------------------------------------ */
-/* Acessórios / loja                                                   */
-/* ------------------------------------------------------------------ */
-
-export interface ProductCategory {
-  title: string;
-  text?: string;
-  image?: ImageMetadata;
-}
-
-/**
- * Categorias de produtos realmente vendidos na loja
- * (ex.: películas, capas, carregadores). Vazio até a confirmação.
- */
-export const productCategories: ProductCategory[] = [];
-
-/* ------------------------------------------------------------------ */
-/* Avaliações                                                          */
-/* ------------------------------------------------------------------ */
-
+/* Avaliações -------------------------------------------------------- */
 export interface Review {
   /** Nome como aparece no Google */
   author: string;
@@ -92,24 +21,39 @@ export interface Review {
   text: string;
   /** 1 a 5 */
   rating: number;
-  /** Ex.: "há 2 meses" ou "março de 2026" */
+  /** Ex.: "há 2 meses" */
   date?: string;
 }
 
-/** Até 3 avaliações reais, copiadas do Perfil da Empresa no Google. */
+/** Até 3 avaliações REAIS copiadas do Perfil da Empresa no Google. */
 export const reviews: Review[] = [];
 
-/* ------------------------------------------------------------------ */
-/* Sobre                                                               */
-/* ------------------------------------------------------------------ */
-
+/* Sobre --------------------------------------------------------------- */
 export const about = {
-  /**
-   * Parágrafos com a história real da empresa. Vazio = a seção mostra
-   * apenas os fatos objetivos (nome, endereço, horário).
-   */
-  story: [] as string[],
-  /** Foto da equipe ou da loja (src/assets/images/loja/) */
-  photo: undefined as ImageMetadata | undefined,
-  photoAlt: 'Equipe e loja da Império Eletrônicos na Vila Barcelona, Sorocaba',
+  title: 'Império Eletrônicos Sorocaba',
+  lines: ['Loja física na Vila Barcelona.', 'Assistência técnica e eletrônicos em Sorocaba.'],
 };
+
+/* FAQ da home --------------------------------------------------------- */
+export const homeFaqs: FaqItem[] = [
+  {
+    q: 'Como peço um orçamento?',
+    a: 'Chame no WhatsApp ou use o orçamento rápido do site com a marca, o modelo e o defeito.',
+  },
+  {
+    q: 'Quais marcas vocês atendem?',
+    a: 'iPhone, Samsung, Motorola, Xiaomi e outras marcas.',
+  },
+  {
+    q: 'Quanto tempo leva o conserto?',
+    a: 'Depende do aparelho e do defeito. O prazo é informado junto com o orçamento.',
+  },
+  {
+    q: 'Preciso levar o aparelho até a loja?',
+    a: 'Para o reparo, sim. O orçamento pode ser pedido antes, pelo WhatsApp.',
+  },
+  {
+    q: 'Vou perder meus dados?',
+    a: 'Depende do reparo. Por segurança, mantenha um backup atualizado antes de levar o aparelho.',
+  },
+];

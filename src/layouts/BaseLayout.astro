@@ -5,7 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileWhatsAppBar from '../components/MobileWhatsAppBar.astro';
 import { business } from '../data/business';
-import { absoluteUrl, localBusinessJsonLd, webSiteJsonLd } from '../lib/seo';
+import { absoluteUrl, cleanPath, localBusinessJsonLd, webSiteJsonLd } from '../lib/seo';
 
 interface Props {
   /** Título completo da página (único por página) */
@@ -33,7 +33,7 @@ const {
 } = Astro.props;
 
 const site = Astro.site ?? business.siteUrl;
-const canonical = absoluteUrl(Astro.url.pathname, site);
+const canonical = absoluteUrl(cleanPath(Astro.url.pathname), site);
 const ogImageUrl = absoluteUrl(ogImage, site);
 const structured = [localBusinessJsonLd(site), webSiteJsonLd(site), ...jsonLd];
 ---
