@@ -1,67 +1,472 @@
 ---
-/** Home > Antes e depois. Cards por categoria (src/data/media.ts). */
+/**
+ * Home > "Veja o resultado do nosso trabalho".
+ * Carrossel 3D: card do centro em destaque, vizinhos menores, inclinados
+ * e desfocados. Avança sozinho a cada 4s (pausa no hover, no foco, com
+ * vídeo tocando e com "reduzir movimento"). Itens em src/data/media.ts.
+ */
 import Icon from './Icon.astro';
-import MediaCard from './MediaCard.astro';
-import MediaRail from './MediaRail.astro';
+import VideoCard from './VideoCard.astro';
+import BeforeAfter from './BeforeAfter.astro';
 import { beforeAfterCards } from '../data/media';
 import { business } from '../data/business';
 import { getWhatsAppUrl } from '../lib/whatsapp';
+
+const slides = beforeAfterCards.map((card) => {
+  const item = card.items[0] ?? null;
+  return { label: item?.caption ?? card.label, item };
+});
+
+// começa pelo primeiro card que já tem mídia real
+const firstWithMedia = slides.findIndex((s) => s.item);
+const start = firstWithMedia >= 0 ? firstWithMedia : Math.floor(slides.length / 2);
 ---
 
-<section class="section ba-sec" id="antes-e-depois" aria-labelledby="ba-title">
-  <div class="container">
-    <div class="ba-sec__head reveal">
+<section class="section results" id="antes-e-depois" aria-labelledby="ba-title">
+  <div class="results__glow" aria-hidden="true"></div>
+  <div class="container results__inner">
+    <div class="results__head reveal">
       <h2 id="ba-title">Veja o resultado do nosso trabalho</h2>
-      <a
-        class="arrow-link"
-        href={getWhatsAppUrl(business.whatsapp.messages.beforeAfter)}
-        target="_blank"
-        rel="noopener"
-        data-wa="antes-depois"
-      >
-        <Icon name="whatsapp" />
-        <span>Pedir orçamento</span>
-      </a>
+      <p>Reparos reais, feitos na bancada da loja.</p>
     </div>
 
-    <MediaRail label="Antes e depois" cols={4}>
-      {
-        beforeAfterCards.map((card, i) => (
-          <li class="reveal" style={`--i:${i}`}>
-            <MediaCard item={card.items[0] ?? null} label={card.label} />
-          </li>
-        ))
-      }
-    </MediaRail>
+    <div
+      class="carousel reveal"
+      data-carousel
+      data-start={start}
+      role="region"
+      aria-roledescription="carrossel"
+      aria-label="Serviços realizados"
+      tabindex="0"
+    >
+      <div class="carousel__stage">
+        {
+          slides.map((slide, i) => (
+            <figure
+              class:list={['slide', { 'slide--empty': !slide.item }]}
+              data-slide
+              data-index={i}
+              aria-roledescription="slide"
+              aria-label={`${i + 1} de ${slides.length}: ${slide.label}`}
+            >
+              <div class="slide__frame">
+                {!slide.item ? (
+                  <div class="slide__empty" aria-hidden="true">
+                    <span class="slide__half">Antes</span>
+                    <span class="slide__seam" />
+                    <span class="slide__half slide__half--end">Depois</span>
+                    <span class="slide__soon">Em breve</span>
+                  </div>
+                ) : slide.item.type === 'video' ? (
+                  <VideoCard src={slide.item.src} poster={slide.item.poster} alt={slide.item.alt} />
+                ) : slide.item.type === 'image' ? (
+                  <img src={slide.item.src} alt={slide.item.alt} loading="lazy" decoding="async" />
+                ) : (
+                  <BeforeAfter before={slide.item.before} after={slide.item.after} alt={slide.item.alt} />
+                )}
+              </div>
+              <figcaption class="slide__caption">
+                <span class="diamond" aria-hidden="true" />
+                {slide.label}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+
+      <button class="carousel__nav carousel__nav--prev" type="button" data-prev aria-label="Anterior">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+      </button>
+      <button class="carousel__nav carousel__nav--next" type="button" data-next aria-label="Próximo">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+      </button>
+
+      <ol class="carousel__dots" role="list" aria-hidden="true">
+        {slides.map((_, i) => <li data-dot={i} />)}
+      </ol>
+    </div>
+
+    <a
+      class="btn btn--primary results__cta reveal"
+      href={getWhatsAppUrl(business.whatsapp.messages.beforeAfter)}
+      target="_blank"
+      rel="noopener"
+      data-wa="antes-depois"
+    >
+      <Icon name="whatsapp" />
+      <span>Pedir orçamento</span>
+    </a>
   </div>
 </section>
 
 <style>
-  .ba-sec {
+  .results {
+    position: relative;
+    overflow: hidden;
     background: var(--enamel);
     border-block: 1px solid var(--line);
   }
 
-  .ba-sec :global(.mcard__frame) {
-    background: var(--white);
+  /* brilho suave em azul aço e dourado, sem gradiente "SaaS" */
+  .results__glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(38rem 26rem at 22% 70%, rgb(25 91 119 / 0.1), transparent 70%),
+      radial-gradient(30rem 22rem at 80% 30%, rgb(253 197 40 / 0.12), transparent 70%);
+    pointer-events: none;
   }
 
-  .ba-sec__head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: end;
-    justify-content: space-between;
-    gap: 0.75rem 2rem;
-    margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  .results__inner {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    text-align: center;
   }
 
-  .ba-sec__head h2 {
+  .results__head h2 {
     font-size: var(--fs-h2);
-    max-width: 16ch;
+    max-width: 18ch;
+    margin-inline: auto;
   }
 
-  .ba-sec__head .arrow-link :global(svg) {
-    width: 1.2rem;
-    height: 1.2rem;
+  .results__head p {
+    margin-top: 0.75rem;
+    color: var(--ink-2);
+  }
+
+  /* ---------- carrossel ---------- */
+
+  .carousel {
+    --w: clamp(12rem, 9rem + 14vw, 17rem);
+    position: relative;
+    width: 100%;
+    margin-top: clamp(1.75rem, 1.25rem + 2vw, 2.75rem);
+    outline: none;
+  }
+
+  .carousel:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 8px;
+    border-radius: var(--radius);
+  }
+
+  .carousel__stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: calc(var(--w) * 16 / 9 + 2.75rem);
+    perspective: 1000px;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    width: var(--w);
+    margin: 0;
+    transition:
+      transform 0.6s var(--ease-out),
+      opacity 0.6s var(--ease-out),
+      filter 0.6s var(--ease-out);
+    will-change: transform;
+  }
+
+  .slide__frame {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: var(--white);
+    border: 2px solid rgb(11 17 22 / 0.08);
+    box-shadow: 0 30px 50px -24px rgb(15 65 87 / 0.45);
+  }
+
+  .slide__frame > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .slide__caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+    font-weight: 650;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .slide.is-center .slide__caption {
+    opacity: 1;
+  }
+
+  .slide__caption .diamond {
+    font-size: 0.75rem;
+  }
+
+  /* vizinhos: só a central é interativa por dentro */
+  .slide:not(.is-center) .slide__frame {
+    cursor: pointer;
+  }
+
+  .slide:not(.is-center) .slide__frame > :global(*) {
+    pointer-events: none;
+  }
+
+  /* moldura vazia: costura antes | depois, em pé */
+  .slide__empty {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    background-image: radial-gradient(rgb(25 91 119 / 0.14) 1px, transparent 1.2px);
+    background-size: 12px 12px;
+  }
+
+  .slide__half {
+    display: grid;
+    place-items: end start;
+    padding: 0.85rem;
+    font-size: var(--fs-label);
+    font-stretch: 125%;
+    font-weight: 620;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+
+  .slide__half--end {
+    place-items: end end;
+  }
+
+  .slide__seam {
+    position: relative;
+    width: 2px;
+    background: var(--steel);
+  }
+
+  .slide__seam::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.4rem;
+    height: 1.4rem;
+    background: var(--gold);
+    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
+    mask: var(--diamond-mask) center / contain no-repeat;
+    transform: translate(-50%, -50%);
+  }
+
+  .slide__soon {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    font-size: 0.68rem;
+    font-stretch: 125%;
+    font-weight: 620;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--steel);
+    white-space: nowrap;
+  }
+
+  .carousel__nav {
+    position: absolute;
+    top: calc((var(--w) * 16 / 9) / 2);
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.9);
+    color: var(--steel);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+      border-color 0.2s,
+      background-color 0.2s,
+      color 0.2s;
+  }
+
+  .carousel__nav:hover {
+    border-color: var(--steel);
+    background: var(--steel);
+    color: var(--white);
+  }
+
+  .carousel__nav--prev {
+    left: 0;
+  }
+
+  .carousel__nav--next {
+    right: 0;
+  }
+
+  .carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .carousel__dots li {
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--line-strong);
+    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
+    mask: var(--diamond-mask) center / contain no-repeat;
+    transition:
+      background-color 0.3s,
+      transform 0.3s var(--ease-out);
+  }
+
+  .carousel__dots li.is-active {
+    background: var(--gold-deep);
+    transform: scale(1.4);
+  }
+
+  .results__cta {
+    margin-top: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  }
+
+  @media (min-width: 768px) {
+    .carousel__nav--prev {
+      left: 8%;
+    }
+
+    .carousel__nav--next {
+      right: 8%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide {
+      transition: none;
+    }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
+    const total = slides.length;
+    if (!total) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = Number(root.dataset.start) || 0;
+    let timer: number | undefined;
+    let hovering = false;
+
+    const render = () => {
+      slides.forEach((slide, index) => {
+        let pos = (index - current + total) % total;
+        if (pos > Math.floor(total / 2)) pos -= total;
+        const center = pos === 0;
+        const adjacent = Math.abs(pos) === 1;
+
+        slide.style.transform = `translateX(${pos * 62}%) scale(${center ? 1 : adjacent ? 0.85 : 0.7}) rotateY(${pos * -10}deg)`;
+        slide.style.zIndex = center ? '10' : adjacent ? '5' : '1';
+        slide.style.opacity = center ? '1' : adjacent ? '0.45' : '0';
+        slide.style.filter = center ? 'none' : 'blur(3px)';
+        slide.style.visibility = Math.abs(pos) > 1 ? 'hidden' : 'visible';
+        slide.classList.toggle('is-center', center);
+        slide.setAttribute('aria-hidden', String(!center));
+        slide
+          .querySelectorAll<HTMLElement>('button, input, a, video')
+          .forEach((el) => (el.tabIndex = center ? 0 : -1));
+
+        // tira o foco de vídeo que saiu do centro
+        if (!center) {
+          const video = slide.querySelector('video');
+          if (video && !video.paused) {
+            video.pause();
+            slide.querySelector('[data-vcard]')?.classList.remove('is-playing');
+          }
+        }
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    };
+
+    const go = (to: number) => {
+      current = (to + total) % total;
+      render();
+    };
+
+    const videoPlaying = () => {
+      const v = slides[current].querySelector('video');
+      return Boolean(v && !v.paused);
+    };
+
+    const stop = () => window.clearInterval(timer);
+    const play = () => {
+      stop();
+      if (reduce || total < 2) return;
+      timer = window.setInterval(() => {
+        if (!hovering && !videoPlaying() && !root.contains(document.activeElement)) go(current + 1);
+      }, 4000);
+    };
+
+    root.querySelector('[data-prev]')?.addEventListener('click', () => {
+      go(current - 1);
+      play();
+    });
+    root.querySelector('[data-next]')?.addEventListener('click', () => {
+      go(current + 1);
+      play();
+    });
+
+    // clicar num vizinho traz ele para o centro
+    slides.forEach((slide, i) => {
+      slide.addEventListener('click', () => {
+        if (i !== current) {
+          go(i);
+          play();
+        }
+      });
+    });
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        go(current - 1);
+        play();
+      } else if (e.key === 'ArrowRight') {
+        go(current + 1);
+        play();
+      }
+    });
+
+    root.addEventListener('mouseenter', () => (hovering = true));
+    root.addEventListener('mouseleave', () => (hovering = false));
+
+    // arrastar no celular
+    let x0: number | null = null;
+    root.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+    root.addEventListener(
+      'touchend',
+      (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) {
+          go(current + (dx < 0 ? 1 : -1));
+          play();
+        }
+        x0 = null;
+      },
+      { passive: true },
+    );
+
+    render();
+    play();
+  });
+</script>
