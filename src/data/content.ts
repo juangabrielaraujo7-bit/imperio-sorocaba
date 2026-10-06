@@ -5,14 +5,6 @@
  */
 import type { FaqItem } from './services';
 
-/* Como funciona ----------------------------------------------------- */
-export const steps = [
-  { title: 'Fale com a gente', text: 'Pelo WhatsApp ou pelo orçamento rápido.' },
-  { title: 'Conte o problema', text: 'Marca, modelo e o que aconteceu.' },
-  { title: 'Receba o orçamento', text: 'Direto no seu WhatsApp.' },
-  { title: 'Leve o aparelho até a loja', text: 'Vila Barcelona, Sorocaba.' },
-];
-
 /* Avaliações -------------------------------------------------------- */
 export interface Review {
   /** Nome como aparece no Google */
@@ -26,7 +18,26 @@ export interface Review {
 }
 
 /** Até 3 avaliações REAIS copiadas do Perfil da Empresa no Google. */
-export const reviews: Review[] = [];
+export const reviews: Review[] = [
+  {
+    author: 'Katiane Hoffmann',
+    rating: 5,
+    date: '5 anos atrás',
+    text: 'Super recomendo a loja, o atendimento é nota 1000, super atenciosos! Além da variações de produtos que são de ótimas qualidades! Sempre que preciso de alguma coisa, sei que posso contar com eles.',
+  },
+  {
+    author: 'Mundo Da Moda',
+    rating: 5,
+    date: 'um ano atrás',
+    text: 'Otimo atendimento, super recomendo!!! Assitencia maravilhosa....',
+  },
+  {
+    author: 'Caroline Fidencio',
+    rating: 5,
+    date: '4 anos atrás',
+    text: 'Excelente, assistência técnica e acessórios!',
+  },
+];
 
 /* Sobre --------------------------------------------------------------- */
 export const about = {

@@ -12,7 +12,6 @@ import ServiceGallery from '../components/ServiceGallery.astro';
 import StoreBlock from '../components/StoreBlock.astro';
 import Faq from '../components/Faq.astro';
 import LinkChips from '../components/LinkChips.astro';
-import MinuteTrack from '../components/MinuteTrack.astro';
 import { services, servicesWithPage, type Service, type ServicePage } from '../data/services';
 import { brands, brandOptions, problemOptions, type Brand } from '../data/brands';
 import { serviceMedia, brandMedia } from '../data/media';
@@ -81,7 +80,7 @@ const serviceLd = (name: string, description: string) => ({
         art={entry.service.art}
         image={entry.service.image}
       />
-      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <div class="container divider"><hr /></div>
       <OptionPicker
         heading="Qual a marca do seu aparelho?"
         options={brandOptions}
@@ -92,7 +91,7 @@ const serviceLd = (name: string, description: string) => ({
       <ServiceGallery items={serviceMedia[entry.service.key] ?? []} />
       <StoreBlock whatsappMessage={entry.service.whatsappMessage} />
       <Faq title={`Dúvidas sobre ${entry.service.title.toLowerCase()}`} faqs={entry.service.page.faqs} />
-      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <div class="container divider"><hr /></div>
       <LinkChips
         groups={[
           { title: 'Outros serviços', links: serviceLinks.filter((l) => l.href !== `/${entry.service.slug}`) },
@@ -119,7 +118,7 @@ const serviceLd = (name: string, description: string) => ({
         art={entry.brand.art}
         image={entry.brand.image}
       />
-      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <div class="container divider"><hr /></div>
       <OptionPicker
         heading={`O que aconteceu com seu ${entry.brand.device}?`}
         options={problemOptions}
@@ -128,7 +127,7 @@ const serviceLd = (name: string, description: string) => ({
       <ServiceGallery title={`Serviços realizados em ${entry.brand.device}`} items={brandMedia[entry.brand.key] ?? []} />
       <StoreBlock whatsappMessage={entry.brand.whatsappMessage} />
       <Faq title={`Dúvidas sobre conserto de ${entry.brand.device}`} faqs={entry.brand.faqs} />
-      <div class="container divider"><MinuteTrack class="reveal" /></div>
+      <div class="container divider"><hr /></div>
       <LinkChips
         groups={[
           { title: `Serviços para ${entry.brand.device}`, links: serviceLinks },

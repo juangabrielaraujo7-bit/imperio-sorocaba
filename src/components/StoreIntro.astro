@@ -17,7 +17,7 @@ import { business } from '../data/business';
         {
           about.lines.map((line) => (
             <li>
-              <span class="diamond" aria-hidden="true" />
+              <span class="dot" aria-hidden="true" />
               {line}
             </li>
           ))
@@ -70,8 +70,10 @@ import { business } from '../data/business';
     gap: 0.6rem;
   }
 
-  .store__lines .diamond {
-    font-size: 0.8rem;
+  .store__lines .dot {
+    font-size: 1rem;
+    background: var(--gold-deep);
+    transform: translateY(-0.1em);
   }
 
   .store__copy .arrow-link :global(svg) {

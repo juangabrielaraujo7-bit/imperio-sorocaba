@@ -5,12 +5,10 @@ import Services from '../components/Services.astro';
 import BeforeAfterSection from '../components/BeforeAfterSection.astro';
 import Brands from '../components/Brands.astro';
 import QuoteForm from '../components/QuoteForm.astro';
-import HowItWorks from '../components/HowItWorks.astro';
 import Reviews from '../components/Reviews.astro';
 import StoreIntro from '../components/StoreIntro.astro';
 import Location from '../components/Location.astro';
 import Faq from '../components/Faq.astro';
-import MinuteTrack from '../components/MinuteTrack.astro';
 import { homeFaqs } from '../data/content';
 
 const title = 'Assistência Técnica de Celular em Sorocaba | Império Eletrônicos';
@@ -20,14 +18,12 @@ const description =
 
 <BaseLayout title={title} description={description} splash>
   <Hero />
-  <div class="container divider"><MinuteTrack class="reveal" /></div>
+  <div class="container divider"><hr /></div>
   <Services />
   <BeforeAfterSection />
   <Brands />
-  <div class="container divider"><MinuteTrack class="reveal" /></div>
+  <div class="container divider"><hr /></div>
   <QuoteForm />
-  <div class="container divider"><MinuteTrack class="reveal" /></div>
-  <HowItWorks />
   <Reviews />
   <StoreIntro />
   <Location />

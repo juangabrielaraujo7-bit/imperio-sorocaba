@@ -16,9 +16,9 @@ const S = '#195B77';
 const G = '#FDC528';
 const D = '#0F4157';
 const E = '#EAF0F3';
-// losango côncavo centrado em (x,y) com raio r
+// bolinha centrada em (x,y) com raio r
 const gem = (x: number, y: number, r: number) =>
-  `M${x} ${y - r}Q${x + r * 0.22} ${y - r * 0.22} ${x + r} ${y}Q${x + r * 0.22} ${y + r * 0.22} ${x} ${y + r}Q${x - r * 0.22} ${y + r * 0.22} ${x - r} ${y}Q${x - r * 0.22} ${y - r * 0.22} ${x} ${y - r}Z`;
+  `M${x - r} ${y}a${r} ${r} 0 1 0 ${r * 2} 0a${r} ${r} 0 1 0 ${-r * 2} 0Z`;
 ---
 
 <svg

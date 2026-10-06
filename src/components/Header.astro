@@ -69,7 +69,6 @@ const waUrl = getWhatsAppUrl(business.whatsapp.messages.home);
           mainNav.map((item, i) => (
             <li style={`--i:${i}`}>
               <a href={item.href} data-menu-link>
-                <span class="diamond" aria-hidden="true" />
                 {item.label}
               </a>
             </li>
@@ -150,8 +149,8 @@ const waUrl = getWhatsAppUrl(business.whatsapp.messages.home);
     width: 0.45rem;
     height: 0.45rem;
     background: var(--gold);
-    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
-    mask: var(--diamond-mask) center / contain no-repeat;
+    -webkit-mask: var(--dot-mask) center / contain no-repeat;
+    mask: var(--dot-mask) center / contain no-repeat;
     transform: translateX(-50%) scale(0);
     transition: transform 0.35s var(--ease-out);
   }
@@ -263,10 +262,6 @@ const waUrl = getWhatsAppUrl(business.whatsapp.messages.home);
     font-stretch: 92%;
     font-weight: 680;
     text-decoration: none;
-  }
-
-  .mobile-menu li .diamond {
-    font-size: 0.85rem;
   }
 
   .mobile-menu__cta {

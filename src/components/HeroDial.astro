@@ -70,13 +70,7 @@ const ticks = Array.from({ length: 60 }, (_, i) => {
     </g>
 
     <!-- índice dourado no 12: o losango da logo -->
-    <path
-      class="dial__index"
-      d="M260 18 Q264.5 29.5 276 34 Q264.5 38.5 260 50 Q255.5 38.5 244 34 Q255.5 29.5 260 18 Z"
-      fill="#FDC528"
-      stroke="#195B77"
-      stroke-width="3"
-      stroke-linejoin="round"></path>
+    <circle class="dial__index" cx="260" cy="34" r="9" fill="#FDC528" stroke="#195B77" stroke-width="2.5"></circle>
 
     <!-- celular aberto em três planos -->
     <g class="dial__phone" transform="translate(260 270)">
@@ -127,7 +121,7 @@ const ticks = Array.from({ length: 60 }, (_, i) => {
     <g class="dial__hand">
       <line x1="260" y1="284" x2="260" y2="72" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-opacity="0.9"></line>
       <line x1="260" y1="284" x2="260" y2="72" stroke="#195B77" stroke-width="2" stroke-linecap="round"></line>
-      <path d="M260 54 Q263 63 271 66 Q263 69 260 78 Q257 69 249 66 Q257 63 260 54 Z" fill="#FDC528" stroke="#195B77" stroke-width="1.5" stroke-linejoin="round"></path>
+      <circle cx="260" cy="66" r="7" fill="#FDC528" stroke="#195B77" stroke-width="1.5"></circle>
       <circle cx="260" cy="260" r="7" fill="#195B77" stroke="#FFFFFF" stroke-width="2"></circle>
       <circle cx="260" cy="260" r="2.2" fill="#FDC528"></circle>
     </g>

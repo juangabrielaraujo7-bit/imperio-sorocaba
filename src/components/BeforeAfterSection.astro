@@ -66,7 +66,6 @@ const start = firstWithMedia >= 0 ? firstWithMedia : Math.floor(slides.length / 
                 )}
               </div>
               <figcaption class="slide__caption">
-                <span class="diamond" aria-hidden="true" />
                 {slide.label}
               </figcaption>
             </figure>
@@ -202,10 +201,6 @@ const start = firstWithMedia >= 0 ? firstWithMedia : Math.floor(slides.length / 
     opacity: 1;
   }
 
-  .slide__caption .diamond {
-    font-size: 0.75rem;
-  }
-
   /* vizinhos: só a central é interativa por dentro */
   .slide:not(.is-center) .slide__frame {
     cursor: pointer;
@@ -252,11 +247,11 @@ const start = firstWithMedia >= 0 ? firstWithMedia : Math.floor(slides.length / 
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 0.8rem;
+    height: 0.8rem;
     background: var(--gold);
-    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
-    mask: var(--diamond-mask) center / contain no-repeat;
+    -webkit-mask: var(--dot-mask) center / contain no-repeat;
+    mask: var(--dot-mask) center / contain no-repeat;
     transform: translate(-50%, -50%);
   }
 
@@ -320,19 +315,18 @@ const start = firstWithMedia >= 0 ? firstWithMedia : Math.floor(slides.length / 
   }
 
   .carousel__dots li {
-    width: 0.6rem;
-    height: 0.6rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
     background: var(--line-strong);
-    -webkit-mask: var(--diamond-mask) center / contain no-repeat;
-    mask: var(--diamond-mask) center / contain no-repeat;
     transition:
       background-color 0.3s,
       transform 0.3s var(--ease-out);
   }
 
   .carousel__dots li.is-active {
-    background: var(--gold-deep);
-    transform: scale(1.4);
+    background: var(--steel);
+    transform: scale(1.3);
   }
 
   .results__cta {

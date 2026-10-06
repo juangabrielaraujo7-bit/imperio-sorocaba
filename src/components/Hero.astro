@@ -5,7 +5,6 @@ import { business } from '../data/business';
 import { heroMedia } from '../data/media';
 import { getWhatsAppUrl } from '../lib/whatsapp';
 
-const rating = business.reviews.rating.toFixed(1).replace('.', ',');
 ---
 
 <section class="hero" id="inicio" aria-labelledby="hero-title">
@@ -34,23 +33,6 @@ const rating = business.reviews.rating.toFixed(1).replace('.', ',');
         </a>
       </div>
 
-      <ul class="hero__badges" role="list">
-        <li>
-          <a href={business.reviews.url} target="_blank" rel="noopener" class="badge">
-            <span class="badge__stars" aria-hidden="true">
-              <Icon name="star" />
-            </span>
-            <span><strong>{rating}</strong> no Google</span>
-            <span class="sr-only">(abre o Perfil da Empresa no Google)</span>
-          </a>
-        </li>
-        <li>
-          <a href="#localizacao" class="badge">
-            <Icon name="pin" />
-            <span>{business.address.neighborhood}, {business.address.city}</span>
-          </a>
-        </li>
-      </ul>
 
     </div>
 
@@ -164,51 +146,6 @@ const rating = business.reviews.rating.toFixed(1).replace('.', ',');
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 2rem;
-  }
-
-  .hero__badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.75rem;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.5rem;
-    padding: 0.4rem 0.9rem 0.4rem 0.7rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--white);
-    font-size: var(--fs-small);
-    font-weight: 520;
-    color: var(--ink-2);
-    text-decoration: none;
-    transition:
-      border-color 0.2s,
-      color 0.2s;
-  }
-
-  .badge strong {
-    color: var(--ink);
-    font-weight: 750;
-  }
-
-  .badge:hover {
-    border-color: var(--steel);
-    color: var(--ink);
-  }
-
-  .badge svg {
-    width: 1.1rem;
-    height: 1.1rem;
-    color: var(--steel);
-  }
-
-  .badge__stars svg {
-    color: var(--gold-deep);
   }
 
   .hero__visual {
