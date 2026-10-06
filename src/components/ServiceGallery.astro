@@ -17,6 +17,8 @@ const { title = 'Veja alguns serviços realizados', items } = Astro.props;
 
 {
   items.length > 0 && (
+    <>
+    <div class="container divider"><hr /></div>
     <section class="section gallery" aria-labelledby="galeria-title">
       <div class="container">
         <h2 id="galeria-title" class="gallery__title reveal">{title}</h2>
@@ -29,6 +31,7 @@ const { title = 'Veja alguns serviços realizados', items } = Astro.props;
         </MediaRail>
       </div>
     </section>
+    </>
   )
 }
 

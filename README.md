@@ -54,7 +54,7 @@ Guia completo em `public/media/LEIA-ME.md`. Resumo:
 |---|---|---|
 | `public/media/hero/` | topo da home | `heroMedia` |
 | `public/media/antes-depois/` | home > "Veja o resultado do nosso trabalho" | `beforeAfterCards` |
-| `public/media/loja/` | home > "Conheça a Império" e bloco "Loja física" das páginas internas | `storeVideos`, `storePhoto` |
+| `public/media/loja/` | home > "Conheça a Império" | `storeVideos` |
 | `public/media/servicos/<serviço>/` | páginas de serviço > "Veja alguns serviços realizados" | `serviceMedia` |
 | `public/media/marcas/<marca>/` | páginas de marca | `brandMedia` |
 

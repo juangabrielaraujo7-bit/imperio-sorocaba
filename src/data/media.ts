@@ -96,18 +96,6 @@ export const storeVideos: { label: string; item: MediaItem | null }[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Bloco "Loja física" das páginas internas: foto da fachada.           */
-/* Pasta: public/media/loja/                                            */
-/* ------------------------------------------------------------------ */
-export const storePhoto: MediaItem | null = {
-  type: 'image',
-  src: '/media/loja/fachada.webp',
-  alt: 'Fachada da Império Eletrônicos na Vila Barcelona, Sorocaba',
-  width: 542,
-  height: 817,
-};
-
-/* ------------------------------------------------------------------ */
 /* Páginas de serviço > "Veja alguns serviços realizados".             */
 /* Chave = key do serviço em services.ts.                               */
 /* Pasta: public/media/servicos/<key>/                                  */

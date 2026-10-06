@@ -6,7 +6,7 @@ Coloque aqui as fotos e vídeos **reais** da loja e registre cada arquivo em `sr
 |---|---|---|
 | `hero/` | vídeo curto da bancada/loja (mp4) + capa (jpg) ou uma foto | Topo da home (`heroMedia`) |
 | `antes-depois/` | fotos de antes/depois ou vídeos curtos de reparos | Home > "Veja o resultado do nosso trabalho" (`beforeAfterCards`) |
-| `loja/` | fachada, interior, equipe, vídeos da loja e da bancada | Home > "Conheça a Império" (`storeVideos`) e bloco "Loja física" das páginas internas (`storePhoto`) |
+| `loja/` | fachada, interior, equipe, vídeos da loja e da bancada | Home > "Conheça a Império" (`storeVideos`) |
 | `servicos/<serviço>/` | fotos/vídeos de cada tipo de reparo | Páginas de serviço (`serviceMedia`) |
 | `marcas/<marca>/` | fotos/vídeos de aparelhos da marca | Páginas de marca (`brandMedia`) |
 | `cards/servicos/`, `cards/marcas/` | recortes com fundo transparente (WebP) dos cards | Cards de Serviços e Marcas atendidas e topo das páginas internas (campo `image` em `services.ts` / `brands.ts`) |

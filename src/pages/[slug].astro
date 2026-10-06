@@ -9,7 +9,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import OptionPicker from '../components/OptionPicker.astro';
 import ServiceGallery from '../components/ServiceGallery.astro';
-import StoreBlock from '../components/StoreBlock.astro';
 import Faq from '../components/Faq.astro';
 import { services, servicesWithPage, type Service, type ServicePage } from '../data/services';
 import { brands, brandOptions, problemOptions, type Brand } from '../data/brands';
@@ -88,7 +87,7 @@ const serviceLd = (name: string, description: string) => ({
         links={brandLinks}
       />
       <ServiceGallery items={serviceMedia[entry.service.key] ?? []} />
-      <StoreBlock whatsappMessage={entry.service.whatsappMessage} />
+      <div class="container divider"><hr /></div>
       <Faq title={`Dúvidas sobre ${entry.service.title.toLowerCase()}`} faqs={entry.service.page.faqs} />
     </BaseLayout>
   ) : (
@@ -117,7 +116,7 @@ const serviceLd = (name: string, description: string) => ({
         messageTemplate={`Olá! Meu ${entry.brand.device} está com este problema: ${'{option}'}. Gostaria de um orçamento.`}
       />
       <ServiceGallery title={`Serviços realizados em ${entry.brand.device}`} items={brandMedia[entry.brand.key] ?? []} />
-      <StoreBlock whatsappMessage={entry.brand.whatsappMessage} />
+      <div class="container divider"><hr /></div>
       <Faq title={`Dúvidas sobre conserto de ${entry.brand.device}`} faqs={entry.brand.faqs} />
     </BaseLayout>
   )
