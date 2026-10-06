@@ -146,10 +146,6 @@ const stars = Array.from({ length: 5 });
     justify-items: start;
     align-content: center;
     gap: 1.5rem;
-    padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--white);
   }
 
   .gside__logo {
@@ -222,6 +218,10 @@ const stars = Array.from({ length: 5 });
   .quote {
     grid-area: 1 / 1;
     margin: 0;
+    padding: clamp(1.35rem, 1rem + 1.6vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--white);
     opacity: 0;
     transform: translateY(0.75rem);
     visibility: hidden;
@@ -277,7 +277,8 @@ const stars = Array.from({ length: 5 });
   }
 
   .quote__text {
-    margin-top: 1.25rem;
+    /* o navegador recua blockquote por padrão */
+    margin: 1.25rem 0 0;
   }
 
   .quote__text p {

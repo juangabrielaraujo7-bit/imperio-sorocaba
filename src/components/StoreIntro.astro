@@ -86,9 +86,16 @@ const items = withMedia.length > 0 ? withMedia : storeVideos;
     height: 1.15rem;
   }
 
+  @media (min-width: 768px) {
+    /* cartões menores: a fileira não ocupa a largura toda */
+    .store__inner :global(.rail) {
+      max-width: 38rem;
+    }
+  }
+
   @media (min-width: 1024px) {
     .store__inner {
-      grid-template-columns: 0.75fr 2fr;
+      grid-template-columns: 1fr 1.2fr;
       gap: 3rem;
       align-items: center;
     }
