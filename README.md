@@ -60,6 +60,8 @@ Guia completo em `public/media/LEIA-ME.md`. Resumo:
 
 Fotos dos cards de **Serviços** e **Marcas atendidas** (e do topo das páginas internas): `public/media/cards/`, recortes WebP com fundo transparente vindos do projeto Império das Telas (`public/img/servicos` e `public/img/marcas`). Para trocar, substitua o arquivo mantendo o nome ou altere o campo `image` em `services.ts` / `brands.ts`.
 
+Os arquivos originais enviados (fotos, vídeos e a logo do Google) ficam em `midia-original/` — fora de `public/`, para não irem ao ar. As versões otimizadas (WebP) é que são publicadas em `public/media/`.
+
 Sem mídia: a home mostra molduras discretas "Em breve"; nas páginas internas a galeria fica oculta e aparece sozinha quando houver itens.
 
 Componentes de mídia: `MediaCard` (foto, vídeo ou antes/depois), `VideoCard`, `BeforeAfter`, `MediaRail` (grade no desktop, rolagem lateral no celular) e `ServiceGallery`.

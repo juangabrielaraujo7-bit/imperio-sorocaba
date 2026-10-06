@@ -1,10 +1,14 @@
 ---
+/**
+ * Avaliações: marca do Google à esquerda, depoimento que troca sozinho à
+ * direita. Textos reais em src/data/content.ts (não inventar).
+ */
 import Icon from './Icon.astro';
 import { business } from '../data/business';
 import { reviews } from '../data/content';
 
 const rating = business.reviews.rating.toFixed(1).replace('.', ',');
-const list = reviews.slice(0, 3);
+const list = reviews.slice(0, 5);
 const stars = Array.from({ length: 5 });
 ---
 
@@ -12,54 +16,109 @@ const stars = Array.from({ length: 5 });
   <div class="container reviews__inner">
     <h2 id="avaliacoes-title" class="reviews__title reveal">Clientes que já confiaram na Império</h2>
 
-    <div class="reviews__score reveal" style="--i:1">
+    <div class="reviews__grid">
+      <div class="gside reveal">
+        <img
+          class="gside__logo"
+          src="/media/google-reviews.webp"
+          alt="Google Reviews"
+          width="600"
+          height="241"
+          loading="lazy"
+          decoding="async"
+        />
 
-      <div class="score" role="group" aria-label={`Nota ${rating} de 5 no Google, ${business.reviews.count} avaliações`}>
-        <span class="score__value" aria-hidden="true">{rating}</span>
-        <div class="score__meta" aria-hidden="true">
-          <span class="score__stars">
-            {stars.map(() => <Icon name="star" />)}
-          </span>
-          <span class="score__count">{business.reviews.count} avaliações no Google</span>
+        <div
+          class="score"
+          role="group"
+          aria-label={`Nota ${rating} de 5 no Google, ${business.reviews.count} avaliações`}
+        >
+          <span class="score__value" aria-hidden="true">{rating}</span>
+          <div class="score__meta" aria-hidden="true">
+            <span class="score__stars">
+              {stars.map(() => <Icon name="star" />)}
+            </span>
+            <span class="score__count">{business.reviews.count} avaliações</span>
+          </div>
         </div>
+
+        <a class="btn btn--ghost gside__cta" href={business.reviews.url} target="_blank" rel="noopener">
+          <span>Ver avaliações no Google</span>
+          <Icon name="external" />
+        </a>
       </div>
 
-      <a class="btn btn--ghost reviews__cta" href={business.reviews.url} target="_blank" rel="noopener">
-        <span>Ver avaliações no Google</span>
-        <Icon name="external" />
-      </a>
-    </div>
+      {
+        list.length > 0 && (
+          <div
+            class="quotes reveal"
+            style="--i:1"
+            data-quotes
+            role="region"
+            aria-roledescription="carrossel"
+            aria-label="Avaliações de clientes"
+            tabindex="0"
+          >
+            <div class="quotes__stack">
+              {list.map((review, i) => (
+                <figure class="quote" data-quote data-index={i}>
+                  <figcaption class="quote__who">
+                    <span class="quote__name">{review.author}</span>
+                    <span class="quote__meta">
+                      <span class="quote__stars" role="img" aria-label={`${review.rating} de 5 estrelas`}>
+                        {Array.from({ length: review.rating }).map(() => (
+                          <Icon name="star" />
+                        ))}
+                      </span>
+                      {review.date && <span class="quote__date">{review.date}</span>}
+                    </span>
+                  </figcaption>
+                  <blockquote class="quote__text">
+                    <p>“{review.text}”</p>
+                  </blockquote>
+                </figure>
+              ))}
+            </div>
 
-    {
-      list.length > 0 && (
-        <ul class="reviews__list" role="list">
-          {list.map((review, i) => (
-            <li class="review reveal" style={`--i:${i + 1}`}>
-              <figure>
-                <figcaption class="review__who">
-                  <span class="review__avatar" aria-hidden="true">
-                    {review.author.trim().charAt(0).toUpperCase()}
-                  </span>
-                  <span class="review__author">{review.author}</span>
-                  <span class="review__source">Avaliação no Google</span>
-                </figcaption>
-                <div class="review__meta">
-                  <span class="review__stars" role="img" aria-label={`${review.rating} de 5 estrelas`}>
-                    {Array.from({ length: review.rating }).map(() => (
-                      <Icon name="star" />
-                    ))}
-                  </span>
-                  {review.date && <span class="review__date">{review.date}</span>}
-                </div>
-                <blockquote>
-                  <p>{review.text}</p>
-                </blockquote>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      )
-    }
+            <div class="quotes__nav">
+              <button type="button" data-prev aria-label="Avaliação anterior">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M19 12H5M11 5l-6 7 6 7" />
+                </svg>
+              </button>
+              <button type="button" data-next aria-label="Próxima avaliação">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 5l6 7-6 7" />
+                </svg>
+              </button>
+              <ol class="quotes__dots" role="list" aria-hidden="true">
+                {list.map((_, i) => <li data-dot={i} />)}
+              </ol>
+            </div>
+          </div>
+        )
+      }
+    </div>
   </div>
 </section>
 
@@ -69,24 +128,43 @@ const stars = Array.from({ length: 5 });
     border-block: 1px solid var(--line);
   }
 
-  .reviews__inner {
-    display: grid;
-    gap: clamp(2.5rem, 1.5rem + 3vw, 4rem);
-  }
-
   .reviews__title {
     font-size: var(--fs-h2);
-    max-width: 14ch;
+    max-width: 16ch;
+  }
+
+  .reviews__grid {
+    display: grid;
+    gap: clamp(1.75rem, 1.25rem + 3vw, 3.5rem);
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+  }
+
+  /* ---- lado do Google ---- */
+
+  .gside {
+    display: grid;
+    justify-items: start;
+    align-content: center;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--white);
+  }
+
+  .gside__logo {
+    width: min(100%, 14rem);
+    height: auto;
   }
 
   .score {
     display: flex;
     align-items: center;
-    gap: clamp(1rem, 0.5rem + 2vw, 1.75rem);
+    gap: 1rem;
   }
 
   .score__value {
-    font-size: clamp(5rem, 3.5rem + 7vw, 8.5rem);
+    font-size: clamp(3.25rem, 2.5rem + 3.5vw, 4.5rem);
     font-stretch: 78%;
     font-weight: 820;
     line-height: 0.8;
@@ -97,115 +175,281 @@ const stars = Array.from({ length: 5 });
 
   .score__meta {
     display: grid;
-    gap: 0.6rem;
+    gap: 0.45rem;
   }
 
   .score__stars {
-    display: flex;
-    gap: 0.15rem;
-    color: var(--gold);
-  }
-
-  .score__stars :global(svg) {
-    width: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
-    height: auto;
-  }
-
-  .score__count {
-    font-weight: 600;
-    color: var(--ink-2);
-  }
-
-  .reviews__cta {
-    margin-top: 1.75rem;
-  }
-
-  .reviews__cta svg {
-    width: 1.05rem;
-    height: 1.05rem;
-  }
-
-  .reviews__list {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .review figure {
-    display: grid;
-    align-content: start;
-    gap: 0.9rem;
-    height: 100%;
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    border: 1px solid var(--line);
-    background: var(--white);
-  }
-
-  .review__stars {
     display: flex;
     gap: 0.1rem;
     color: var(--gold-deep);
   }
 
-  .review__stars :global(svg) {
-    width: 1.1rem;
-    height: 1.1rem;
+  .score__stars :global(svg) {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
-  .review blockquote {
-    margin: 0;
-  }
-
-  .review__who {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 0.75rem;
-    align-items: center;
-  }
-
-  .review__avatar {
-    grid-row: 1 / 3;
-    display: grid;
-    place-items: center;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 50%;
-    background: var(--steel);
-    color: var(--white);
-    font-weight: 700;
-    font-size: 1.05rem;
-  }
-
-  .review__source {
-    font-size: 0.85rem;
+  .score__count {
+    font-size: var(--fs-small);
+    font-weight: 600;
     color: var(--ink-2);
   }
 
-  .review__meta {
+  .gside__cta :global(svg) {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  /* ---- lado dos depoimentos ---- */
+
+  .quotes {
+    display: grid;
+    align-content: center;
+    outline: none;
+  }
+
+  .quotes:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 6px;
+    border-radius: var(--radius);
+  }
+
+  .quotes__stack {
+    display: grid;
+  }
+
+  /* todas as citações no mesmo lugar: só a ativa aparece */
+  .quote {
+    grid-area: 1 / 1;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(0.75rem);
+    visibility: hidden;
+    transition:
+      opacity 0.45s var(--ease-out),
+      transform 0.45s var(--ease-out),
+      visibility 0s linear 0.45s;
+  }
+
+  .quote.is-active {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition:
+      opacity 0.45s var(--ease-out),
+      transform 0.45s var(--ease-out),
+      visibility 0s;
+  }
+
+  .quote__who {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .quote__name {
+    font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
+    font-stretch: 88%;
+    font-weight: 780;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .quote__meta {
     display: flex;
     align-items: center;
     gap: 0.6rem;
   }
 
-  .review__author {
-    font-weight: 700;
+  .quote__stars {
+    display: flex;
+    gap: 0.08rem;
+    color: var(--gold-deep);
   }
 
-  .review__date {
+  .quote__stars :global(svg) {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .quote__date {
     font-size: 0.875rem;
     color: var(--ink-2);
   }
 
+  .quote__text {
+    margin-top: 1.25rem;
+  }
+
+  .quote__text p {
+    font-size: clamp(1.0625rem, 1rem + 0.45vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 44ch;
+    text-wrap: pretty;
+  }
+
+  .quotes__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+
+  .quotes__nav button {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--steel);
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s,
+      color 0.2s;
+  }
+
+  .quotes__nav button:hover {
+    border-color: var(--steel);
+    background: var(--steel);
+    color: var(--white);
+  }
+
+  .quotes__nav button svg {
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .quotes__nav [data-prev]:hover svg {
+    transform: translateX(-2px);
+  }
+
+  .quotes__nav [data-next]:hover svg {
+    transform: translateX(2px);
+  }
+
+  .quotes__dots {
+    display: flex;
+    gap: 0.4rem;
+    margin-left: 0.25rem;
+  }
+
+  .quotes__dots li {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--line-strong);
+    transition:
+      background-color 0.3s,
+      transform 0.3s var(--ease-out);
+  }
+
+  .quotes__dots li.is-active {
+    background: var(--steel);
+    transform: scale(1.3);
+  }
+
+  @media (max-width: 420px) {
+    .gside__cta {
+      width: 100%;
+    }
+  }
 
   @media (min-width: 900px) {
-    .reviews__inner {
-      grid-template-columns: 1fr 1fr;
-      align-items: start;
+    .reviews__grid {
+      grid-template-columns: 0.85fr 1.15fr;
     }
 
-    .reviews__list {
-      grid-column: 1 / -1;
-      grid-template-columns: repeat(3, 1fr);
+    .quotes {
+      min-height: 14rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .quote {
+      transform: none;
+      transition:
+        opacity 0.2s,
+        visibility 0s;
     }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-quotes]').forEach((root) => {
+    const quotes = [...root.querySelectorAll<HTMLElement>('[data-quote]')];
+    const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
+    const total = quotes.length;
+    if (!total) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0;
+    let timer: number | undefined;
+    let hovering = false;
+
+    const render = () => {
+      quotes.forEach((q, i) => {
+        const active = i === current;
+        q.classList.toggle('is-active', active);
+        q.setAttribute('aria-hidden', String(!active));
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
+    };
+
+    const go = (to: number) => {
+      current = (to + total) % total;
+      render();
+    };
+
+    const stop = () => window.clearInterval(timer);
+    const play = () => {
+      stop();
+      if (reduce || total < 2) return;
+      timer = window.setInterval(() => {
+        if (!hovering && !root.contains(document.activeElement)) go(current + 1);
+      }, 5000);
+    };
+
+    root.querySelector('[data-prev]')?.addEventListener('click', () => {
+      go(current - 1);
+      play();
+    });
+    root.querySelector('[data-next]')?.addEventListener('click', () => {
+      go(current + 1);
+      play();
+    });
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        go(current - 1);
+        play();
+      } else if (e.key === 'ArrowRight') {
+        go(current + 1);
+        play();
+      }
+    });
+
+    root.addEventListener('mouseenter', () => (hovering = true));
+    root.addEventListener('mouseleave', () => (hovering = false));
+
+    let x0: number | null = null;
+    root.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+    root.addEventListener(
+      'touchend',
+      (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) {
+          go(current + (dx < 0 ? 1 : -1));
+          play();
+        }
+        x0 = null;
+      },
+      { passive: true },
+    );
+
+    render();
+    play();
+  });
+</script>

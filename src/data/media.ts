@@ -72,8 +72,26 @@ export const beforeAfterCards: { label: string; items: MediaItem[] }[] = [
 /* Pasta: public/media/loja/                                            */
 /* ------------------------------------------------------------------ */
 export const storeVideos: { label: string; item: MediaItem | null }[] = [
-  { label: 'A loja', item: null },
-  { label: 'Na bancada', item: null },
+  {
+    label: 'A loja',
+    item: {
+      type: 'image',
+      src: '/media/loja/fachada.webp',
+      alt: 'Fachada da Império Eletrônicos na Vila Barcelona, com a vitrine de acessórios ao fundo',
+      width: 542,
+      height: 817,
+    },
+  },
+  {
+    label: 'Na bancada',
+    item: {
+      type: 'image',
+      src: '/media/loja/bancada.webp',
+      alt: 'Celular Samsung aberto na bancada da loja, com a bateria e a placa à mostra',
+      width: 510,
+      height: 462,
+    },
+  },
   { label: 'Reparo', item: null },
 ];
 
@@ -81,7 +99,13 @@ export const storeVideos: { label: string; item: MediaItem | null }[] = [
 /* Bloco "Loja física" das páginas internas: foto da fachada.           */
 /* Pasta: public/media/loja/                                            */
 /* ------------------------------------------------------------------ */
-export const storePhoto: MediaItem | null = null;
+export const storePhoto: MediaItem | null = {
+  type: 'image',
+  src: '/media/loja/fachada.webp',
+  alt: 'Fachada da Império Eletrônicos na Vila Barcelona, Sorocaba',
+  width: 542,
+  height: 817,
+};
 
 /* ------------------------------------------------------------------ */
 /* Páginas de serviço > "Veja alguns serviços realizados".             */

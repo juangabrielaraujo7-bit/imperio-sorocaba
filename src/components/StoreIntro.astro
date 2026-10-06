@@ -6,6 +6,11 @@ import MediaRail from './MediaRail.astro';
 import { about } from '../data/content';
 import { storeVideos } from '../data/media';
 import { business } from '../data/business';
+
+// Com mídia real cadastrada, mostra só ela (nada de moldura vazia ao lado
+// de foto). Sem nenhuma, mostra as molduras "em breve".
+const withMedia = storeVideos.filter((v) => v.item);
+const items = withMedia.length > 0 ? withMedia : storeVideos;
 ---
 
 <section class="section store" id="sobre" aria-labelledby="sobre-title">
@@ -29,9 +34,9 @@ import { business } from '../data/business';
       </a>
     </div>
 
-    <MediaRail label="Vídeos da loja" cols={3}>
+    <MediaRail label="Fotos e vídeos da loja" cols={items.length >= 3 ? 3 : 2}>
       {
-        storeVideos.map((v, i) => (
+        items.map((v, i) => (
           <li class="reveal" style={`--i:${i}`}>
             <MediaCard item={v.item} label={v.label} placeholder="video" />
           </li>

@@ -36,3 +36,10 @@ Coroa Teal com Diamante Dourado.png
 
 # vídeos brutos baixados (as versões otimizadas ficam em public/media/)
 /snapinsta-*.mp4
+
+# arquivos de sistema do Windows
+desktop.ini
+Thumbs.db
+
+# originais das fotos/vídeos (as versões otimizadas ficam em public/media/)
+/midia-original/
