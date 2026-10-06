@@ -1,0 +1,133 @@
+---
+/**
+ * Coroa da Império flutuando na hero. A imagem sobe e desce devagar,
+ * com um leve balanço; a sombra no chão acompanha (encolhe quando ela
+ * sobe). Sem movimento quando o visitante pede "reduzir movimento".
+ */
+---
+
+<div class="crown">
+  <div class="crown__glow" aria-hidden="true"></div>
+  <div class="crown__float">
+    <img
+      class="crown__img"
+      src="/media/hero/coroa.webp"
+      alt="Coroa da Império Eletrônicos Sorocaba"
+      width="960"
+      height="758"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+  <span class="crown__shadow" aria-hidden="true"></span>
+</div>
+
+<style>
+  .crown {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 1 / 0.92;
+  }
+
+  /* brilho bem leve atrás da coroa: azul aço e dourado */
+  .crown__glow {
+    position: absolute;
+    inset: 6% 4% 14%;
+    border-radius: 50%;
+    background:
+      radial-gradient(closest-side, rgb(25 91 119 / 0.1), transparent),
+      radial-gradient(40% 30% at 50% 78%, rgb(253 197 40 / 0.16), transparent);
+    filter: blur(6px);
+    pointer-events: none;
+  }
+
+  .crown__float {
+    position: relative;
+    width: 86%;
+    margin-bottom: 8%;
+  }
+
+  .crown__img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 18px 22px rgb(15 65 87 / 0.18));
+  }
+
+  .crown__shadow {
+    position: absolute;
+    left: 50%;
+    bottom: 4%;
+    width: 52%;
+    height: 7%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(15 65 87 / 0.28), transparent);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .crown__float {
+      animation:
+        crown-in 0.9s var(--ease-out) both,
+        crown-float 6s var(--ease-in-out) 0.9s infinite;
+    }
+
+    .crown__shadow {
+      animation: shadow-breathe 6s var(--ease-in-out) 0.9s infinite;
+    }
+
+    .crown__glow {
+      animation: glow-pulse 6s var(--ease-in-out) 0.9s infinite;
+    }
+
+    /* passar o mouse dá um "toque" a mais na coroa */
+    .crown:hover .crown__img {
+      transform: scale(1.03) rotate(-1deg);
+    }
+
+    .crown__img {
+      transition: transform 0.8s var(--ease-out);
+    }
+  }
+
+  @keyframes crown-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.94);
+    }
+  }
+
+  @keyframes crown-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-1.2deg);
+    }
+    50% {
+      transform: translateY(-18px) rotate(1.2deg);
+    }
+  }
+
+  @keyframes shadow-breathe {
+    0%,
+    100% {
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(-50%) scale(0.8);
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+</style>

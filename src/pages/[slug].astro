@@ -11,7 +11,6 @@ import OptionPicker from '../components/OptionPicker.astro';
 import ServiceGallery from '../components/ServiceGallery.astro';
 import StoreBlock from '../components/StoreBlock.astro';
 import Faq from '../components/Faq.astro';
-import LinkChips from '../components/LinkChips.astro';
 import { services, servicesWithPage, type Service, type ServicePage } from '../data/services';
 import { brands, brandOptions, problemOptions, type Brand } from '../data/brands';
 import { serviceMedia, brandMedia } from '../data/media';
@@ -91,13 +90,6 @@ const serviceLd = (name: string, description: string) => ({
       <ServiceGallery items={serviceMedia[entry.service.key] ?? []} />
       <StoreBlock whatsappMessage={entry.service.whatsappMessage} />
       <Faq title={`Dúvidas sobre ${entry.service.title.toLowerCase()}`} faqs={entry.service.page.faqs} />
-      <div class="container divider"><hr /></div>
-      <LinkChips
-        groups={[
-          { title: 'Outros serviços', links: serviceLinks.filter((l) => l.href !== `/${entry.service.slug}`) },
-          { title: 'Marcas atendidas', links: brandLinks },
-        ]}
-      />
     </BaseLayout>
   ) : (
     <BaseLayout
@@ -127,13 +119,6 @@ const serviceLd = (name: string, description: string) => ({
       <ServiceGallery title={`Serviços realizados em ${entry.brand.device}`} items={brandMedia[entry.brand.key] ?? []} />
       <StoreBlock whatsappMessage={entry.brand.whatsappMessage} />
       <Faq title={`Dúvidas sobre conserto de ${entry.brand.device}`} faqs={entry.brand.faqs} />
-      <div class="container divider"><hr /></div>
-      <LinkChips
-        groups={[
-          { title: `Serviços para ${entry.brand.device}`, links: serviceLinks },
-          { title: 'Outras marcas', links: brandLinks.filter((l) => l.href !== `/${entry.brand.slug}`) },
-        ]}
-      />
     </BaseLayout>
   )
 }
