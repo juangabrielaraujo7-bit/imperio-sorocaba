@@ -104,7 +104,7 @@ export const serviceMedia: Record<string, MediaItem[]> = {
   'troca-de-tela': [],
   'troca-de-bateria': [],
   'conector-de-carga': [],
-  'tampa-traseira': [tampaTraseiraSamsung],
+  'tampa-traseira': [],
   'reparo-em-placa': [],
 };
 
