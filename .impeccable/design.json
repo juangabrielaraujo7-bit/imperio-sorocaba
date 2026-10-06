@@ -1,64 +1,431 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-05T12:00:00Z",
+  "generatedAt": "2026-10-06T12:00:00Z",
   "title": "Design System: Império Eletrônicos Sorocaba",
   "extensions": {
     "colorMeta": {
-      "white": { "role": "neutral", "displayName": "White Enamel", "canonical": "#ffffff", "tonalRamp": ["#1f2224", "#3a3e41", "#5a5f62", "#7d8285", "#a3a7a9", "#c9cccd", "#ebedee", "#ffffff"] },
-      "enamel": { "role": "neutral", "displayName": "Parts-Tray Enamel", "canonical": "#f5f7f8", "tonalRamp": ["#1c2124", "#363e42", "#566064", "#79848a", "#a0aaaf", "#c7cfd2", "#e6ebed", "#f5f7f8"] },
-      "enamel-2": { "role": "neutral", "displayName": "Shadowed Enamel", "canonical": "#eaf0f3", "tonalRamp": ["#172227", "#2f4049", "#4d636d", "#708893", "#97adb7", "#bfd0d8", "#e0e9ed", "#eaf0f3"] },
-      "steel": { "role": "primary", "displayName": "Blued Steel", "canonical": "#195b77", "tonalRamp": ["#0a2f40", "#0f4157", "#195b77", "#2f7697", "#5594b2", "#86b5cb", "#c4dbe6", "#eaf3f7"] },
-      "steel-deep": { "role": "primary", "displayName": "Tempered Steel", "canonical": "#0f4157", "tonalRamp": ["#061e29", "#0a2f40", "#0f4157", "#195b77", "#3c7c9a", "#77a7bd", "#b6d0dc", "#e6f0f4"] },
-      "steel-night": { "role": "primary", "displayName": "Night Steel", "canonical": "#0a2f40", "tonalRamp": ["#04141c", "#0a2f40", "#0f4157", "#195b77", "#3c7c9a", "#77a7bd", "#b6d0dc", "#e6f0f4"] },
-      "gold": { "role": "secondary", "displayName": "Index Gold", "canonical": "#fdc528", "tonalRamp": ["#3d2c00", "#6a4d00", "#9a7200", "#d9a40a", "#fdc528", "#ffd65f", "#ffe79c", "#fff6d9"] },
-      "gold-bright": { "role": "secondary", "displayName": "Bright Gold", "canonical": "#ffd247", "tonalRamp": ["#3d2c00", "#6a4d00", "#9a7200", "#d9a40a", "#ffd247", "#ffdd73", "#ffe9a8", "#fff7dd"] },
-      "gold-deep": { "role": "secondary", "displayName": "Aged Gold", "canonical": "#d9a40a", "tonalRamp": ["#3d2c00", "#6a4d00", "#9a7200", "#d9a40a", "#fdc528", "#ffd65f", "#ffe79c", "#fff6d9"] },
-      "ink": { "role": "neutral", "displayName": "Dial Ink", "canonical": "#0b1116", "tonalRamp": ["#0b1116", "#1e2a32", "#3e505b", "#5f727d", "#8296a0", "#a9b9c1", "#d9e2e7", "#f5f7f8"] },
-      "ink-2": { "role": "neutral", "displayName": "Graphite", "canonical": "#3e505b", "tonalRamp": ["#0b1116", "#1e2a32", "#3e505b", "#5f727d", "#8296a0", "#a9b9c1", "#d9e2e7", "#f5f7f8"] },
-      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#d9e2e7", "tonalRamp": ["#1e2a32", "#3e505b", "#5f727d", "#8296a0", "#a9b9c1", "#b9c8d0", "#d9e2e7", "#f5f7f8"] },
-      "line-strong": { "role": "neutral", "displayName": "Strong Hairline", "canonical": "#b9c8d0", "tonalRamp": ["#1e2a32", "#3e505b", "#5f727d", "#8296a0", "#a9b9c1", "#b9c8d0", "#d9e2e7", "#f5f7f8"] },
-      "on-steel": { "role": "neutral", "displayName": "On-Steel White", "canonical": "#ffffff", "tonalRamp": ["#1f2224", "#3a3e41", "#5a5f62", "#7d8285", "#a3a7a9", "#c9cccd", "#ebedee", "#ffffff"] },
-      "on-steel-2": { "role": "neutral", "displayName": "On-Steel Mist", "canonical": "#c4dbe6", "tonalRamp": ["#0a2f40", "#0f4157", "#195b77", "#2f7697", "#5594b2", "#86b5cb", "#c4dbe6", "#eaf3f7"] },
-      "error": { "role": "functional", "displayName": "Signal Red", "canonical": "#b3261e", "tonalRamp": ["#2e0907", "#5a120e", "#871c16", "#b3261e", "#d4534b", "#e68a84", "#f2bfbb", "#fbeceb"] },
-      "status-closed": { "role": "functional", "displayName": "Closed Steel", "canonical": "#8aa0ac", "tonalRamp": ["#1a2125", "#33424a", "#526570", "#6e8592", "#8aa0ac", "#a9bac3", "#cad5db", "#ebf0f2"] },
-      "status-closed-on-steel": { "role": "functional", "displayName": "Closed Mist", "canonical": "#9fbccb", "tonalRamp": ["#14252e", "#2a4a5a", "#457084", "#6e95a8", "#9fbccb", "#b9cfda", "#d4e3ea", "#eef4f7"] }
+      "white": {
+        "role": "neutral",
+        "displayName": "White Enamel",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#1f2224",
+          "#3a3e41",
+          "#5a5f62",
+          "#7d8285",
+          "#a3a7a9",
+          "#c9cccd",
+          "#ebedee",
+          "#ffffff"
+        ]
+      },
+      "enamel": {
+        "role": "neutral",
+        "displayName": "Parts-Tray Enamel",
+        "canonical": "#f5f7f8",
+        "tonalRamp": [
+          "#1c2124",
+          "#363e42",
+          "#566064",
+          "#79848a",
+          "#a0aaaf",
+          "#c7cfd2",
+          "#e6ebed",
+          "#f5f7f8"
+        ]
+      },
+      "enamel-2": {
+        "role": "neutral",
+        "displayName": "Shadowed Enamel",
+        "canonical": "#eaf0f3",
+        "tonalRamp": [
+          "#172227",
+          "#2f4049",
+          "#4d636d",
+          "#708893",
+          "#97adb7",
+          "#bfd0d8",
+          "#e0e9ed",
+          "#eaf0f3"
+        ]
+      },
+      "steel": {
+        "role": "primary",
+        "displayName": "Blued Steel",
+        "canonical": "#195b77",
+        "tonalRamp": [
+          "#0a2f40",
+          "#0f4157",
+          "#195b77",
+          "#2f7697",
+          "#5594b2",
+          "#86b5cb",
+          "#c4dbe6",
+          "#eaf3f7"
+        ]
+      },
+      "steel-deep": {
+        "role": "primary",
+        "displayName": "Tempered Steel",
+        "canonical": "#0f4157",
+        "tonalRamp": [
+          "#061e29",
+          "#0a2f40",
+          "#0f4157",
+          "#195b77",
+          "#3c7c9a",
+          "#77a7bd",
+          "#b6d0dc",
+          "#e6f0f4"
+        ]
+      },
+      "steel-night": {
+        "role": "primary",
+        "displayName": "Night Steel",
+        "canonical": "#0a2f40",
+        "tonalRamp": [
+          "#04141c",
+          "#0a2f40",
+          "#0f4157",
+          "#195b77",
+          "#3c7c9a",
+          "#77a7bd",
+          "#b6d0dc",
+          "#e6f0f4"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Index Gold",
+        "canonical": "#fdc528",
+        "tonalRamp": [
+          "#3d2c00",
+          "#6a4d00",
+          "#9a7200",
+          "#d9a40a",
+          "#fdc528",
+          "#ffd65f",
+          "#ffe79c",
+          "#fff6d9"
+        ]
+      },
+      "gold-bright": {
+        "role": "secondary",
+        "displayName": "Bright Gold",
+        "canonical": "#ffd247",
+        "tonalRamp": [
+          "#3d2c00",
+          "#6a4d00",
+          "#9a7200",
+          "#d9a40a",
+          "#ffd247",
+          "#ffdd73",
+          "#ffe9a8",
+          "#fff7dd"
+        ]
+      },
+      "gold-deep": {
+        "role": "secondary",
+        "displayName": "Aged Gold",
+        "canonical": "#d9a40a",
+        "tonalRamp": [
+          "#3d2c00",
+          "#6a4d00",
+          "#9a7200",
+          "#d9a40a",
+          "#fdc528",
+          "#ffd65f",
+          "#ffe79c",
+          "#fff6d9"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Dial Ink",
+        "canonical": "#0b1116",
+        "tonalRamp": [
+          "#0b1116",
+          "#1e2a32",
+          "#3e505b",
+          "#5f727d",
+          "#8296a0",
+          "#a9b9c1",
+          "#d9e2e7",
+          "#f5f7f8"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#3e505b",
+        "tonalRamp": [
+          "#0b1116",
+          "#1e2a32",
+          "#3e505b",
+          "#5f727d",
+          "#8296a0",
+          "#a9b9c1",
+          "#d9e2e7",
+          "#f5f7f8"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#d9e2e7",
+        "tonalRamp": [
+          "#1e2a32",
+          "#3e505b",
+          "#5f727d",
+          "#8296a0",
+          "#a9b9c1",
+          "#b9c8d0",
+          "#d9e2e7",
+          "#f5f7f8"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "#b9c8d0",
+        "tonalRamp": [
+          "#1e2a32",
+          "#3e505b",
+          "#5f727d",
+          "#8296a0",
+          "#a9b9c1",
+          "#b9c8d0",
+          "#d9e2e7",
+          "#f5f7f8"
+        ]
+      },
+      "on-steel": {
+        "role": "neutral",
+        "displayName": "On-Steel White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#1f2224",
+          "#3a3e41",
+          "#5a5f62",
+          "#7d8285",
+          "#a3a7a9",
+          "#c9cccd",
+          "#ebedee",
+          "#ffffff"
+        ]
+      },
+      "on-steel-2": {
+        "role": "neutral",
+        "displayName": "On-Steel Mist",
+        "canonical": "#c4dbe6",
+        "tonalRamp": [
+          "#0a2f40",
+          "#0f4157",
+          "#195b77",
+          "#2f7697",
+          "#5594b2",
+          "#86b5cb",
+          "#c4dbe6",
+          "#eaf3f7"
+        ]
+      },
+      "error": {
+        "role": "functional",
+        "displayName": "Signal Red",
+        "canonical": "#b3261e",
+        "tonalRamp": [
+          "#2e0907",
+          "#5a120e",
+          "#871c16",
+          "#b3261e",
+          "#d4534b",
+          "#e68a84",
+          "#f2bfbb",
+          "#fbeceb"
+        ]
+      },
+      "status-closed": {
+        "role": "functional",
+        "displayName": "Closed Steel",
+        "canonical": "#8aa0ac",
+        "tonalRamp": [
+          "#1a2125",
+          "#33424a",
+          "#526570",
+          "#6e8592",
+          "#8aa0ac",
+          "#a9bac3",
+          "#cad5db",
+          "#ebf0f2"
+        ]
+      },
+      "status-closed-on-steel": {
+        "role": "functional",
+        "displayName": "Closed Mist",
+        "canonical": "#9fbccb",
+        "tonalRamp": [
+          "#14252e",
+          "#2a4a5a",
+          "#457084",
+          "#6e95a8",
+          "#9fbccb",
+          "#b9cfda",
+          "#d4e3ea",
+          "#eef4f7"
+        ]
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Home hero H1 only; city word may take Blued Steel with a gold logo bar." },
-      "display-page": { "displayName": "Display, page", "purpose": "H1 of service and brand pages." },
-      "headline": { "displayName": "Headline", "purpose": "Section H2s, a lone headline with no stacked label or right-hand lead." },
-      "title": { "displayName": "Title", "purpose": "Card, step and item H3s." },
-      "lead": { "displayName": "Lead", "purpose": "One supporting sentence under a hero H1, Graphite, 36-40ch." },
-      "body": { "displayName": "Body", "purpose": "Running text." },
-      "small": { "displayName": "Small", "purpose": "Card summaries, breadcrumbs, field labels and errors, status, footer." },
-      "label": { "displayName": "Dial Label", "purpose": "Expanded uppercase legend naming a data group; never a decorative line above a headline." },
-      "label-micro": { "displayName": "Micro Label", "purpose": "Legends inside a media frame only (ANTES/DEPOIS tags, 'Vídeo em breve')." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home hero H1 only; city word may take Blued Steel with a gold logo bar."
+      },
+      "display-page": {
+        "displayName": "Display, page",
+        "purpose": "H1 of service and brand pages."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2s, a lone headline with no stacked label or right-hand lead."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and item H3s."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "One supporting sentence under a hero H1, Graphite, 36-40ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Card summaries, breadcrumbs, field labels and errors, status, footer."
+      },
+      "label": {
+        "displayName": "Dial Label",
+        "purpose": "Expanded uppercase legend naming a data group; never a decorative line above a headline."
+      },
+      "label-micro": {
+        "displayName": "Micro Label",
+        "purpose": "Legends inside a media frame only ('Vídeo em breve', the 'em breve' pill on an empty slide)."
+      }
     },
     "shadows": [
-      { "name": "shadow-1", "value": "0 1px 2px rgb(15 65 87 / 0.06), 0 4px 12px rgb(15 65 87 / 0.06)", "purpose": "Quiet separation token." },
-      { "name": "shadow-2", "value": "0 2px 4px rgb(15 65 87 / 0.06), 0 14px 32px -8px rgb(15 65 87 / 0.18)", "purpose": "Hover lift for buttons, service and brand cards; hero media." },
-      { "name": "header-scrolled", "value": "0 6px 20px -14px rgb(15 65 87 / 0.35)", "purpose": "Sticky header after scroll." },
-      { "name": "figure-drop", "value": "drop-shadow(0 30px 40px rgb(15 65 87 / 0.14))", "purpose": "Hero dial figure." },
-      { "name": "play-disc", "value": "0 6px 20px rgb(11 17 22 / 0.3)", "purpose": "White play button over a real video." },
-      { "name": "field-focus", "value": "0 0 0 3px rgb(253 197 40 / 0.55)", "purpose": "Gold halo on a focused input, select or textarea." }
+      {
+        "name": "shadow-1",
+        "value": "0 1px 2px rgb(15 65 87 / 0.06), 0 4px 12px rgb(15 65 87 / 0.06)",
+        "purpose": "Quiet separation token."
+      },
+      {
+        "name": "shadow-2",
+        "value": "0 2px 4px rgb(15 65 87 / 0.06), 0 14px 32px -8px rgb(15 65 87 / 0.18)",
+        "purpose": "Hover lift for buttons, service and brand cards; hero media."
+      },
+      {
+        "name": "header-scrolled",
+        "value": "0 6px 20px -14px rgb(15 65 87 / 0.35)",
+        "purpose": "Sticky header after scroll."
+      },
+      {
+        "name": "cutout-drop",
+        "value": "drop-shadow(0 10px 14px rgb(15 65 87 / 0.18))",
+        "purpose": "Transparent product cutouts on service, brand and page-hero cards."
+      },
+      {
+        "name": "figure-drop",
+        "value": "drop-shadow(0 30px 40px rgb(15 65 87 / 0.14))",
+        "purpose": "Hero dial figure."
+      },
+      {
+        "name": "carousel-frame",
+        "value": "0 30px 50px -24px rgb(15 65 87 / 0.45)",
+        "purpose": "Tall 9:16 before/after carousel frames."
+      },
+      {
+        "name": "play-disc",
+        "value": "0 6px 20px rgb(11 17 22 / 0.3)",
+        "purpose": "White play button over a real video."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 3px rgb(253 197 40 / 0.55)",
+        "purpose": "Gold halo on a focused input, select or textarea."
+      }
     ],
     "motion": [
-      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default for all state changes, reveals, tick draws." },
-      { "name": "ease-in-out", "value": "cubic-bezier(0.65, 0, 0.35, 1)", "purpose": "Symmetric sweeps (dial hand)." },
-      { "name": "reveal", "value": "opacity 0.8s, translateY(18px) 0.9s ease-out, stagger 70ms", "purpose": "Scroll reveal; only with JS and no reduced-motion preference." },
-      { "name": "track-draw", "value": "clip-path 1.2s ease-out", "purpose": "Minute-track rails draw outward on reveal; card crown ticks sweep gold in 0.7s." },
-      { "name": "gleam", "value": "skewX(-18deg) sweep, transform 0.8s ease-out", "purpose": "Glass gleam crossing a button on hover." },
-      { "name": "crown-turn", "value": "rotate(90deg) 0.45-0.6s ease-out", "purpose": "Diamonds turn on hover (logo, seam pin) or open (FAQ mark)." },
-      { "name": "art-tilt", "value": "scale(1.06) rotate(-3deg) 0.6s ease-out", "purpose": "Line art tilts inside a hovered service or brand card." }
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default for all state changes, reveals, tick draws."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "Symmetric sweeps (dial hand)."
+      },
+      {
+        "name": "reveal",
+        "value": "opacity 0.8s, translateY(18px) 0.9s ease-out, stagger 70ms",
+        "purpose": "Scroll reveal; only with JS and no reduced-motion preference."
+      },
+      {
+        "name": "crown-sweep",
+        "value": "clip-path 0.7s ease-out",
+        "purpose": "Gold ticks sweep across a hovered service card crown."
+      },
+      {
+        "name": "carousel-turn",
+        "value": "transform/opacity/filter 0.6s ease-out; neighbours scale(0.85) rotateY(±10deg) blur(3px) opacity .45; auto-advance 4s",
+        "purpose": "Before/after 3D carousel; pauses on hover, focus, interaction and playing video."
+      },
+      {
+        "name": "faq-toggle",
+        "value": "rotate(90deg -> 0) 0.35s ease-out",
+        "purpose": "FAQ + collapses to − on open."
+      },
+      {
+        "name": "gleam",
+        "value": "skewX(-18deg) sweep, transform 0.8s ease-out",
+        "purpose": "Glass gleam crossing a button on hover."
+      },
+      {
+        "name": "art-tilt",
+        "value": "scale(1.06) rotate(-3deg) 0.6s ease-out",
+        "purpose": "Cutout or line art scales and tilts inside a hovered service card (brand cutouts lift 4px, scale 1.04)."
+      }
     ],
     "breakpoints": [
-      { "name": "xs", "value": "420px" },
-      { "name": "chips", "value": "480px" },
-      { "name": "sm", "value": "640px" },
-      { "name": "rail", "value": "768px" },
-      { "name": "md", "value": "900px" },
-      { "name": "page-hero", "value": "960px" },
-      { "name": "lg", "value": "1024px" }
+      {
+        "name": "xs",
+        "value": "420px"
+      },
+      {
+        "name": "chips",
+        "value": "480px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "rail",
+        "value": "768px"
+      },
+      {
+        "name": "md",
+        "value": "900px"
+      },
+      {
+        "name": "page-hero",
+        "value": "960px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
     ]
   },
   "components": [
@@ -98,80 +465,122 @@
       "name": "Service Card",
       "kind": "card",
       "refersTo": "card-service",
-      "description": "White card crowned by minute-track ticks that sweep gold on hover; line art in an enamel well.",
-      "html": "<article class=\"ds-card\"><span class=\"ds-card__ticks\"></span><div class=\"ds-card__art\"><svg viewBox=\"0 0 200 150\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"66\" y=\"10\" width=\"68\" height=\"132\" rx=\"13\" fill=\"#fff\" stroke=\"#195B77\" stroke-width=\"3\"/><rect x=\"72\" y=\"22\" width=\"56\" height=\"108\" rx=\"6\" fill=\"#195B77\"/><path d=\"M100 66Q102.2 73.8 110 76 102.2 78.2 100 86 97.8 78.2 90 76 97.8 73.8 100 66Z\" fill=\"#FDC528\"/></svg></div><h3>Troca de tela</h3><p>Display quebrado ou sem toque.</p><div class=\"ds-card__actions\"><a href=\"#\">Ver detalhes &rarr;</a><a class=\"ds-card__wa\" href=\"#\">WhatsApp</a></div></article>",
-      "css": ".ds-card { position: relative; display: grid; gap: .3rem; max-width: 22rem; padding: 1.25rem 1.25rem .75rem; border: 1px solid #d9e2e7; border-radius: 1.25rem; background: #fff; font-family: Archivo, system-ui, sans-serif; color: #0b1116; transition: border-color .4s, box-shadow .5s, transform .5s cubic-bezier(.16,1,.3,1); } .ds-card__ticks { position: absolute; top: 0; left: 1.25rem; right: 1.25rem; height: 8px; background: repeating-linear-gradient(to right, rgb(25 91 119 / .3) 0 1px, transparent 1px 10px); } .ds-card__ticks::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to right, #d9a40a 0 2px, transparent 2px 10px); clip-path: inset(0 100% 0 0); transition: clip-path .7s cubic-bezier(.16,1,.3,1); } .ds-card__art { display: grid; place-items: center; aspect-ratio: 16 / 10; padding: .75rem 3rem; margin-bottom: .7rem; border-radius: .75rem; background: #f5f7f8; } .ds-card__art svg { width: 100%; transition: transform .6s cubic-bezier(.16,1,.3,1); } .ds-card h3 { margin: 0; font-size: 1.3rem; font-weight: 780; font-stretch: 86%; line-height: 1.15; letter-spacing: -.01em; } .ds-card p { margin: 0; font-size: .9375rem; color: #3e505b; line-height: 1.45; } .ds-card__actions { display: flex; flex-wrap: wrap; gap: 0 1.1rem; } .ds-card__actions a { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: .95rem; font-weight: 650; color: #195b77; text-decoration: none; } .ds-card__actions .ds-card__wa { color: #3e505b; } .ds-card:hover, .ds-card:focus-within { border-color: #b9c8d0; box-shadow: 0 2px 4px rgb(15 65 87 / .06), 0 14px 32px -8px rgb(15 65 87 / .18); transform: translateY(-2px); } .ds-card:hover .ds-card__ticks::after, .ds-card:focus-within .ds-card__ticks::after { clip-path: inset(0 0 0 0); } .ds-card:hover .ds-card__art svg { transform: scale(1.06) rotate(-3deg); } .ds-card a:focus-visible { outline: 3px solid #fdc528; outline-offset: 3px; border-radius: 6px; }"
+      "description": "White card crowned by steel ticks that sweep gold on hover; a transparent cutout sits directly on white, no well behind it.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-card__ticks\"></span><div class=\"ds-card__art\"><svg viewBox=\"0 0 200 150\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"66\" y=\"10\" width=\"68\" height=\"132\" rx=\"13\" fill=\"#fff\" stroke=\"#195B77\" stroke-width=\"3\"/><rect x=\"72\" y=\"22\" width=\"56\" height=\"108\" rx=\"6\" fill=\"#195B77\"/></svg></div><h3>Troca de tela</h3><p>Display quebrado ou sem toque.</p><div class=\"ds-card__actions\"><a href=\"#\">Ver detalhes &rarr;</a><a class=\"ds-card__wa\" href=\"#\">WhatsApp</a></div></article>",
+      "css": ".ds-card { position: relative; display: grid; gap: .3rem; max-width: 22rem; padding: 1rem 1rem .5rem; border: 1px solid #d9e2e7; border-radius: 1.25rem; background: #fff; font-family: Archivo, system-ui, sans-serif; color: #0b1116; transition: border-color .4s, box-shadow .5s, transform .5s cubic-bezier(.16,1,.3,1); } .ds-card__ticks { position: absolute; top: 0; left: 1.25rem; right: 1.25rem; height: 8px; background: repeating-linear-gradient(to right, rgb(25 91 119 / .3) 0 1px, transparent 1px 10px); } .ds-card__ticks::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to right, #d9a40a 0 2px, transparent 2px 10px); clip-path: inset(0 100% 0 0); transition: clip-path .7s cubic-bezier(.16,1,.3,1); } .ds-card__art { display: grid; place-items: center; aspect-ratio: 2 / 1; padding: .6rem 2rem; margin-bottom: .7rem; border-radius: .75rem; } .ds-card__art svg { height: 100%; filter: drop-shadow(0 10px 14px rgb(15 65 87 / .18)); transition: transform .6s cubic-bezier(.16,1,.3,1); } .ds-card h3 { margin: 0; font-size: 1.25rem; font-weight: 780; font-stretch: 86%; line-height: 1.15; letter-spacing: -.01em; } .ds-card p { margin: 0; font-size: .9375rem; color: #3e505b; line-height: 1.45; } .ds-card__actions { display: flex; flex-wrap: wrap; gap: 0 1.1rem; } .ds-card__actions a { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: .95rem; font-weight: 650; color: #195b77; text-decoration: none; } .ds-card__actions .ds-card__wa { color: #3e505b; } .ds-card:hover, .ds-card:focus-within { border-color: #b9c8d0; box-shadow: 0 2px 4px rgb(15 65 87 / .06), 0 14px 32px -8px rgb(15 65 87 / .18); transform: translateY(-2px); } .ds-card:hover .ds-card__ticks::after, .ds-card:focus-within .ds-card__ticks::after { clip-path: inset(0 0 0 0); } .ds-card:hover .ds-card__art svg { transform: scale(1.06) rotate(-3deg); } .ds-card a:focus-visible { outline: 3px solid #fdc528; outline-offset: 3px; border-radius: 6px; }"
     },
     {
       "name": "Empty Media (seam / video)",
       "kind": "card",
       "refersTo": "media-frame",
-      "description": "Short 16:9 quiet wells for media that does not exist yet: before/after seam and store-video placeholder.",
+      "description": "Quiet wells for media that does not exist yet: before/after seam pinned by a gold circle, and store-video placeholder.",
       "html": "<div class=\"ds-media\"><figure class=\"ds-mframe\"><div class=\"ds-seam\"><span>Antes</span><i></i><span class=\"ds-end\">Depois</span></div><figcaption>Troca de tela</figcaption></figure><figure class=\"ds-mframe\"><div class=\"ds-vid\"><b></b><span>Vídeo em breve</span></div><figcaption>A loja por dentro</figcaption></figure></div>",
-      "css": ".ds-media { display: grid; grid-template-columns: repeat(2, minmax(0, 15rem)); gap: 1.25rem; font-family: Archivo, system-ui, sans-serif; } .ds-mframe { display: grid; gap: .7rem; margin: 0; } .ds-mframe figcaption { font-weight: 650; color: #0b1116; } .ds-seam, .ds-vid { aspect-ratio: 16 / 9; border: 1px solid #d9e2e7; border-radius: 1.25rem; overflow: hidden; background: #f5f7f8 radial-gradient(rgb(25 91 119 / .14) 1px, transparent 1.2px) 0 0 / 12px 12px; } .ds-seam { display: grid; grid-template-columns: 1fr 2px 1fr; } .ds-seam span { display: grid; place-items: end start; padding: .7rem .85rem; font-size: .75rem; font-stretch: 125%; font-weight: 620; letter-spacing: .14em; text-transform: uppercase; color: #195b77; } .ds-seam .ds-end { place-items: end end; } .ds-seam i { position: relative; background: #195b77; } .ds-seam i::after { content: ''; position: absolute; top: 50%; left: 50%; width: 1.1rem; height: 1.1rem; background: #fdc528; clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); transform: translate(-50%, -50%); transition: transform .6s cubic-bezier(.16,1,.3,1); } .ds-mframe:hover .ds-seam i::after { transform: translate(-50%, -50%) rotate(90deg); } .ds-vid { display: grid; place-content: center; justify-items: center; gap: .6rem; } .ds-vid b { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1.5px solid #195b77; background: #fff; position: relative; } .ds-vid b::after { content: ''; position: absolute; left: 1.05rem; top: .8rem; border-left: .75rem solid #195b77; border-top: .5rem solid transparent; border-bottom: .5rem solid transparent; } .ds-vid span { font-size: .68rem; font-stretch: 125%; font-weight: 620; letter-spacing: .16em; text-transform: uppercase; color: #195b77; }"
+      "css": ".ds-media { display: grid; grid-template-columns: repeat(2, minmax(0, 15rem)); gap: 1.25rem; font-family: Archivo, system-ui, sans-serif; } .ds-mframe { display: grid; gap: .7rem; margin: 0; } .ds-mframe figcaption { font-weight: 650; color: #0b1116; } .ds-seam, .ds-vid { aspect-ratio: 16 / 9; border: 1px solid #d9e2e7; border-radius: 1.25rem; overflow: hidden; background: #f5f7f8 radial-gradient(rgb(25 91 119 / .14) 1px, transparent 1.2px) 0 0 / 12px 12px; } .ds-seam { display: grid; grid-template-columns: 1fr 2px 1fr; } .ds-seam span { display: grid; place-items: end start; padding: .7rem .85rem; font-size: .75rem; font-stretch: 125%; font-weight: 620; letter-spacing: .14em; text-transform: uppercase; color: #195b77; } .ds-seam .ds-end { place-items: end end; } .ds-seam i { position: relative; background: #195b77; } .ds-seam i::after { content: ''; position: absolute; top: 50%; left: 50%; width: .7rem; height: .7rem; background: #fdc528; border-radius: 50%; transform: translate(-50%, -50%); } .ds-vid { display: grid; place-content: center; justify-items: center; gap: .6rem; } .ds-vid b { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1.5px solid #195b77; background: #fff; position: relative; } .ds-vid b::after { content: ''; position: absolute; left: 1.05rem; top: .8rem; border-left: .75rem solid #195b77; border-top: .5rem solid transparent; border-bottom: .5rem solid transparent; } .ds-vid span { font-size: .68rem; font-stretch: 125%; font-weight: 620; letter-spacing: .16em; text-transform: uppercase; color: #195b77; }"
     },
     {
-      "name": "Minute Track Divider",
+      "name": "Section Divider",
       "kind": "custom",
-      "refersTo": "minute-track",
-      "description": "Railroad minute-track rails flanking a gold diamond; only between two white sections, centred in the gap.",
-      "html": "<div class=\"ds-track\"><span class=\"ds-track__rail\"></span><span class=\"ds-track__gem\"></span><span class=\"ds-track__rail ds-track__rail--end\"></span></div>",
-      "css": ".ds-track { display: flex; align-items: center; gap: 1rem; height: 1.25rem; width: 100%; } .ds-track__rail { flex: 1; height: 100%; background: repeating-linear-gradient(to right, rgb(25 91 119 / .85) 0 2px, transparent 2px 60px) left center / 100% 14px no-repeat, repeating-linear-gradient(to right, rgb(25 91 119 / .38) 0 1px, transparent 1px 12px) left center / 100% 7px no-repeat; } .ds-track__rail--end { transform: scaleX(-1); } .ds-track__gem { width: 1.15rem; height: 1.15rem; background: #fdc528; clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); transition: transform .6s cubic-bezier(.16,1,.3,1); } .ds-track:hover .ds-track__gem { transform: rotate(90deg); }"
+      "refersTo": "divider",
+      "description": "A plain 1px hairline between two white sections, centred in the gap by negative margins of half the section rhythm; never at a band change.",
+      "html": "<div class=\"ds-divider\"><hr></div>",
+      "css": ".ds-divider { width: 100%; max-width: 76rem; padding-inline: 1.5rem; } .ds-divider hr { margin: 0; border: 0; border-top: 1px solid #d9e2e7; }"
     },
     {
       "name": "FAQ Row",
       "kind": "custom",
       "refersTo": "faq",
-      "description": "Disclosure row whose diamond mark turns and gilds when open.",
+      "description": "Disclosure row whose steel + collapses to − when open.",
       "html": "<details class=\"ds-faq\" open><summary>Quanto tempo leva a troca de tela?<span class=\"ds-faq__mark\"></span></summary><p>Depende do modelo e da peça. Confirme pelo WhatsApp.</p></details>",
-      "css": ".ds-faq { max-width: 36rem; border-top: 1px solid #b9c8d0; border-bottom: 1px solid #d9e2e7; font-family: Archivo, system-ui, sans-serif; } .ds-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.75rem; padding-block: .9rem; font-size: 1.08rem; font-weight: 650; color: #0b1116; cursor: pointer; list-style: none; } .ds-faq summary::-webkit-details-marker { display: none; } .ds-faq summary:hover { color: #195b77; } .ds-faq summary:focus-visible { outline: 3px solid #fdc528; outline-offset: 3px; border-radius: 6px; } .ds-faq__mark { flex: none; width: 1rem; height: 1rem; background: #b9c8d0; clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); transition: transform .45s cubic-bezier(.16,1,.3,1), background-color .3s; } .ds-faq[open] .ds-faq__mark { background: #d9a40a; transform: rotate(90deg) scale(1.15); } .ds-faq p { margin: 0; padding-bottom: 1.1rem; color: #3e505b; }"
+      "css": ".ds-faq { max-width: 36rem; border-top: 1px solid #b9c8d0; border-bottom: 1px solid #d9e2e7; font-family: Archivo, system-ui, sans-serif; } .ds-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.75rem; padding-block: .9rem; font-size: 1.08rem; font-weight: 650; color: #0b1116; cursor: pointer; list-style: none; } .ds-faq summary::-webkit-details-marker { display: none; } .ds-faq summary:hover { color: #195b77; } .ds-faq summary:focus-visible { outline: 3px solid #fdc528; outline-offset: 3px; border-radius: 6px; } .ds-faq__mark { position: relative; flex: none; width: 1rem; height: 1rem; } .ds-faq__mark::before, .ds-faq__mark::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: #195b77; transition: transform .35s cubic-bezier(.16,1,.3,1); } .ds-faq__mark::after { transform: rotate(90deg); } .ds-faq[open] .ds-faq__mark::after { transform: rotate(0deg); } .ds-faq p { margin: 0; padding-bottom: 1.1rem; color: #3e505b; }"
     },
     {
       "name": "Site Navigation",
       "kind": "nav",
       "refersTo": "nav-link",
-      "description": "Graphite links with a gold diamond index that scales in on hover and marks the current section.",
+      "description": "Graphite links with a gold dot index that scales in on hover and marks the current section.",
       "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"true\">Serviços</a><a href=\"#\">Marcas</a><a href=\"#\">Orçamento</a><a href=\"#\">Localização</a></nav>",
-      "css": ".ds-nav { display: flex; gap: .25rem; padding: .5rem; background: rgb(255 255 255 / .97); border-bottom: 1px solid #d9e2e7; font-family: Archivo, system-ui, sans-serif; } .ds-nav a { position: relative; display: inline-flex; align-items: center; min-height: 2.75rem; padding-inline: .8rem; font-size: .95rem; font-weight: 560; color: #3e505b; text-decoration: none; transition: color .2s; } .ds-nav a::after { content: ''; position: absolute; left: 50%; bottom: .35rem; width: .45rem; height: .45rem; background: #fdc528; clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); transform: translateX(-50%) scale(0); transition: transform .35s cubic-bezier(.16,1,.3,1); } .ds-nav a:hover { color: #0b1116; } .ds-nav a:hover::after, .ds-nav a[aria-current='true']::after { transform: translateX(-50%) scale(1); } .ds-nav a:focus-visible { outline: 3px solid #fdc528; outline-offset: 3px; border-radius: 6px; }"
+      "css": ".ds-nav { display: flex; gap: .25rem; padding: .5rem; background: rgb(255 255 255 / .97); border-bottom: 1px solid #d9e2e7; font-family: Archivo, system-ui, sans-serif; } .ds-nav a { position: relative; display: inline-flex; align-items: center; min-height: 2.75rem; padding-inline: .8rem; font-size: .95rem; font-weight: 560; color: #3e505b; text-decoration: none; transition: color .2s; } .ds-nav a::after { content: ''; position: absolute; left: 50%; bottom: .35rem; width: .45rem; height: .45rem; background: #fdc528; border-radius: 50%; transform: translateX(-50%) scale(0); transition: transform .35s cubic-bezier(.16,1,.3,1); } .ds-nav a:hover { color: #0b1116; } .ds-nav a:hover::after, .ds-nav a[aria-current='true']::after { transform: translateX(-50%) scale(1); } .ds-nav a:focus-visible { outline: 3px solid #fdc528; outline-offset: 3px; border-radius: 6px; }"
+    },
+    {
+      "name": "Review Card",
+      "kind": "card",
+      "refersTo": "card-review",
+      "description": "A real Google review: steel initial avatar, author, source, aged-gold stars with date, quote.",
+      "html": "<figure class=\"ds-rev\"><figcaption class=\"ds-rev__who\"><span class=\"ds-rev__av\">M</span><b>Mariana S.</b><span class=\"ds-rev__src\">Avaliação no Google</span></figcaption><div class=\"ds-rev__meta\"><span class=\"ds-rev__stars\" aria-label=\"5 de 5 estrelas\">★★★★★</span><span class=\"ds-rev__date\">há 2 meses</span></div><blockquote>Trocaram a tela no mesmo dia.</blockquote></figure>",
+      "css": ".ds-rev { display: grid; gap: .9rem; max-width: 22rem; margin: 0; padding: 1.5rem; border: 1px solid #d9e2e7; border-radius: 1.25rem; background: #fff; font-family: Archivo, system-ui, sans-serif; color: #0b1116; } .ds-rev__who { display: grid; grid-template-columns: auto 1fr; column-gap: .75rem; align-items: center; } .ds-rev__av { grid-row: 1 / 3; display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: #195b77; color: #fff; font-weight: 700; font-size: 1.05rem; } .ds-rev__src { font-size: .85rem; color: #3e505b; } .ds-rev__meta { display: flex; align-items: center; gap: .6rem; } .ds-rev__stars { color: #d9a40a; letter-spacing: .1rem; } .ds-rev__date { font-size: .875rem; color: #3e505b; } .ds-rev blockquote { margin: 0; line-height: 1.6; }"
+    },
+    {
+      "name": "Before/After Carousel",
+      "kind": "custom",
+      "refersTo": "carousel-slide",
+      "description": "3D carousel: centre 9:16 frame, neighbours scaled 0.85, rotateY ±10deg, blurred, 45% opacity; circular steel arrows; circular position dots.",
+      "html": "<div class=\"ds-car\"><div class=\"ds-car__stage\"><div class=\"ds-car__s ds-car__s--l\"></div><div class=\"ds-car__s ds-car__s--c\"></div><div class=\"ds-car__s ds-car__s--r\"></div><button class=\"ds-car__nav ds-car__nav--p\" aria-label=\"Anterior\">&larr;</button><button class=\"ds-car__nav ds-car__nav--n\" aria-label=\"Próximo\">&rarr;</button></div><ul class=\"ds-car__dots\"><li></li><li class=\"on\"></li><li></li></ul></div>",
+      "css": ".ds-car { --w: 9rem; padding: 1.5rem; background: #f5f7f8; } .ds-car__stage { position: relative; height: calc(var(--w) * 16 / 9); perspective: 1000px; } .ds-car__s { position: absolute; top: 0; left: 50%; width: var(--w); aspect-ratio: 9 / 16; margin-left: calc(var(--w) / -2); border-radius: 1.5rem; background: #fff; border: 2px solid rgb(11 17 22 / .08); box-shadow: 0 30px 50px -24px rgb(15 65 87 / .45); } .ds-car__s--l { transform: translateX(-62%) scale(.85) rotateY(10deg); opacity: .45; filter: blur(3px); } .ds-car__s--r { transform: translateX(62%) scale(.85) rotateY(-10deg); opacity: .45; filter: blur(3px); } .ds-car__s--c { z-index: 2; } .ds-car__nav { position: absolute; top: 50%; z-index: 3; width: 3rem; height: 3rem; border: 1.5px solid #b9c8d0; border-radius: 50%; background: rgb(255 255 255 / .9); color: #195b77; transform: translateY(-50%); cursor: pointer; } .ds-car__nav:hover { border-color: #195b77; background: #195b77; color: #fff; } .ds-car__nav--p { left: 0; } .ds-car__nav--n { right: 0; } .ds-car__dots { display: flex; justify-content: center; gap: .5rem; margin: 1rem 0 0; padding: 0; list-style: none; } .ds-car__dots li { width: .5rem; height: .5rem; border-radius: 50%; background: #b9c8d0; } .ds-car__dots li.on { background: #195b77; transform: scale(1.3); }"
     }
   ],
   "narrative": {
     "northStar": "The White Enamel Dial",
-    "overview": "The site is read as a watch face. White enamel is the ground; blued steel draws the structure (headline accents, rules, ticks, line art, the one dark band); gold appears the way indices do on a dial: small, exact, few. Dividers are railroad minute tracks, markers are the concave diamond from the logo, and the signature figures (the hero dial and the live hours dial) are real dials with a hand, a minute track and a gold index at twelve. Services and brands are drawn, not photographed: authored steel line art with a gold index, sitting in small enamel wells.\n\nDensity is calm and direct. Sections breathe on a fluid section rhythm, content sits in a 76rem column, and section heads are a single headline with no stacked label and no right-hand lead. Grouped content sits on white cards or in enamel panels with a hairline. Media that does not exist yet renders as a short, quiet 16:9 well drawn in the dial's own grammar, never a fabricated photo or card; an internal-page gallery with nothing in it is simply absent. Motion is watchmaker's motion: ticks drawing in, a slow hand sweep, a single gleam crossing glass, diamonds turning like a crown; all of it collapses under reduced motion.",
+    "overview": "The site is read as a watch face. White enamel is the ground; blued steel draws the structure (headline accents, rules, ticks, the one dark band); gold appears the way indices do on a dial: small, exact, few. Markers are small round dots, dividers between white sections are a single hairline, and the signature figures (the hero dial and the live hours dial) are real dials with a hand, a minute track and a gold circular index at twelve. Services and brands are shown as transparent photo cutouts sitting directly on white cards, with authored steel line art as the fallback where no photo exists.\n\nDensity is calm and direct. Sections breathe on a fluid section rhythm, content sits in a 76rem column, and section heads are a single headline with no stacked label and no right-hand lead. Grouped content sits on white cards or in enamel panels with a hairline. Real customer proof is shown as it is (three Google reviews, before/after photos); media that does not exist yet renders as a quiet well drawn in the dial's own grammar, never a fabricated photo or card. Motion is watchmaker's motion: card crown ticks sweeping gold, a slow hand sweep, a single gleam crossing glass, a carousel that turns like a bezel; all of it collapses under reduced motion.",
     "keyCharacteristics": [
       "White and enamel ground, blued-steel structure, gold reserved for indices and the single gold CTA on the steel band.",
       "One variable family, Archivo, used on two axes: semi-condensed heavy for headlines, expanded uppercase for dial labels.",
-      "Railroad minute-track ticks as dividers between white sections, card crowns and step tracks.",
-      "The concave four-point diamond as the only bullet, marker, separator and active indicator.",
-      "Authored steel line art (with a gold index) for every service and brand.",
+      "Small round dots (`.dot`, `--dot-mask`) as the only bullet, separator, status and position indicator.",
+      "A plain 1px hairline between two white sections; bands mark their own edges.",
+      "Transparent product cutouts directly on white, no well behind them.",
       "Soft, steel-tinted shadows that appear on response (hover, scroll), never at rest on content.",
       "Exactly one full-bleed blued-steel band per page (Location on the home, the store block on internal pages)."
     ],
     "rules": [
-      { "name": "The Index Rule", "body": "Gold is an index, not a surface. It marks, it never fills a panel or a section. The only filled gold element permitted is the primary action on the blued-steel band, where steel and white are already taken.", "section": "colors" },
-      { "name": "The One Band Rule", "body": "A page carries exactly one full-bleed blued-steel band. Other bands are enamel; everything else stays on white.", "section": "colors" },
-      { "name": "The Two Axes Rule", "body": "Hierarchy is set by width as much as size: headings go narrower (82-88%), labels go wider (125%). Never set a heading at default width or a label condensed.", "section": "typography" },
-      { "name": "The Label Names Data Rule", "body": "A dial label names the data group it sits on (hours, contact, a list, a fact term). It is never a decorative line stacked above a section headline.", "section": "typography" },
-      { "name": "The Divider Rule", "body": "The minute track (a 1.25rem rail of 1px ticks every 12px with 2px majors every 60px, diamond at center) appears only between two white sections, and adds no space: it sits in a container whose negative block margins equal half the section rhythm, centring it in the gap. A band change (into an enamel band or the steel band) is marked by the band's own edge, never by a track.", "section": "layout" },
-      { "name": "The Response Rule", "body": "Content surfaces carry no shadow at rest. A shadow is the answer to hover, focus or scroll.", "section": "elevation" }
+      {
+        "name": "The Index Rule",
+        "body": "Gold is an index, not a surface. It marks, it never fills a panel or a section. The only filled gold element permitted is the primary action on the blued-steel band, where steel and white are already taken.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Band Rule",
+        "body": "A page carries exactly one full-bleed blued-steel band. Other bands are enamel; everything else stays on white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Axes Rule",
+        "body": "Hierarchy is set by width as much as size: headings go narrower (82-88%), labels go wider (125%). Never set a heading at default width or a label condensed.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Names Data Rule",
+        "body": "A dial label names the data group it sits on (hours, contact, a list, a fact term). It is never a decorative line stacked above a section headline.",
+        "section": "typography"
+      },
+      {
+        "name": "The Divider Rule",
+        "body": "Between two white sections the divider is a single 1px Hairline rule (`.container.divider > hr`), and it adds no space: the container's negative block margins equal half the section rhythm, centring the rule in the gap. A band change (into an enamel band or the steel band) is marked by the band's own edge, never by a rule.",
+        "section": "layout"
+      },
+      {
+        "name": "The Response Rule",
+        "body": "Content surfaces carry no shadow at rest. A shadow is the answer to hover, focus or scroll; the only resting drops belong to objects (cutouts, the dial, carousel frames), never to cards.",
+        "section": "elevation"
+      }
     ],
     "dos": [
-      "Do keep gold to indices: diamonds, dial index, hours arc, line-art indices, focus rings, nav markers, and the one gold button on the steel band.",
-      "Do place the minute track only between two white sections, centred in the gap with no added space; let enamel and steel bands mark their own edges.",
+      "Do keep gold to indices: dial indices, hours arc, nav dots, handle and seam pin, focus rings, stars and status, and the one gold button on the steel band.",
+      "Do use the round dot (`.dot` or `--dot-mask`) for every bullet, separator, status and position indicator.",
+      "Do divide two white sections with a single 1px Hairline rule centred in the gap with no added space; let enamel and steel bands mark their own edges.",
       "Do set headings semi-condensed (82-88% width, 780-820 weight) and dial labels expanded (125%, 0.14em, uppercase).",
-      "Do render missing media as a short 16:9 quiet well (seam for before/after, play disc for video), and drop an internal-page gallery that has nothing to show.",
-      "Do draw services and brands as steel line art with one gold index, inside an enamel well.",
+      "Do place product cutouts directly on white with the cutout drop; strip any alpha halo from the WebP.",
+      "Do show only real reviews and real before/after work; render missing media as a quiet well and drop an internal-page gallery that has nothing to show.",
       "Do keep content surfaces shadowless at rest and use the steel-tinted hover lift on response.",
       "Do turn every motion off under reduced motion; content stays visible without JavaScript."
     ],
     "donts": [
       "Don't fill panels, sections or backgrounds with gold.",
       "Don't add a second full-bleed steel band to a page.",
-      "Don't put a minute track at a band change, or add space around it between sections.",
+      "Don't reintroduce diamond or balloon-shaped markers; the diamond belongs to the logo alone.",
+      "Don't put a tick track or ornament between sections, or a rule at a band change.",
+      "Don't put an enamel well, tinted background or radial glow behind a cutout.",
       "Don't place a dial label as a decorative line above a section headline; labels name data groups.",
-      "Don't invent cards, reviews, photos or counts to fill an empty slot, and don't let an empty frame take a full portrait's height.",
-      "Don't use bullets, dots or icons where the concave diamond is the marker.",
-      "Don't use manufacturer logos where the line art stands for a brand.",
+      "Don't invent reviews, rating badges, photos or counts to fill a slot, and don't let an empty frame pose as real media.",
+      "Don't use manufacturer logos where line art stands for a brand.",
       "Don't use Signal Red for anything but form errors.",
       "Don't use hard offset shadows; on white and enamel, shadows are diffuse and tinted with steel (the map on the steel band and the play disc over video are the only darker drops)."
     ]
